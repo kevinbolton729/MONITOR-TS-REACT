@@ -1,0 +1,17 @@
+import mockjs from "mockjs";
+// import {} from "./mock/api";
+import { delay } from "roadhog-api-doc";
+
+// 是否禁用代理
+const noProxy = process.env.NO_PROXY === "true";
+
+// 代码中会兼容本地 service mock 以及部署站点的静态数据
+// "POST /api/forms": (req, res) => {
+//   res.send({ message: "Ok" });
+// },
+// "GET /api/tags": mockjs.mock({
+//   "list|100": [{ name: "@city", "value|1-100": 150, "type|0-2": 1 }]
+// }),
+const proxy = {};
+
+export default (noProxy ? {} : delay(proxy, 3000));
