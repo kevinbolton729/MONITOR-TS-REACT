@@ -19,9 +19,15 @@ body,
 :global(.componentBackground) {
   margin: -24px -32px 0 -32px;
   padding: 16px 32px 16px 32px;
-  background: @component-background;
+  // background: @component-background;
 }
-
+:global(.contentArea) {
+  padding: 16px;
+  background-color: @primary-white;
+}
+:global(.areaTop) {
+  margin-top: -8px;
+}
 canvas {
   display: block;
 }

@@ -5,18 +5,21 @@ import BreadCrumb from '../../components/BreadCrumb';
 // 常量
 // import { URL_PREFIX } from '../../utils/consts';
 // 声明
-// import {} from './';
+import { IDataMonitorItems, IDataMonitorProps, IDataMonitorStates } from './';
 // 样式
 
 @connect()
-class DataMonitor extends React.PureComponent<any, any> {
+class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorStates>
+  implements IDataMonitorItems {
   render() {
     return (
       <div>
         <div className="componentBackground">
           <BreadCrumb />
         </div>
-        <div style={{ marginTop: '24px' }}>此处显示DataMonitor内容...</div>
+        <div className="contentArea">
+          <span className="areaTop">此处显示DataMonitor内容...</span>
+        </div>
       </div>
     );
   }

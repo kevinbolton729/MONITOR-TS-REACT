@@ -5,18 +5,21 @@ import BreadCrumb from '../../components/BreadCrumb';
 // 常量
 // import { URL_PREFIX } from '../../utils/consts';
 // 声明
-// import {} from './';
+import { IBusinessItems, IBusinessProps, IBusinessStates } from './';
 // 样式
 
 @connect()
-class Business extends React.PureComponent<any, any> {
+class Business extends React.PureComponent<IBusinessProps, IBusinessStates>
+  implements IBusinessItems {
   render() {
     return (
       <div>
         <div className="componentBackground">
           <BreadCrumb />
         </div>
-        <div style={{ marginTop: '24px' }}>此处显示Business内容...</div>
+        <div className="contentArea">
+          <span className="areaTop">此处显示Business内容...</span>
+        </div>
       </div>
     );
   }

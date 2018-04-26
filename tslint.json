@@ -5,7 +5,7 @@
   },
   "rules": {
     "quotemark": [true, "single", "jsx-double"],
-    "no-console": [true, "dir", "log", "error", "warn"],
+    "no-console": [false, "dir", "log", "error", "warn"],
     "space-before-function-paren": false,
     "interface-name": [true, "never-prefix"],
     "adjacent-overload-signatures": true,
