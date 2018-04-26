@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-03-01 13:05:15
+ * @Last Modified time: 2018-04-26 17:03:30
  */
 
 import React, { PureComponent } from 'react';
@@ -41,12 +41,11 @@ class DetailHandler extends PureComponent {
   };
   // search
   getSearch = (value) => {
-    const { filterData } = this.props;
     if (!value) {
       message.warning(MESSAGE_NOINPUT);
     } else {
       console.log(value);
-      filterData(value);
+      if (this.props.filterData) this.props.filterData(value);
     }
   };
   enterSearch = (e) => {
@@ -63,7 +62,7 @@ class DetailHandler extends PureComponent {
   };
   // click 重置 Button
   clickReset = () => {
-    this.props.resetData();
+    if (this.props.resetData) this.props.resetData();
     this.resetSearch();
   };
 
