@@ -4,8 +4,6 @@ import pathToRegexp from 'path-to-regexp';
 import PropTypes from 'prop-types';
 // createElement, PureComponent
 import * as React from 'react';
-// 样式
-const styles = require('./index.less');
 
 function getBreadcrumb(breadcrumbNameMap: any, url: any): any {
   let breadcrumb = breadcrumbNameMap[url];
@@ -38,7 +36,7 @@ export default class BreadCrumb extends React.PureComponent<any, any> {
   conversionFromProps = () => {
     const { breadcrumbList, breadcrumbSeparator, linkElement = 'a' } = this.props;
     return (
-      <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
+      <Breadcrumb separator={breadcrumbSeparator}>
         {breadcrumbList.map((item: any) => (
           <Breadcrumb.Item key={item.title}>
             {item.href
@@ -86,11 +84,7 @@ export default class BreadCrumb extends React.PureComponent<any, any> {
         )}
       </Breadcrumb.Item>
     );
-    return (
-      <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
-        {extraBreadcrumbItems}
-      </Breadcrumb>
-    );
+    return <Breadcrumb separator={breadcrumbSeparator}>{extraBreadcrumbItems}</Breadcrumb>;
   };
   /**
    * 将参数转化为面包屑
@@ -107,7 +101,6 @@ export default class BreadCrumb extends React.PureComponent<any, any> {
     if (routes && params) {
       return (
         <Breadcrumb
-          className={styles.breadcrumb}
           routes={routes.filter((route: any) => route.breadcrumbName)}
           params={params}
           itemRender={this.itemRender}

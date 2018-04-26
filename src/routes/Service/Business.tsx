@@ -1,21 +1,21 @@
-// import {} from 'antd';
-// import { connect } from 'dva';
-// import moment from 'moment';
+import { connect } from 'dva';
 import * as React from 'react';
 // 组件
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import BreadCrumb from '../../components/BreadCrumb';
 // 常量
 // import { URL_PREFIX } from '../../utils/consts';
 // 声明
-import {} from './';
+// import {} from './';
 // 样式
-// const styles = require('./Business.less');
 
+@connect()
 class Business extends React.PureComponent<any, any> {
   render() {
     return (
       <div>
-        <PageHeaderLayout />
+        <div className="componentBackground">
+          <BreadCrumb />
+        </div>
         <div style={{ marginTop: '24px' }}>此处显示Business内容...</div>
       </div>
     );
