@@ -26,28 +26,10 @@ export async function fakeRegister(params = {}) {
 // [图片]
 
 // [GET]
-// 获取所有站点数
-export async function getSiteNums(params = {}) {
-  return request(`${API_DOMAIN}/api/server/sitequantity`, {
+// -- 客户服务监控
+// 获取扩频表列表
+export async function fetchSpread(params = {}) {
+  return request('/api/fetchspread', {
     params,
-  });
-}
-// 获取所有文章数
-export async function getArticleNums(params = {}) {
-  return request(`${API_DOMAIN}/api/server/articlequantity`, {
-    params,
-  });
-}
-// 获取今日发布文章数
-export async function getArticleTodayNums(params = {}) {
-  return request(`${API_DOMAIN}/api/server/todayarticlequantity`, {
-    params,
-  });
-}
-
-// 下载
-export async function downloadFile(params = {}) {
-  return request(`${API_DOMAIN}/api/server/getfile/${params.id}`, {
-    responseType: 'blob',
   });
 }

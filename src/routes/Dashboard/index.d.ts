@@ -7,10 +7,10 @@ type CurrentUser = IProps['currentUser'];
 type Dispatch = IProps['dispatch'];
 
 export interface IWorkProps {
-  currentUser: CurrentUser;
-  dispatch: Dispatch;
-  lists: any;
   loading: boolean;
+  dispatch: Dispatch;
+  currentUser: CurrentUser;
+  lists: any;
 }
 
 export interface IWorkStates {}

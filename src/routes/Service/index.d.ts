@@ -3,6 +3,7 @@ import { IProps, IReturnTypes } from '../../global';
 
 type ReturnString = IReturnTypes['string'];
 type ReturnVoid = IReturnTypes['void'];
+type Dispatch = IProps['dispatch'];
 
 export interface IBusinessProps {}
 
@@ -10,7 +11,11 @@ export interface IBusinessStates {}
 
 export interface IBusinessItems {}
 
-export interface ICustomProps {}
+export interface ICustomProps {
+  loading: boolean;
+  dispatch: Dispatch;
+  spreadList: any[];
+}
 
 export interface ICustomStates {
   currentTab: string;

@@ -1,4 +1,4 @@
-import { Button, Divider, Radio, Table, Tabs } from 'antd';
+import { Button, Divider, Icon, Radio, Table, Tabs } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import * as React from 'react';
@@ -21,11 +21,11 @@ enum sortGroup {
   unusual = '异常报警',
 }
 
-// 可删
-const loading = false;
-const data: any[] = [];
-
-@connect()
+const iconStyle = { fontSize: '20px' };
+@connect(({ custom }: any) => ({
+  loading: custom.loading,
+  spreadList: custom.spreadList,
+}))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
   columns = {
     spread: [
@@ -62,8 +62,10 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
+              <a onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" style={iconStyle} />
+              </a>
+              {/* <Divider type="vertical" /> */}
             </div>
           );
         },
@@ -103,8 +105,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
+              <a onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" style={iconStyle} />
+              </a>
             </div>
           );
         },
@@ -154,8 +157,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
+              <a onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" style={iconStyle} />
+              </a>
             </div>
           );
         },
@@ -195,8 +199,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
+              <a onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" style={iconStyle} />
+              </a>
             </div>
           );
         },
@@ -236,8 +241,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
+              <a onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" style={iconStyle} />
+              </a>
             </div>
           );
         },
@@ -252,6 +258,30 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTable: 'spread',
     };
   }
+
+  componentDidMount() {
+    this.getSpreadList();
+  }
+  // 获取数据
+  // 生成最终显示的列表数据
+  showData = (type: string) => {
+    const { spreadList } = this.props;
+    const { currentTab } = this.state;
+    const list = {
+      spread: spreadList,
+    };
+    if (currentTab === 'unusual') return [];
+
+    return list[type];
+  };
+  // 获取扩频表列表
+  getSpreadList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchSpread',
+    });
+  };
+
   tabChange = (key: any) => {
     this.setState({
       currentTab: key,
@@ -281,10 +311,20 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
 
   render() {
+    const { loading } = this.props;
     const { currentTab, currentRadio, currentTable } = this.state;
-    const expandedRowRender = (record: any): any => (
-      <p style={{ margin: 0 }}>{`副标题: ${record.subtitle}`}</p>
-    );
+    const data = this.showData(currentRadio);
+    const expandedRowRender = (record: any): any => [
+      <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
+      <p key="2" style={{ margin: 0 }}>
+        姓名: <span className="expandSpan">{record.duty.name}</span>
+      </p>,
+      <p key="4" style={{ margin: 0 }}>
+        手机号码: <span className="expandSpan">{record.duty.tel}</span>
+      </p>,
+      <p key="3" style={{ margin: 0 }}>{`办公电话: ${record.duty.phone}`}</p>,
+      <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
+    ];
     return (
       <div>
         <div className="componentBackground">
@@ -317,7 +357,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
           <DetailHandler sort={currentTab} />
           <Divider />
           <Table
-            rowKey="rowId"
+            rowKey="bid"
             columns={this.columns[currentTable]}
             loading={loading}
             dataSource={data}
