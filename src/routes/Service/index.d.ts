@@ -24,6 +24,10 @@ export interface ICustomItems {
 
 export interface IDataMonitorProps {}
 
-export interface IDataMonitorStates {}
+export interface IDataMonitorStates {
+  currentTab: string;
+  currentRadio: string;
+  currentTable: string;
+}
 
 export interface IDataMonitorItems {}
