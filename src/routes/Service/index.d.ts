@@ -12,10 +12,14 @@ export interface IBusinessItems {}
 
 export interface ICustomProps {}
 
-export interface ICustomStates {}
+export interface ICustomStates {
+  currentTab: string;
+  currentRadio: string;
+  currentTable: string;
+}
 
 export interface ICustomItems {
-  onChange(key: string): void;
+  tabChange(key: string): void;
 }
 
 export interface IDataMonitorProps {}
