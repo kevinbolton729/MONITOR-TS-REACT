@@ -1,6 +1,5 @@
-import { Button, Divider, Radio, Table, Tabs } from 'antd';
+import { Radio, Table, Tabs } from 'antd';
 import { connect } from 'dva';
-import moment from 'moment';
 import * as React from 'react';
 // 组件
 import BreadCrumb from '../../components/BreadCrumb';
@@ -9,6 +8,8 @@ import DetailHandler from '../../components/Handler/DetailHandler';
 // import { URL_PREFIX } from '../../utils/consts';
 // 声明
 import { IDataMonitorItems, IDataMonitorProps, IDataMonitorStates } from './';
+// 模块
+import { dataMonitorCols } from './columns';
 // 样式
 // const styles = require('./index.less');
 // antd组件设置
@@ -19,6 +20,9 @@ enum sortGroup {
   spread = '扩频表',
   nblot = '物联网表',
 }
+const expandedRowRender = (record: any): any => (
+  <p style={{ margin: 0 }}>{`副标题: ${record.subtitle}`}</p>
+);
 
 // 可删
 const loading = false;
@@ -27,140 +31,27 @@ const data: any[] = [];
 @connect()
 class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorStates>
   implements IDataMonitorItems {
-  columns = {
-    spread: [
-      {
-        title: '表编号',
-        dataIndex: 'bid',
-        key: 'bid',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '扫频方式',
-        dataIndex: 'method',
-        key: 'method',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '数据提取状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
-            </div>
-          );
-        },
-      },
-    ],
-    nblot: [
-      {
-        title: '表编号',
-        dataIndex: 'bid',
-        key: 'bid',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '在线状态',
-        dataIndex: 'online',
-        key: 'online',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '数据上传状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
-            </div>
-          );
-        },
-      },
-    ],
-    concentrator: [
-      {
-        title: '编号',
-        dataIndex: 'cid',
-        key: 'cid',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '通信卡状态',
-        dataIndex: 'card',
-        key: 'card',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '集中器在线状态',
-        dataIndex: 'online',
-        key: 'online',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <Button onClick={this.handlerShow.bind(this, record)}>查看</Button>
-              <Divider type="vertical" />
-            </div>
-          );
-        },
-      },
-    ],
-  };
-
   constructor(props: any) {
     super(props);
     this.state = {
+      currentTab: '',
+      currentRadio: '',
+      currentTable: '',
+    };
+  }
+  componentDidMount() {
+    // 初始化
+    this.setState({
       currentTab: 'spread',
       currentRadio: 'spread',
       currentTable: 'spread',
-    };
+    });
   }
+  componentDidUpdate() {
+    // 根据currentTab/currentRadio等发起相应API请求
+    // this.startFetch();
+  }
+
   tabChange = (key: any) => {
     this.setState({
       currentTab: key,
@@ -185,15 +76,29 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     console.log(record, 'edit');
   };
   // 分页
-  onShowSizeChange = (e: any) => {
-    console.log(e, 'event');
+  onChangePage = (page: number, pageSize: number) => {
+    console.log(page, 'page');
+    console.log(pageSize, 'pageSize');
+  };
+  onShowSizeChange = (current: number, size: number) => {
+    console.log(current, 'current');
+    console.log(size, 'size');
   };
 
   render() {
     const { currentTab, currentRadio, currentTable } = this.state;
-    const expandedRowRender = (record: any): any => (
-      <p style={{ margin: 0 }}>{`副标题: ${record.subtitle}`}</p>
-    );
+    // 获取Table的Columns
+    const getColumns = dataMonitorCols.apply(this, [this.handlerShow]);
+    const pagination = {
+      size: 'small',
+      showSizeChanger: true,
+      defaultCurrent: 1,
+      defaultPageSize: 20,
+      pageSizeOptions: ['10', '20', '30', '50'],
+      total: 0,
+      onChange: this.onChangePage,
+      onShowSizeChange: this.onShowSizeChange,
+    };
     return (
       <div>
         <div className="componentBackground">
@@ -213,22 +118,24 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
           </div>
           <DetailHandler sort={currentTab} />
           <div style={{ marginTop: '20px' }}>
-            <Table
-              rowKey="rowId"
-              columns={this.columns[currentTable]}
-              loading={loading}
-              dataSource={data}
-              expandedRowRender={expandedRowRender}
-              pagination={{
-                size: 'small',
-                showSizeChanger: true,
-                defaultCurrent: 1,
-                defaultPageSize: 20,
-                pageSizeOptions: ['10', '20', '30', '50'],
-                total: 0,
-                onShowSizeChange: this.onShowSizeChange,
-              }}
-            />
+            {currentTable === 'spread' || currentTable === 'nblot' ? (
+              <Table
+                rowKey="id"
+                columns={getColumns[currentTable]}
+                loading={loading}
+                dataSource={data}
+                expandedRowRender={expandedRowRender}
+                pagination={pagination}
+              />
+            ) : (
+              <Table
+                rowKey="id"
+                columns={getColumns[currentTable]}
+                loading={loading}
+                dataSource={data}
+                pagination={pagination}
+              />
+            )}
           </div>
         </div>
       </div>

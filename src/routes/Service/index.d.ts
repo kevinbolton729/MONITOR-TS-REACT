@@ -16,6 +16,8 @@ export interface ICustomProps {
   dispatch: Dispatch;
   spreadList: any[];
   concentratorList: any[];
+  shippingList: any[];
+  nblotList: any[];
 }
 
 export interface ICustomStates {

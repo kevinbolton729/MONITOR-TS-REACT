@@ -1,6 +1,5 @@
-import { Icon, Radio, Table, Tabs } from 'antd';
+import { Radio, Table, Tabs } from 'antd';
 import { connect } from 'dva';
-import moment from 'moment';
 import * as React from 'react';
 // 组件
 import BreadCrumb from '../../components/BreadCrumb';
@@ -9,8 +8,10 @@ import DetailHandler from '../../components/Handler/DetailHandler';
 // import { URL_PREFIX } from '../../utils/consts';
 // 声明
 import { ICustomItems, ICustomProps, ICustomStates } from './';
+// 模块
+import { customCols } from './columns';
 // 样式
-const styles = require('./index.less');
+// const styles = require('./index.less');
 // antd组件设置
 const TabPane = Tabs.TabPane;
 
@@ -20,8 +21,6 @@ enum sortGroup {
   nblot = '物联网表',
   unusual = '异常报警',
 }
-
-const iconStyle = { fontSize: '18px' };
 
 const expandedRowRender = (record: any): any => [
   <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
@@ -39,257 +38,47 @@ const expandedRowRender = (record: any): any => [
   loading: custom.loading,
   spreadList: custom.spreadList,
   concentratorList: custom.concentratorList,
+  shippingList: custom.shippingList,
+  nblotList: custom.nblotList,
 }))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
-  columns = {
-    spread: [
-      {
-        title: '表编号',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '扫频方式',
-        dataIndex: 'method',
-        key: 'method',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '数据提取状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" className={styles.iconStyle} />
-              </span>
-              {/* <Divider type="vertical" /> */}
-            </div>
-          );
-        },
-      },
-    ],
-    nblot: [
-      {
-        title: '表编号',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '在线状态',
-        dataIndex: 'online',
-        key: 'online',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '数据上传状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" className={styles.iconStyle} />
-              </span>
-            </div>
-          );
-        },
-      },
-    ],
-    unusual: [
-      {
-        title: '表编号',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '报警类型/报警次数',
-        dataIndex: 'method',
-        key: 'method',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '报警时间',
-        dataIndex: 'datetime',
-        key: 'datetime',
-        render: (text: any, record: any) => (
-          <span>{`${moment(parseInt(record.updateDate, 10)).format(
-            'YYYY年MM月DD日 HH:mm:ss'
-          )}`}</span>
-        ),
-      },
-      {
-        title: '预警状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" className={styles.iconStyle} />
-              </span>
-            </div>
-          );
-        },
-      },
-    ],
-    concentrator: [
-      {
-        title: '编号',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '通信卡状态',
-        dataIndex: 'card',
-        key: 'card',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '集中器在线状态',
-        dataIndex: 'online',
-        key: 'online',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" className={styles.iconStyle} />
-              </span>
-            </div>
-          );
-        },
-      },
-    ],
-    shipping: [
-      {
-        title: '表编号',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'company',
-        key: 'company',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '快递公司/发货单号/发货时间',
-        dataIndex: 'express',
-        key: 'express',
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '数据提取状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 240,
-        render: (text: any) => <span>{text}</span>,
-      },
-      {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        width: 180,
-        render: (text: any, record: any) => {
-          return (
-            <div>
-              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" className={styles.iconStyle} />
-              </span>
-            </div>
-          );
-        },
-      },
-    ],
-  };
   constructor(props: any) {
     super(props);
     this.state = {
+      currentTab: '',
+      currentRadio: '',
+      currentTable: '',
+    };
+  }
+  componentDidMount() {
+    // 初始化
+    this.setState({
       currentTab: 'spread',
       currentRadio: 'spread',
       currentTable: 'spread',
-    };
+    });
+  }
+  componentDidUpdate() {
+    // 根据currentTab/currentRadio等发起相应API请求
+    this.startFetch();
   }
 
-  componentDidMount() {
-    this.getSpreadList();
-  }
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string) => {
-    const { spreadList, concentratorList } = this.props;
+    const { spreadList, concentratorList, shippingList, nblotList } = this.props;
     const { currentTab } = this.state;
     const list = {
       spread: spreadList,
       concentrator: concentratorList,
+      shipping: shippingList,
+      nblot: nblotList,
     };
     if (currentTab === 'unusual') return [];
 
     return list[type];
   };
-  // 获取扩频表列表
+  // 获取扩频表>扩频表列表
   getSpreadList = () => {
     const { dispatch } = this.props;
     dispatch({
@@ -303,7 +92,21 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       type: 'custom/fetchConcentrator',
     });
   };
-
+  // 获取扩频表>发货记录
+  getShippingList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchShipping',
+    });
+  };
+  // 获取物联网表>物联网表列表
+  getNblotList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchNblot',
+    });
+  };
+  // Tab切换时
   tabChange = (key: any) => {
     this.setState({
       currentTab: key,
@@ -311,27 +114,34 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTable: key,
     });
   };
-  radioChange = async (e: any) => {
+  // Radio切换时
+  radioChange = (e: any) => {
     const { currentTab } = this.state;
     const { value } = e.target;
-    await this.setState({
+    this.setState({
       currentRadio: value,
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
-    // 根据currentTab/currentRadio等发起相应API请求
-    this.startFetch();
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    const { spreadList, concentratorList } = this.props;
+    const { spreadList, concentratorList, shippingList, nblotList } = this.props;
     const { currentTab, currentRadio } = this.state;
+    // 获取扩频表 > 扩频表列表
     if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
-      // 获取扩频表>扩频表列表
       this.getSpreadList();
     }
+    // 获取集中器列表;
     if (currentRadio === 'concentrator' && concentratorList.length === 0) {
-      // 获取扩频表 > 集中器列表;
       this.getConcentratorList();
+    }
+    // 获取扩频表 > 发货记录列表;
+    if (currentTab === 'spread' && currentRadio === 'shipping' && shippingList.length === 0) {
+      this.getShippingList();
+    }
+    // 获取物联网表 > 物联网表列表
+    if (currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
+      this.getNblotList();
     }
   };
   // 查看
@@ -355,6 +165,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   render() {
     const { loading } = this.props;
     const { currentTab, currentRadio, currentTable } = this.state;
+    // 获取Table的Columns
+    const getColumns = customCols.apply(this, [this.handlerShow]);
     // 生成Table渲染数据
     const data = this.showData(currentRadio);
     const pagination = {
@@ -402,7 +214,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
             {currentTable === 'spread' || currentTable === 'nblot' ? (
               <Table
                 rowKey="id"
-                columns={this.columns[currentTable]}
+                columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={data}
                 expandedRowRender={expandedRowRender}
@@ -411,7 +223,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
             ) : (
               <Table
                 rowKey="id"
-                columns={this.columns[currentTable]}
+                columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={data}
                 pagination={pagination}
