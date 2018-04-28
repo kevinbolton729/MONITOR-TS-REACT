@@ -57,3 +57,15 @@ export async function fetchNblotShipping(params = {}) {
     params,
   });
 }
+// 获取异常报警>扩频表列表
+export async function fetchUnusualSpread(params = {}) {
+  return request('/api/fetchunusualspread', {
+    params,
+  });
+}
+// 获取异常报警>物联网表列表
+export async function fetchUnusualNblot(params = {}) {
+  return request('/api/fetchunusualnblot', {
+    params,
+  });
+}

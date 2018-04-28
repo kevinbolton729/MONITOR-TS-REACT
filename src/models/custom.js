@@ -5,6 +5,8 @@ import {
   fetchShipping,
   fetchNblot,
   fetchNblotShipping,
+  fetchUnusualSpread,
+  fetchUnusualNblot,
 } from '@/services/api';
 import { parseResponse } from '@/utils/parse';
 // 常量
@@ -22,6 +24,8 @@ export default {
     shippingList: [], // 扩频表>发货记录
     nblotList: [], // 物联网表
     nblotShippingList: [], // 物联网表>发货记录
+    unusualSpreadList: [], // 异常报警>扩频表
+    unusualNblotList: [], // 异常报警>物联网表
   },
 
   effects: {
@@ -140,6 +144,52 @@ export default {
         payload: false,
       });
     },
+    // 获取异常报警>扩频表列表
+    *fetchUnusualSpread(_, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(fetchUnusualSpread);
+      const { status, message, data } = yield call(parseResponse, response);
+
+      if (status > 0) {
+        // console.log(data, 'data');
+        yield put({
+          type: 'changeUnusualSpreadList',
+          payload: data,
+        });
+      } else {
+        yield openMessage.warn(message);
+      }
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
+    // 获取异常报警>物联网表列表
+    *fetchUnusualNblot(_, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(fetchUnusualNblot);
+      const { status, message, data } = yield call(parseResponse, response);
+
+      if (status > 0) {
+        // console.log(data, 'data');
+        yield put({
+          type: 'changeUnusualNblotList',
+          payload: data,
+        });
+      } else {
+        yield openMessage.warn(message);
+      }
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
   },
 
   reducers: {
@@ -177,6 +227,19 @@ export default {
       return {
         ...state,
         nblotShippingList: payload,
+      };
+    },
+    changeUnusualSpreadList(state, { payload }) {
+      return {
+        ...state,
+        unusualSpreadList: payload,
+      };
+    },
+
+    changeUnusualNblotList(state, { payload }) {
+      return {
+        ...state,
+        unusualNblotList: payload,
       };
     },
   },

@@ -19,6 +19,8 @@ export interface ICustomProps {
   shippingList: any[];
   nblotList: any[];
   nblotShippingList: any[];
+  unusualSpreadList: any[];
+  unusualNblotList: any[];
 }
 
 export interface ICustomStates {

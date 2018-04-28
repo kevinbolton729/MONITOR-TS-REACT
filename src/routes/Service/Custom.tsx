@@ -41,6 +41,8 @@ const expandedRowRender = (record: any): any => [
   shippingList: custom.shippingList,
   nblotList: custom.nblotList,
   nblotShippingList: custom.nblotShippingList,
+  unusualSpreadList: custom.unusualSpreadList,
+  unusualNblotList: custom.unusualNblotList,
 }))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
   constructor(props: any) {
@@ -67,7 +69,15 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string) => {
-    const { spreadList, concentratorList, shippingList, nblotList, nblotShippingList } = this.props;
+    const {
+      spreadList,
+      concentratorList,
+      shippingList,
+      nblotList,
+      nblotShippingList,
+      unusualSpreadList,
+      unusualNblotList,
+    } = this.props;
     const { currentTab } = this.state;
     const list = {
       spread: spreadList,
@@ -75,9 +85,12 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       shipping: shippingList,
       nblot: nblotList,
       nblotShipping: nblotShippingList,
+      unusualSpread: unusualSpreadList,
+      unusualNblot: unusualNblotList,
     };
-    if (currentTab === 'unusual') return [];
-    if (type === 'shipping' && currentTab === 'nblot') return list.nblotShipping;
+    if (currentTab === 'unusual' && type === 'spread') return list.unusualSpread;
+    if (currentTab === 'unusual' && type === 'nblot') return list.unusualNblot;
+    if (currentTab === 'nblot' && type === 'shipping') return list.nblotShipping;
 
     return list[type];
   };
@@ -116,6 +129,21 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       type: 'custom/fetchNblotShipping',
     });
   };
+  // 获取异常报警>扩频表列表
+  getUnusualSpreadList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchUnusualSpread',
+    });
+  };
+
+  // 获取异常报警>物联网表列表
+  getUnusualNblotList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchUnusualNblot',
+    });
+  };
 
   // Tab切换时
   tabChange = (key: any) => {
@@ -136,7 +164,15 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    const { spreadList, concentratorList, shippingList, nblotList, nblotShippingList } = this.props;
+    const {
+      spreadList,
+      concentratorList,
+      shippingList,
+      nblotList,
+      nblotShippingList,
+      unusualSpreadList,
+      unusualNblotList,
+    } = this.props;
     const { currentTab, currentRadio } = this.state;
     // 获取扩频表 > 扩频表列表
     if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
@@ -157,6 +193,14 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     // 获取物联网表 > 发货记录列表
     if (currentTab === 'nblot' && currentRadio === 'shipping' && nblotShippingList.length === 0) {
       this.getNblotShippingList();
+    }
+    // 获取异常报警 > 扩频表列表
+    if (currentTab === 'unusual' && currentRadio === 'spread' && unusualSpreadList.length === 0) {
+      this.getUnusualSpreadList();
+    }
+    // 获取异常报警 > 物联网表列表
+    if (currentTab === 'unusual' && currentRadio === 'nblot' && unusualNblotList.length === 0) {
+      this.getUnusualNblotList();
     }
   };
   // 查看

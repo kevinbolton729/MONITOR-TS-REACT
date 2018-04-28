@@ -118,6 +118,42 @@ const proxy = {
       ],
     },
   },
+  // 获取异常报警 > 扩频表列表
+  'GET /api/fetchunusualspread': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'KXXX1234',
+          company: '四川海力智能燃气示范公司',
+          method: '异常关阀',
+          num: 2,
+          datetime: '2018-04-27 15:51:25',
+          status: '正常',
+        },
+      ],
+    },
+  },
+  // 获取异常报警 > 物联网表列表
+  'GET /api/fetchunusualnblot': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'WXXX1234',
+          company: '四川海力智能燃气示范公司',
+          method: '充值失败',
+          num: 1,
+          datetime: '2018-04-27 15:51:25',
+          status: '正常',
+        },
+      ],
+    },
+  },
 };
 
 export default (noProxy ? {} : delay(proxy, 1500));

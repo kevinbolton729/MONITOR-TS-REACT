@@ -1,5 +1,4 @@
 import { Icon } from 'antd';
-import moment from 'moment';
 import React from 'react';
 // 样式
 const styles = require('./index.less');
@@ -112,17 +111,13 @@ export const customCols = (handlerShow) => {
       title: '报警类型/报警次数',
       dataIndex: 'method',
       key: 'method',
-      render: text => <span>{text}</span>,
+      render: (text, record) => <span>{`${record.method} / ${record.num}`}</span>,
     },
     {
       title: '报警时间',
       dataIndex: 'datetime',
       key: 'datetime',
-      render: (text, record) => (
-        <span>
-          {`${moment(parseInt(record.updateDate, 10)).format('YYYY年MM月DD日 HH:mm:ss')}`}
-        </span>
-      ),
+      render: text => <span>{text}</span>,
     },
     {
       title: '预警状态',
