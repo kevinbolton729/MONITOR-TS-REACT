@@ -40,6 +40,7 @@ const expandedRowRender = (record: any): any => [
   concentratorList: custom.concentratorList,
   shippingList: custom.shippingList,
   nblotList: custom.nblotList,
+  nblotShippingList: custom.nblotShippingList,
 }))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
   constructor(props: any) {
@@ -66,15 +67,17 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string) => {
-    const { spreadList, concentratorList, shippingList, nblotList } = this.props;
+    const { spreadList, concentratorList, shippingList, nblotList, nblotShippingList } = this.props;
     const { currentTab } = this.state;
     const list = {
       spread: spreadList,
       concentrator: concentratorList,
       shipping: shippingList,
       nblot: nblotList,
+      nblotShipping: nblotShippingList,
     };
     if (currentTab === 'unusual') return [];
+    if (type === 'shipping' && currentTab === 'nblot') return list.nblotShipping;
 
     return list[type];
   };
@@ -106,6 +109,14 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       type: 'custom/fetchNblot',
     });
   };
+  // 获取物联网表>发货记录
+  getNblotShippingList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchNblotShipping',
+    });
+  };
+
   // Tab切换时
   tabChange = (key: any) => {
     this.setState({
@@ -125,7 +136,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    const { spreadList, concentratorList, shippingList, nblotList } = this.props;
+    const { spreadList, concentratorList, shippingList, nblotList, nblotShippingList } = this.props;
     const { currentTab, currentRadio } = this.state;
     // 获取扩频表 > 扩频表列表
     if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
@@ -143,6 +154,10 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     if (currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
       this.getNblotList();
     }
+    // 获取物联网表 > 发货记录列表
+    if (currentTab === 'nblot' && currentRadio === 'shipping' && nblotShippingList.length === 0) {
+      this.getNblotShippingList();
+    }
   };
   // 查看
   handlerShow = (record: any) => {
@@ -157,6 +172,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     console.log(page, 'page');
     console.log(pageSize, 'pageSize');
   };
+  // 页长
   onShowSizeChange = (current: number, size: number) => {
     console.log(current, 'current');
     console.log(size, 'size');

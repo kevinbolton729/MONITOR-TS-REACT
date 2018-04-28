@@ -80,6 +80,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     console.log(page, 'page');
     console.log(pageSize, 'pageSize');
   };
+  // 页长
   onShowSizeChange = (current: number, size: number) => {
     console.log(current, 'current');
     console.log(size, 'size');

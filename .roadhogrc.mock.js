@@ -100,6 +100,24 @@ const proxy = {
       ],
     },
   },
+  // 获取物联网表 > 发货记录列表
+  'GET /api/fetchnblotshipping': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'WXXX1234',
+          company: '四川海力智能燃气示范公司',
+          express: '顺丰快递',
+          expressid: 'SF12345678',
+          expresstime: '2018-04-27 15:51:25',
+          status: '正常',
+        },
+      ],
+    },
+  },
 };
 
 export default (noProxy ? {} : delay(proxy, 1500));

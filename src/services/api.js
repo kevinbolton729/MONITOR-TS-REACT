@@ -39,15 +39,21 @@ export async function fetchConcentrator(params = {}) {
     params,
   });
 }
-// 获取扩频表>历史记录列表
+// 获取扩频表>发货记录列表
 export async function fetchShipping(params = {}) {
   return request('/api/fetchshipping', {
     params,
   });
 }
 // 获取物联网表>物联网表列表
-export async function fetchNblot(params) {
+export async function fetchNblot(params = {}) {
   return request('/api/fetchnblot', {
+    params,
+  });
+}
+// 获取物联网表>发货记录列表
+export async function fetchNblotShipping(params = {}) {
+  return request('/api/fetchnblotshipping', {
     params,
   });
 }

@@ -18,6 +18,7 @@ export interface ICustomProps {
   concentratorList: any[];
   shippingList: any[];
   nblotList: any[];
+  nblotShippingList: any[];
 }
 
 export interface ICustomStates {

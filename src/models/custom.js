@@ -1,5 +1,11 @@
 import { message as openMessage } from 'antd';
-import { fetchSpread, fetchConcentrator, fetchShipping, fetchNblot } from '@/services/api';
+import {
+  fetchSpread,
+  fetchConcentrator,
+  fetchShipping,
+  fetchNblot,
+  fetchNblotShipping,
+} from '@/services/api';
 import { parseResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
@@ -15,6 +21,7 @@ export default {
     concentratorList: [], // 集中器
     shippingList: [], // 扩频表>发货记录
     nblotList: [], // 物联网表
+    nblotShippingList: [], // 物联网表>发货记录
   },
 
   effects: {
@@ -28,7 +35,7 @@ export default {
       const { status, message, data } = yield call(parseResponse, response);
 
       if (status > 0) {
-        // console.log(data, 'spread data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeSpreadList',
           payload: data,
@@ -51,7 +58,7 @@ export default {
       const { status, message, data } = yield call(parseResponse, response);
 
       if (status > 0) {
-        // console.log(data, 'spread data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeConcentratorList',
           payload: data,
@@ -64,7 +71,7 @@ export default {
         payload: false,
       });
     },
-    // 获取扩频表>集中器列表
+    // 获取扩频表>发货记录列表
     *fetchShipping(_, { call, put }) {
       yield put({
         type: 'changeLoading',
@@ -74,7 +81,7 @@ export default {
       const { status, message, data } = yield call(parseResponse, response);
 
       if (status > 0) {
-        // console.log(data, 'spread data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeShippingList',
           payload: data,
@@ -97,9 +104,32 @@ export default {
       const { status, message, data } = yield call(parseResponse, response);
 
       if (status > 0) {
-        // console.log(data, 'spread data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeNblotList',
+          payload: data,
+        });
+      } else {
+        yield openMessage.warn(message);
+      }
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
+    // 获取扩频表>发货记录列表
+    *fetchNblotShipping(_, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(fetchNblotShipping);
+      const { status, message, data } = yield call(parseResponse, response);
+
+      if (status > 0) {
+        console.log(data, 'data');
+        yield put({
+          type: 'changeNblotShippingList',
           payload: data,
         });
       } else {
@@ -141,6 +171,12 @@ export default {
       return {
         ...state,
         nblotList: payload,
+      };
+    },
+    changeNblotShippingList(state, { payload }) {
+      return {
+        ...state,
+        nblotShippingList: payload,
       };
     },
   },
