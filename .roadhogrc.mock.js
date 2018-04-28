@@ -13,6 +13,8 @@ const noProxy = process.env.NO_PROXY === 'true';
 //   "list|100": [{ name: "@city", "value|1-100": 150, "type|0-2": 1 }]
 // }),
 const proxy = {
+  // [客户服务监控]
+  // 获取扩频表列表
   'GET /api/fetchspread': {
     status: 1,
     message: '获取数据成功',
@@ -20,7 +22,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          bid: 'BXXX1234',
+          id: 'BXXX1234',
           company: '四川海力智能燃气示范公司',
           method: '自动',
           status: 1,
@@ -32,6 +34,25 @@ const proxy = {
             tel: '13912345678',
             email: '12345678@qq.com',
           },
+        },
+      ],
+    },
+  },
+  'GET /api/fetchconcentrator': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'JXXX1234',
+          company: '四川海力智能燃气示范公司',
+          card: '正常',
+          cardtime: '2018-04-27 15:51:25',
+          online: '在线',
+          fact: 41,
+          plan: 50,
+          address: '四川省成都市成华区崔家店路 附102号',
         },
       ],
     },

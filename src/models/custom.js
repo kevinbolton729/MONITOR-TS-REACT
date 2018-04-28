@@ -1,5 +1,5 @@
 import { message as openMessage } from 'antd';
-import { fetchSpread } from '@/services/api';
+import { fetchSpread, fetchConcentrator } from '@/services/api';
 import { parseResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
@@ -11,7 +11,8 @@ export default {
 
   state: {
     loading: false,
-    spreadList: [], // 扩频表列表
+    spreadList: [], // 扩频表
+    concentratorList: [], // 集中器
   },
 
   effects: {
@@ -38,6 +39,29 @@ export default {
         payload: false,
       });
     },
+    // 获取集中器列表
+    *fetchConcentrator(_, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(fetchConcentrator);
+      const { status, message, data } = yield call(parseResponse, response);
+
+      if (status > 0) {
+        // console.log(data, 'spread data');
+        yield put({
+          type: 'changeConcentratorList',
+          payload: data,
+        });
+      } else {
+        yield openMessage.warn(message);
+      }
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
   },
 
   reducers: {
@@ -51,6 +75,12 @@ export default {
       return {
         ...state,
         spreadList: payload,
+      };
+    },
+    changeConcentratorList(state, { payload }) {
+      return {
+        ...state,
+        concentratorList: payload,
       };
     },
   },

@@ -212,23 +212,24 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
             </Tabs>
           </div>
           <DetailHandler sort={currentTab} />
-          <Divider />
-          <Table
-            rowKey="rowId"
-            columns={this.columns[currentTable]}
-            loading={loading}
-            dataSource={data}
-            expandedRowRender={expandedRowRender}
-            pagination={{
-              size: 'small',
-              showSizeChanger: true,
-              defaultCurrent: 1,
-              defaultPageSize: 20,
-              pageSizeOptions: ['10', '20', '30', '50'],
-              total: 0,
-              onShowSizeChange: this.onShowSizeChange,
-            }}
-          />
+          <div style={{ marginTop: '20px' }}>
+            <Table
+              rowKey="rowId"
+              columns={this.columns[currentTable]}
+              loading={loading}
+              dataSource={data}
+              expandedRowRender={expandedRowRender}
+              pagination={{
+                size: 'small',
+                showSizeChanger: true,
+                defaultCurrent: 1,
+                defaultPageSize: 20,
+                pageSizeOptions: ['10', '20', '30', '50'],
+                total: 0,
+                onShowSizeChange: this.onShowSizeChange,
+              }}
+            />
+          </div>
         </div>
       </div>
     );

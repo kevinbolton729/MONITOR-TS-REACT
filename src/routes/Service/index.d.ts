@@ -15,6 +15,7 @@ export interface ICustomProps {
   loading: boolean;
   dispatch: Dispatch;
   spreadList: any[];
+  concentratorList: any[];
 }
 
 export interface ICustomStates {

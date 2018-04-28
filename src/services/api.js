@@ -33,3 +33,9 @@ export async function fetchSpread(params = {}) {
     params,
   });
 }
+// 获取集中器列表
+export async function fetchConcentrator(params = {}) {
+  return request('/api/fetchconcentrator', {
+    params,
+  });
+}

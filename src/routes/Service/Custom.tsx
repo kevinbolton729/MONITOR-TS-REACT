@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Radio, Table, Tabs } from 'antd';
+import { Icon, Radio, Table, Tabs } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import * as React from 'react';
@@ -10,7 +10,7 @@ import DetailHandler from '../../components/Handler/DetailHandler';
 // 声明
 import { ICustomItems, ICustomProps, ICustomStates } from './';
 // 样式
-// const styles = require('./index.less');
+const styles = require('./index.less');
 // antd组件设置
 const TabPane = Tabs.TabPane;
 
@@ -21,18 +21,32 @@ enum sortGroup {
   unusual = '异常报警',
 }
 
-const iconStyle = { fontSize: '20px' };
+const iconStyle = { fontSize: '18px' };
+
+const expandedRowRender = (record: any): any => [
+  <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
+  <p key="2" style={{ margin: 0 }}>
+    姓名: <span className="expandSpan">{record.duty.name}</span>
+  </p>,
+  <p key="4" style={{ margin: 0 }}>
+    手机号码: <span className="expandSpan">{record.duty.tel}</span>
+  </p>,
+  <p key="3" style={{ margin: 0 }}>{`办公电话: ${record.duty.phone}`}</p>,
+  <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
+];
+
 @connect(({ custom }: any) => ({
   loading: custom.loading,
   spreadList: custom.spreadList,
+  concentratorList: custom.concentratorList,
 }))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
   columns = {
     spread: [
       {
         title: '表编号',
-        dataIndex: 'bid',
-        key: 'bid',
+        dataIndex: 'id',
+        key: 'id',
         render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
       },
       {
@@ -62,9 +76,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <a onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" style={iconStyle} />
-              </a>
+              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" className={styles.iconStyle} />
+              </span>
               {/* <Divider type="vertical" /> */}
             </div>
           );
@@ -74,8 +88,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     nblot: [
       {
         title: '表编号',
-        dataIndex: 'bid',
-        key: 'bid',
+        dataIndex: 'id',
+        key: 'id',
         render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
       },
       {
@@ -105,9 +119,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <a onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" style={iconStyle} />
-              </a>
+              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" className={styles.iconStyle} />
+              </span>
             </div>
           );
         },
@@ -116,8 +130,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     unusual: [
       {
         title: '表编号',
-        dataIndex: 'bid',
-        key: 'bid',
+        dataIndex: 'id',
+        key: 'id',
         render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
       },
       {
@@ -157,9 +171,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <a onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" style={iconStyle} />
-              </a>
+              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" className={styles.iconStyle} />
+              </span>
             </div>
           );
         },
@@ -168,8 +182,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     concentrator: [
       {
         title: '编号',
-        dataIndex: 'cid',
-        key: 'cid',
+        dataIndex: 'id',
+        key: 'id',
         render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
       },
       {
@@ -199,9 +213,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <a onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" style={iconStyle} />
-              </a>
+              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" className={styles.iconStyle} />
+              </span>
             </div>
           );
         },
@@ -210,8 +224,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     shipping: [
       {
         title: '表编号',
-        dataIndex: 'bid',
-        key: 'bid',
+        dataIndex: 'id',
+        key: 'id',
         render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
       },
       {
@@ -241,9 +255,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
         render: (text: any, record: any) => {
           return (
             <div>
-              <a onClick={this.handlerShow.bind(this, record)}>
-                <Icon type="eye-o" style={iconStyle} />
-              </a>
+              <span className={styles.handleHref} onClick={this.handlerShow.bind(this, record)}>
+                <Icon type="eye-o" className={styles.iconStyle} />
+              </span>
             </div>
           );
         },
@@ -265,10 +279,11 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string) => {
-    const { spreadList } = this.props;
+    const { spreadList, concentratorList } = this.props;
     const { currentTab } = this.state;
     const list = {
       spread: spreadList,
+      concentrator: concentratorList,
     };
     if (currentTab === 'unusual') return [];
 
@@ -281,6 +296,13 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       type: 'custom/fetchSpread',
     });
   };
+  // 获取集中器列表
+  getConcentratorList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'custom/fetchConcentrator',
+    });
+  };
 
   tabChange = (key: any) => {
     this.setState({
@@ -289,13 +311,28 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTable: key,
     });
   };
-  radioChange = (e: any) => {
+  radioChange = async (e: any) => {
     const { currentTab } = this.state;
     const { value } = e.target;
-    this.setState({
+    await this.setState({
       currentRadio: value,
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
+    // 根据currentTab/currentRadio等发起相应API请求
+    this.startFetch();
+  };
+  // 根据Tab | Radio 发起API请求
+  startFetch = () => {
+    const { spreadList, concentratorList } = this.props;
+    const { currentTab, currentRadio } = this.state;
+    if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
+      // 获取扩频表>扩频表列表
+      this.getSpreadList();
+    }
+    if (currentRadio === 'concentrator' && concentratorList.length === 0) {
+      // 获取扩频表 > 集中器列表;
+      this.getConcentratorList();
+    }
   };
   // 查看
   handlerShow = (record: any) => {
@@ -306,25 +343,30 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     console.log(record, 'edit');
   };
   // 分页
-  onShowSizeChange = (e: any) => {
-    console.log(e, 'event');
+  onChangePage = (page: number, pageSize: number) => {
+    console.log(page, 'page');
+    console.log(pageSize, 'pageSize');
+  };
+  onShowSizeChange = (current: number, size: number) => {
+    console.log(current, 'current');
+    console.log(size, 'size');
   };
 
   render() {
     const { loading } = this.props;
     const { currentTab, currentRadio, currentTable } = this.state;
+    // 生成Table渲染数据
     const data = this.showData(currentRadio);
-    const expandedRowRender = (record: any): any => [
-      <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
-      <p key="2" style={{ margin: 0 }}>
-        姓名: <span className="expandSpan">{record.duty.name}</span>
-      </p>,
-      <p key="4" style={{ margin: 0 }}>
-        手机号码: <span className="expandSpan">{record.duty.tel}</span>
-      </p>,
-      <p key="3" style={{ margin: 0 }}>{`办公电话: ${record.duty.phone}`}</p>,
-      <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
-    ];
+    const pagination = {
+      size: 'small',
+      showSizeChanger: true,
+      defaultCurrent: 1,
+      defaultPageSize: 20,
+      pageSizeOptions: ['10', '20', '30', '50'],
+      total: 0,
+      onChange: this.onChangePage,
+      onShowSizeChange: this.onShowSizeChange,
+    };
     return (
       <div>
         <div className="componentBackground">
@@ -355,23 +397,27 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
             </Tabs>
           </div>
           <DetailHandler sort={currentTab} />
-          <Divider />
-          <Table
-            rowKey="bid"
-            columns={this.columns[currentTable]}
-            loading={loading}
-            dataSource={data}
-            expandedRowRender={expandedRowRender}
-            pagination={{
-              size: 'small',
-              showSizeChanger: true,
-              defaultCurrent: 1,
-              defaultPageSize: 20,
-              pageSizeOptions: ['10', '20', '30', '50'],
-              total: 0,
-              onShowSizeChange: this.onShowSizeChange,
-            }}
-          />
+          {/* <Divider /> */}
+          <div style={{ marginTop: '20px' }}>
+            {currentTable === 'spread' || currentTable === 'nblot' ? (
+              <Table
+                rowKey="id"
+                columns={this.columns[currentTable]}
+                loading={loading}
+                dataSource={data}
+                expandedRowRender={expandedRowRender}
+                pagination={pagination}
+              />
+            ) : (
+              <Table
+                rowKey="id"
+                columns={this.columns[currentTable]}
+                loading={loading}
+                dataSource={data}
+                pagination={pagination}
+              />
+            )}
+          </div>
         </div>
       </div>
     );
