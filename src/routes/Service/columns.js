@@ -241,8 +241,8 @@ export const dataMonitorCols = (handlerShow) => {
   const spread = [
     {
       title: '表编号',
-      dataIndex: 'bid',
-      key: 'bid',
+      dataIndex: 'id',
+      key: 'id',
       render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -284,8 +284,8 @@ export const dataMonitorCols = (handlerShow) => {
   const nblot = [
     {
       title: '表编号',
-      dataIndex: 'bid',
-      key: 'bid',
+      dataIndex: 'id',
+      key: 'id',
       render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -327,8 +327,8 @@ export const dataMonitorCols = (handlerShow) => {
   const concentrator = [
     {
       title: '编号',
-      dataIndex: 'cid',
-      key: 'cid',
+      dataIndex: 'id',
+      key: 'id',
       render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {

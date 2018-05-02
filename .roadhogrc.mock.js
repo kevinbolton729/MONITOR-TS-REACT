@@ -154,6 +154,75 @@ const proxy = {
       ],
     },
   },
+  // [业务数据监控]
+  // 获取扩频表 > 扩频表列表
+  'GET /api/fetchdataspread': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'KXXX1234',
+          company: '四川海力智能燃气示范公司',
+          method: '自动',
+          status: 1,
+          uptime: '2018-04-27 15:51:25',
+          duty: {
+            department: '技术中心',
+            name: '鱼子酱',
+            phone: '028-12345678',
+            tel: '13912345678',
+            email: '12345678@qq.com',
+          },
+        },
+      ],
+    },
+  },
+  // 获取集中器列表
+  'GET /api/fetchdataconcentrator': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'JXXX1234',
+          company: '四川海力智能燃气示范公司',
+          card: '正常',
+          cardtime: '2018-04-27 15:51:25',
+          online: '在线',
+          fact: 41,
+          plan: 50,
+          address: '四川省成都市成华区崔家店路 附102号',
+        },
+      ],
+    },
+  },
+  // 获取物联网表 > 物联网表列表
+  'GET /api/fetchdatanblot': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          id: 'WXXX1234',
+          company: '四川海力智能燃气示范公司',
+          online: '在线',
+          status: '成功',
+          time: '2018-04-27 15:51:25',
+          duty: {
+            department: '技术中心',
+            name: '鱼子酱',
+            phone: '028-12345678',
+            tel: '13912345678',
+            email: '12345678@qq.com',
+          },
+        },
+      ],
+    },
+  },
 };
 
 export default (noProxy ? {} : delay(proxy, 1500));

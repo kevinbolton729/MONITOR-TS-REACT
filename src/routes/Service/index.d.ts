@@ -33,7 +33,13 @@ export interface ICustomItems {
   tabChange(key: string): void;
 }
 
-export interface IDataMonitorProps {}
+export interface IDataMonitorProps {
+  loading: boolean;
+  dispatch: Dispatch;
+  spreadList: any[];
+  concentratorList: any[];
+  nblotList: any[];
+}
 
 export interface IDataMonitorStates {
   currentTab: string;

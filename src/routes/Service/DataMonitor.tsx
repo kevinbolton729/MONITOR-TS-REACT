@@ -23,15 +23,24 @@ enum sortGroup {
   nblot = '物联网表',
 }
 
-const expandedRowRender = (record: any): React.ReactNode => (
-  <p style={{ margin: 0 }}>{`副标题: ${record.subtitle}`}</p>
-);
+const expandedRowRender = (record: any): React.ReactNode => [
+  <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
+  <p key="2" style={{ margin: 0 }}>
+    姓名: <span className="expandSpan">{record.duty.name}</span>
+  </p>,
+  <p key="4" style={{ margin: 0 }}>
+    手机号码: <span className="expandSpan">{record.duty.tel}</span>
+  </p>,
+  <p key="3" style={{ margin: 0 }}>{`办公电话: ${record.duty.phone}`}</p>,
+  <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
+];
 
-// 可删
-const loading = false;
-const dataSource: any[] = [];
-
-@connect()
+@connect(({ datamonitor }: any) => ({
+  loading: datamonitor.loading,
+  spreadList: datamonitor.spreadList,
+  concentratorList: datamonitor.concentratorList,
+  nblotList: datamonitor.nblotList,
+}))
 class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorStates>
   implements IDataMonitorItems {
   constructor(props: any) {
@@ -52,8 +61,20 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   }
   componentDidUpdate() {
     // 根据currentTab/currentRadio等发起相应API请求
-    // this.startFetch();
+    this.startFetch();
   }
+  // 获取数据
+  // 生成最终显示的列表数据
+  showData = (type: string) => {
+    const { spreadList, concentratorList, nblotList } = this.props;
+    const list = {
+      spread: spreadList,
+      concentrator: concentratorList,
+      nblot: nblotList,
+    };
+
+    return list[type];
+  };
   // Dispatch Action
   dispatchAction = (type: any, payload?: any) => {
     payload ? dispatchAction(this.props, { type, payload }) : dispatchAction(this.props, { type });
@@ -76,6 +97,23 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
   };
+  // 根据Tab | Radio 发起API请求
+  startFetch = () => {
+    const { spreadList, concentratorList, nblotList } = this.props;
+    const { currentTab, currentRadio } = this.state;
+    // 获取扩频表 > 扩频表列表
+    if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
+      this.dispatchAction('datamonitor/fetchDataSpread');
+    }
+    // 获取集中器列表;
+    if (currentRadio === 'concentrator' && concentratorList.length === 0) {
+      this.dispatchAction('datamonitor/fetchDataConcentrator');
+    }
+    // 获取物联网表 > 物联网表列表
+    if (currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
+      this.dispatchAction('datamonitor/fetchDataNblot');
+    }
+  };
   // 查看
   handlerShow = (record: any) => {
     console.log(record, 'show');
@@ -96,9 +134,12 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   };
 
   render() {
+    const { loading } = this.props;
     const { currentTab, currentRadio, currentTable } = this.state;
     // 获取Table的Columns
     const getColumns = dataMonitorCols.apply(this, [this.handlerShow]);
+    // 生成Table渲染数据
+    const dataSource = this.showData(currentRadio);
     const pagination = {
       size: 'small',
       showSizeChanger: true,

@@ -69,3 +69,22 @@ export async function fetchUnusualNblot(params = {}) {
     params,
   });
 }
+// -- 业务数据监控
+// 获取扩频表>扩频表列表
+export async function fetchDataSpread(params = {}) {
+  return request('/api/fetchdataspread', {
+    params,
+  });
+}
+// 获取扩频表>集中器列表
+export async function fetchDataConcentrator(params = {}) {
+  return request('/api/fetchdataconcentrator', {
+    params,
+  });
+}
+// 获取物联网表>物联网表列表
+export async function fetchDataNblot(params = {}) {
+  return request('/api/fetchdatanblot', {
+    params,
+  });
+}
