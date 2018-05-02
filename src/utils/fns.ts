@@ -190,6 +190,13 @@ export const beforeUploadVideo: IFns['beforeUploadVideo'] = file => {
   return isMp4 && isLt;
 };
 // --- END ---
+// Dispatch Action
+export const dispatchAction = (props: any, opts: { type: string; payload?: any }) => {
+  const { dispatch } = props;
+  opts.payload
+    ? dispatch({ type: opts.type, payload: opts.payload })
+    : dispatch({ type: opts.type });
+};
 
 // [models]
 // 删除Token,并跳转至登录页 /user/login

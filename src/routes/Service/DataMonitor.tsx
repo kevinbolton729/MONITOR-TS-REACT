@@ -6,6 +6,8 @@ import BreadCrumb from '../../components/BreadCrumb';
 import DetailHandler from '../../components/Handler/DetailHandler';
 // 常量
 // import { URL_PREFIX } from '../../utils/consts';
+// 方法
+import { dispatchAction } from '../../utils/fns';
 // 声明
 import { IDataMonitorItems, IDataMonitorProps, IDataMonitorStates } from './';
 // 模块
@@ -20,13 +22,14 @@ enum sortGroup {
   spread = '扩频表',
   nblot = '物联网表',
 }
-const expandedRowRender = (record: any): any => (
+
+const expandedRowRender = (record: any): React.ReactNode => (
   <p style={{ margin: 0 }}>{`副标题: ${record.subtitle}`}</p>
 );
 
 // 可删
 const loading = false;
-const data: any[] = [];
+const dataSource: any[] = [];
 
 @connect()
 class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorStates>
@@ -51,7 +54,12 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     // 根据currentTab/currentRadio等发起相应API请求
     // this.startFetch();
   }
+  // Dispatch Action
+  dispatchAction = (type: any, payload?: any) => {
+    payload ? dispatchAction(this.props, { type, payload }) : dispatchAction(this.props, { type });
+  };
 
+  // Tab切换时
   tabChange = (key: any) => {
     this.setState({
       currentTab: key,
@@ -59,6 +67,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTable: key,
     });
   };
+  // Radio切换时
   radioChange = (e: any) => {
     const { currentTab } = this.state;
     const { value } = e.target;
@@ -124,7 +133,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
                 rowKey="id"
                 columns={getColumns[currentTable]}
                 loading={loading}
-                dataSource={data}
+                dataSource={dataSource}
                 expandedRowRender={expandedRowRender}
                 pagination={pagination}
               />
@@ -133,7 +142,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
                 rowKey="id"
                 columns={getColumns[currentTable]}
                 loading={loading}
-                dataSource={data}
+                dataSource={dataSource}
                 pagination={pagination}
               />
             )}

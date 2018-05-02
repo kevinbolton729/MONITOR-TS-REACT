@@ -6,6 +6,8 @@ import BreadCrumb from '../../components/BreadCrumb';
 import DetailHandler from '../../components/Handler/DetailHandler';
 // 常量
 // import { URL_PREFIX } from '../../utils/consts';
+// 方法
+import { dispatchAction } from '../../utils/fns';
 // 声明
 import { ICustomItems, ICustomProps, ICustomStates } from './';
 // 模块
@@ -22,7 +24,7 @@ enum sortGroup {
   unusual = '异常报警',
 }
 
-const expandedRowRender = (record: any): any => [
+const expandedRowRender = (record: any): React.ReactNode => [
   <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
   <p key="2" style={{ margin: 0 }}>
     姓名: <span className="expandSpan">{record.duty.name}</span>
@@ -94,55 +96,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
 
     return list[type];
   };
-  // 获取扩频表>扩频表列表
-  getSpreadList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchSpread',
-    });
-  };
-  // 获取集中器列表
-  getConcentratorList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchConcentrator',
-    });
-  };
-  // 获取扩频表>发货记录
-  getShippingList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchShipping',
-    });
-  };
-  // 获取物联网表>物联网表列表
-  getNblotList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchNblot',
-    });
-  };
-  // 获取物联网表>发货记录
-  getNblotShippingList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchNblotShipping',
-    });
-  };
-  // 获取异常报警>扩频表列表
-  getUnusualSpreadList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchUnusualSpread',
-    });
-  };
-
-  // 获取异常报警>物联网表列表
-  getUnusualNblotList = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'custom/fetchUnusualNblot',
-    });
+  // Dispatch Action
+  dispatchAction = (type: any, payload?: any) => {
+    payload ? dispatchAction(this.props, { type, payload }) : dispatchAction(this.props, { type });
   };
 
   // Tab切换时
@@ -176,31 +132,31 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     const { currentTab, currentRadio } = this.state;
     // 获取扩频表 > 扩频表列表
     if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
-      this.getSpreadList();
+      this.dispatchAction('custom/fetchSpread');
     }
     // 获取集中器列表;
     if (currentRadio === 'concentrator' && concentratorList.length === 0) {
-      this.getConcentratorList();
+      this.dispatchAction('custom/fetchConcentrator');
     }
     // 获取扩频表 > 发货记录列表;
     if (currentTab === 'spread' && currentRadio === 'shipping' && shippingList.length === 0) {
-      this.getShippingList();
+      this.dispatchAction('custom/fetchShipping');
     }
     // 获取物联网表 > 物联网表列表
     if (currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
-      this.getNblotList();
+      this.dispatchAction('custom/fetchNblot');
     }
     // 获取物联网表 > 发货记录列表
     if (currentTab === 'nblot' && currentRadio === 'shipping' && nblotShippingList.length === 0) {
-      this.getNblotShippingList();
+      this.dispatchAction('custom/fetchNblotShipping');
     }
     // 获取异常报警 > 扩频表列表
     if (currentTab === 'unusual' && currentRadio === 'spread' && unusualSpreadList.length === 0) {
-      this.getUnusualSpreadList();
+      this.dispatchAction('custom/fetchUnusualSpread');
     }
     // 获取异常报警 > 物联网表列表
     if (currentTab === 'unusual' && currentRadio === 'nblot' && unusualNblotList.length === 0) {
-      this.getUnusualNblotList();
+      this.dispatchAction('custom/fetchUnusualNblot');
     }
   };
   // 查看
@@ -228,7 +184,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     // 获取Table的Columns
     const getColumns = customCols.apply(this, [this.handlerShow]);
     // 生成Table渲染数据
-    const data = this.showData(currentRadio);
+    const dataSource = this.showData(currentRadio);
     const pagination = {
       size: 'small',
       showSizeChanger: true,
@@ -276,7 +232,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
                 rowKey="id"
                 columns={getColumns[currentTable]}
                 loading={loading}
-                dataSource={data}
+                dataSource={dataSource}
                 expandedRowRender={expandedRowRender}
                 pagination={pagination}
               />
@@ -285,7 +241,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
                 rowKey="id"
                 columns={getColumns[currentTable]}
                 loading={loading}
-                dataSource={data}
+                dataSource={dataSource}
                 pagination={pagination}
               />
             )}
