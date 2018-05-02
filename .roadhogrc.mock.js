@@ -22,7 +22,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'KXXX1234',
+          id: 'KXXX5678',
           company: '四川海力智能燃气示范公司',
           method: '自动',
           status: 1,
@@ -46,7 +46,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'JXXX1234',
+          id: 'JXXX5678',
           company: '四川海力智能燃气示范公司',
           card: '正常',
           cardtime: '2018-04-27 15:51:25',
@@ -66,7 +66,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'KXXX1234',
+          id: 'KXXX5678',
           company: '四川海力智能燃气示范公司',
           express: '顺丰快递',
           expressid: 'SF12345678',
@@ -84,7 +84,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'WXXX1234',
+          id: 'WXXX5678',
           company: '四川海力智能燃气示范公司',
           online: '在线',
           status: '成功',
@@ -108,7 +108,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'WXXX1234',
+          id: 'WXXX5678',
           company: '四川海力智能燃气示范公司',
           express: '顺丰快递',
           expressid: 'SF12345678',
@@ -126,7 +126,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'KXXX1234',
+          id: 'KXXX5678',
           company: '四川海力智能燃气示范公司',
           method: '异常关阀',
           num: 2,
@@ -144,7 +144,7 @@ const proxy = {
       count: 1,
       data: [
         {
-          id: 'WXXX1234',
+          id: 'WXXX5678',
           company: '四川海力智能燃气示范公司',
           method: '充值失败',
           num: 1,
