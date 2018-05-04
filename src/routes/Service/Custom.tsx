@@ -97,7 +97,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     return list[type];
   };
   // Dispatch Action
-  dispatchAction = (type: any, payload?: any) => {
+  dispatchAction = (type: string, payload?: any) => {
     payload ? dispatchAction(this.props, { type, payload }) : dispatchAction(this.props, { type });
   };
 

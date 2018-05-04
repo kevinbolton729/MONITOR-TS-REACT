@@ -1,7 +1,29 @@
-import { Icon } from 'antd';
+import { Divider, Icon } from 'antd';
 import React from 'react';
 // 样式
 const styles = require('./index.less');
+
+// 操作区显示的按钮
+const showAction = (opts = 0, type = 0) => {
+  if (opts.fn === 0) {
+    console.log('请传入操作区的处理函数(或方法)');
+    return;
+  }
+
+  // 分隔
+  const divider = <Divider type="vertical" />; // eslint-disable-line
+  // 查看详情
+  const show = (
+    <span className={styles.handleHref} onClick={opts.fn.bind(this, opts.record)}>
+      <Icon type="eye-o" className={styles.iconStyle} />
+    </span>
+  );
+
+  if (type === 0) {
+    return <div>{show}</div>;
+  }
+  return <div />;
+};
 
 // 客户服务监控
 // Columns of Table
@@ -39,14 +61,7 @@ export const customCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-            {/* <Divider type="vertical" /> */}
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
@@ -83,13 +98,7 @@ export const customCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return <div>{showAction({ fn: handlerShow, record })}</div>;
       },
     },
   ];
@@ -132,13 +141,7 @@ export const customCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
@@ -175,13 +178,7 @@ export const customCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
@@ -220,13 +217,7 @@ export const customCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
@@ -270,13 +261,7 @@ export const dataMonitorCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
@@ -313,13 +298,7 @@ export const dataMonitorCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
@@ -356,13 +335,7 @@ export const dataMonitorCols = (handlerShow) => {
       key: 'action',
       width: 180,
       render: (text, record) => {
-        return (
-          <div>
-            <span className={styles.handleHref} onClick={handlerShow.bind(this, record)}>
-              <Icon type="eye-o" className={styles.iconStyle} />
-            </span>
-          </div>
-        );
+        return showAction({ fn: handlerShow, record });
       },
     },
   ];
