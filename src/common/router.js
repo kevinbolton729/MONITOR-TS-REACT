@@ -89,6 +89,9 @@ export const getRouterData = (app) => {
     '/service/custom': {
       component: dynamicWrapper(app, ['custom'], () => import('../routes/Service/Custom')),
     },
+    '/service/custom/detail/:id': {
+      component: dynamicWrapper(app, ['detail'], () => import('../routes/Service/Detail')),
+    },
     '/operation/company': {
       component: dynamicWrapper(app, [], () => import('../routes/Operation/Company')),
     },

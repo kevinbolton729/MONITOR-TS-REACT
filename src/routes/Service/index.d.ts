@@ -48,3 +48,17 @@ export interface IDataMonitorStates {
 }
 
 export interface IDataMonitorItems {}
+
+export interface IDetailProps {
+  loading: boolean;
+  dispatch: Dispatch;
+  match: any;
+}
+
+export interface IDetailStates {
+  currentTab: string;
+  currentRadio: string;
+  currentTable: string;
+}
+
+export interface IDetailItems {}
