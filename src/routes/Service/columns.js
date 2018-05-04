@@ -5,9 +5,9 @@ const styles = require('./index.less');
 
 // 操作区显示的按钮
 const showAction = (opts = 0, type = 0) => {
-  if (opts.fn === 0) {
+  if (opts === 0) {
     console.log('请传入操作区的处理函数(或方法)');
-    return;
+    return <div />;
   }
 
   // 分隔
@@ -22,6 +22,7 @@ const showAction = (opts = 0, type = 0) => {
   if (type === 0) {
     return <div>{show}</div>;
   }
+
   return <div />;
 };
 
