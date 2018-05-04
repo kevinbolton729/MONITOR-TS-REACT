@@ -43,6 +43,30 @@ const menuData = [
       },
     ],
   },
+  {
+    path: 'profile',
+    hideInMenu: true,
+    children: [
+      {
+        path: 'datamonitor',
+        children: [
+          {
+            name: '详情',
+            path: ':id',
+          },
+        ],
+      },
+      {
+        path: 'custom',
+        children: [
+          {
+            name: '详情',
+            path: ':id',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '', parentAuthority) {

@@ -15,6 +15,18 @@ class Detail extends React.PureComponent<IDetailProps, IDetailStates> implements
   constructor(props: any) {
     super(props);
   }
+  componentDidMount() {
+    console.log(this.props, 'props');
+  }
+
+  test = () => {
+    const { match } = this.props;
+
+    if (match.url.indexOf('/custom/') !== -1) return '客户服务监控';
+    if (match.url.indexOf('/datamonitor/') !== -1) return '业务数据监控';
+
+    return '没有匹配路径的标题';
+  };
 
   render() {
     const { match } = this.props;
@@ -26,7 +38,7 @@ class Detail extends React.PureComponent<IDetailProps, IDetailStates> implements
         </div>
         <div className="contentArea">
           <span className="areaTop">
-            {`此处显示查看Custom 或 DataMonitor详细内容，且传入页面的参数: id=${match.params.id}`}
+            {`此处显示查看 【${this.test()}】 的详细内容，且传入页面的参数: id=${match.params.id}`}
           </span>
         </div>
       </div>
