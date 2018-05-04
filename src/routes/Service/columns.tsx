@@ -1,20 +1,20 @@
 import { Divider, Icon } from 'antd';
-import React from 'react';
+import * as React from 'react';
 // 样式
 const styles = require('./index.less');
 
 // 操作区显示的按钮
-const showAction = (opts = 0, type = 0) => {
+const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, type = 0) => {
   if (opts === 0) {
     console.log('请传入操作区的处理函数(或方法)');
     return <div />;
   }
 
   // 分隔
-  const divider = <Divider type="vertical" />; // eslint-disable-line
+  const divider = <Divider type="vertical" />;
   // 查看详情
   const show = (
-    <span className={styles.handleHref} onClick={opts.fn.bind(this, opts.record)}>
+    <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record)}>
       <Icon type="eye-o" className={styles.iconStyle} />
     </span>
   );
@@ -28,40 +28,40 @@ const showAction = (opts = 0, type = 0) => {
 
 // 客户服务监控
 // Columns of Table
-export const customCols = (handlerShow) => {
+export const customCols = (handlerShow: any) => {
   // 扩频表
   const spread = [
     {
       title: '表编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '扫频方式',
       dataIndex: 'method',
       key: 'method',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据提取状态',
       dataIndex: 'status',
       key: 'status',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },
@@ -72,33 +72,33 @@ export const customCols = (handlerShow) => {
       title: '表编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '在线状态',
       dataIndex: 'online',
       key: 'online',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据上传状态',
       dataIndex: 'status',
       key: 'status',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return <div>{showAction({ fn: handlerShow, record })}</div>;
       },
     },
@@ -109,39 +109,39 @@ export const customCols = (handlerShow) => {
       title: '表编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '报警类型/报警次数',
       dataIndex: 'method',
       key: 'method',
-      render: (text, record) => <span>{`${record.method} / ${record.num}`}</span>,
+      render: (text: any, record: any) => <span>{`${record.method} / ${record.num}`}</span>,
     },
     {
       title: '报警时间',
       dataIndex: 'datetime',
       key: 'datetime',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '预警状态',
       dataIndex: 'status',
       key: 'status',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },
@@ -152,33 +152,33 @@ export const customCols = (handlerShow) => {
       title: '编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '通信卡状态',
       dataIndex: 'card',
       key: 'card',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '集中器在线状态',
       dataIndex: 'online',
       key: 'online',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },
@@ -189,19 +189,19 @@ export const customCols = (handlerShow) => {
       title: '表编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '快递公司/发货单号/发货时间',
       dataIndex: 'express',
       key: 'express',
-      render: (text, record) => (
+      render: (text: any, record: any) => (
         <span>{`${record.express} / ${record.expressid} / ${record.expresstime}`}</span>
       ),
     },
@@ -210,14 +210,14 @@ export const customCols = (handlerShow) => {
       dataIndex: 'status',
       key: 'status',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },
@@ -228,40 +228,40 @@ export const customCols = (handlerShow) => {
 
 // 业务数据监控的
 // Columns of Table
-export const dataMonitorCols = (handlerShow) => {
+export const dataMonitorCols = (handlerShow: any) => {
   // 扩频表
   const spread = [
     {
       title: '表编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '扫频方式',
       dataIndex: 'method',
       key: 'method',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据提取状态',
       dataIndex: 'status',
       key: 'status',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },
@@ -272,33 +272,33 @@ export const dataMonitorCols = (handlerShow) => {
       title: '表编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '在线状态',
       dataIndex: 'online',
       key: 'online',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据上传状态',
       dataIndex: 'status',
       key: 'status',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },
@@ -309,33 +309,33 @@ export const dataMonitorCols = (handlerShow) => {
       title: '编号',
       dataIndex: 'id',
       key: 'id',
-      render: text => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
+      render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
       title: '公司名称',
       dataIndex: 'company',
       key: 'company',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '通信卡状态',
       dataIndex: 'card',
       key: 'card',
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '集中器在线状态',
       dataIndex: 'online',
       key: 'online',
       width: 240,
-      render: text => <span>{text}</span>,
+      render: (text: any) => <span>{text}</span>,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
       width: 180,
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         return showAction({ fn: handlerShow, record });
       },
     },

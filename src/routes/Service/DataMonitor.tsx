@@ -137,7 +137,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     const { loading } = this.props;
     const { currentTab, currentRadio, currentTable } = this.state;
     // 获取Table的Columns
-    const getColumns = dataMonitorCols.apply(this, [this.handlerShow]);
+    const getColumns = dataMonitorCols(this.handlerShow);
     // 生成Table渲染数据
     const dataSource = this.showData(currentRadio);
     const pagination = {

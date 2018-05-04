@@ -182,7 +182,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     const { loading } = this.props;
     const { currentTab, currentRadio, currentTable } = this.state;
     // 获取Table的Columns
-    const getColumns = customCols.apply(this, [this.handlerShow]);
+    const getColumns = customCols(this.handlerShow);
     // 生成Table渲染数据
     const dataSource = this.showData(currentRadio);
     const pagination = {
