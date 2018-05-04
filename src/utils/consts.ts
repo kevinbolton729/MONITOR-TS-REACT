@@ -54,6 +54,7 @@ export const BTN_CANCEL = '以后再说';
 export const BTN_SAVE = '保存';
 export const BTN_RESET = '重置';
 export const BTN_CHANGE = '切换';
+export const BTN_BACK = '返回';
 // Model
 export const MODEL_WIDTH_EDIT = '60%';
 export const MODEL_ADDEDIT_TITLE = '添加/编辑';
