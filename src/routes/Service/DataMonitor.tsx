@@ -116,11 +116,18 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   };
   // 查看
   handlerShow = (record: any) => {
-    console.log(record, 'show');
+    // console.log(record, 'datamonitor show');
+    const { dispatch } = this.props;
+    const type = 1;
+
+    dispatch({
+      type: 'detail/goto',
+      payload: { type, id: record.id },
+    });
   };
   // 编辑
   handlerEdit = (record: any) => {
-    console.log(record, 'edit');
+    console.log(record, 'datamonitor edit');
   };
   // 分页
   onChangePage = (page: number, pageSize: number) => {

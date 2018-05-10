@@ -20,6 +20,11 @@ class Detail extends React.PureComponent<IDetailProps, IDetailStates> implements
     console.log(this.props, 'props');
   }
 
+  gotoBack = () => {
+    const { history }: any = this.props;
+    history.goBack();
+  };
+
   // 根据路由match.url
   // 判断是客户服务监控，还是业务数据监控的详情页
   matchUrl = (url?: string) => url && this.props.match.url.indexOf(url) !== -1;
@@ -41,7 +46,7 @@ class Detail extends React.PureComponent<IDetailProps, IDetailStates> implements
               </Button>,
               <Divider key="divider" type="vertical" />,
             ]}
-            <Button>{BTN_BACK}</Button>
+            <Button onClick={this.gotoBack}>{BTN_BACK}</Button>
           </div>
         </div>
       </div>
