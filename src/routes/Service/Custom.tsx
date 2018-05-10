@@ -4,14 +4,16 @@ import * as React from 'react';
 // 组件
 import BreadCrumb from '../../components/BreadCrumb';
 import DetailHandler from '../../components/Handler/DetailHandler';
+import { openModal } from '../../components/Modal';
 // 常量
-// import { URL_PREFIX } from '../../utils/consts';
+import { MODEL_WIDTH_EDIT } from '../../utils/consts';
 // 方法
 import { dispatchAction } from '../../utils/fns';
 // 声明
 import { ICustomItems, ICustomProps, ICustomStates } from './';
 // 模块
 import { customCols } from './columns';
+import tpl from './detailTpl';
 // 样式
 // const styles = require('./index.less');
 // antd组件设置
@@ -22,6 +24,8 @@ enum sortGroup {
   spread = '扩频表',
   nblot = '物联网表',
   unusual = '异常报警',
+  concentrator = '集中器',
+  shipping = '发货记录',
 }
 
 const expandedRowRender = (record: any): React.ReactNode => [
@@ -38,6 +42,7 @@ const expandedRowRender = (record: any): React.ReactNode => [
 
 @connect(({ custom }: any) => ({
   loading: custom.loading,
+  confirmLoading: custom.confirmLoading,
   spreadList: custom.spreadList,
   concentratorList: custom.concentratorList,
   shippingList: custom.shippingList,
@@ -53,6 +58,10 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTab: '',
       currentRadio: '',
       currentTable: '',
+      // Modal
+      visible: false,
+      modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
+      selectedRecord: [],
     };
   }
   componentDidMount() {
@@ -160,11 +169,11 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     }
   };
   // 查看
-  handlerShow = (record: any) => {
-    // console.log(record, 'custom show');
-    const type = 0;
-
-    this.dispatchAction('detail/goto', { type, id: record.id });
+  handlerShow = (record: any, key: string) => {
+    this.setState({
+      selectedRecord: record,
+    });
+    this.openModal(key);
   };
   // 编辑
   handlerEdit = (record: any) => {
@@ -180,10 +189,24 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     console.log(current, 'current');
     console.log(size, 'size');
   };
+  // [Modal]
+  openModal = (modalSort: string = 'spread') => {
+    this.setState({ modalSort, visible: true });
+  };
+  closeModal = () => {
+    this.setState({ visible: false });
+  };
 
   render() {
-    const { loading } = this.props;
-    const { currentTab, currentRadio, currentTable } = this.state;
+    const { loading, confirmLoading } = this.props;
+    const {
+      visible,
+      modalSort,
+      selectedRecord,
+      currentTab,
+      currentRadio,
+      currentTable,
+    } = this.state;
     // 获取Table的Columns
     const getColumns = customCols(this.handlerShow);
     // 生成Table渲染数据
@@ -198,8 +221,33 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       onChange: this.onChangePage,
       onShowSizeChange: this.onShowSizeChange,
     };
+    // Modal
+    const passChildren = tpl(
+      selectedRecord,
+      { closeModal: this.closeModal },
+      {
+        sortGroup,
+        modalSort,
+        isConfig: false,
+        tab: sortGroup[currentTab],
+        radio: sortGroup[currentRadio],
+      }
+    );
+
     return (
       <div>
+        {// Modal
+        openModal.apply(this, [
+          {
+            title: '详情',
+            width: MODEL_WIDTH_EDIT,
+            children: passChildren,
+            visible,
+            closable: true,
+            confirmLoading,
+            footer: null,
+          },
+        ])}
         <div className="componentBackground">
           <BreadCrumb />
         </div>

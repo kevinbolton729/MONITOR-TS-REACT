@@ -15,7 +15,7 @@ const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, ty
   // const divider = <Divider type="vertical" />;
   // 查看详情
   const show = (
-    <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record)}>
+    <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record, opts.key)}>
       <Icon type="eye-o" className={styles.iconStyle} />
     </span>
   );
@@ -69,7 +69,7 @@ export const customCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'spread' });
       },
     },
   ];
@@ -106,7 +106,7 @@ export const customCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return <div>{showAction({ fn, record })}</div>;
+        return <div>{showAction({ fn, record, key: 'nblot' })}</div>;
       },
     },
   ];
@@ -149,7 +149,7 @@ export const customCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'unusual' });
       },
     },
   ];
@@ -186,7 +186,7 @@ export const customCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'concentrator' });
       },
     },
   ];
@@ -225,7 +225,7 @@ export const customCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'shipping' });
       },
     },
   ];
@@ -269,7 +269,7 @@ export const dataMonitorCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'spread' });
       },
     },
   ];
@@ -306,7 +306,7 @@ export const dataMonitorCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'nblot' });
       },
     },
   ];
@@ -343,7 +343,7 @@ export const dataMonitorCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record });
+        return showAction({ fn, record, key: 'concentrator' });
       },
     },
   ];

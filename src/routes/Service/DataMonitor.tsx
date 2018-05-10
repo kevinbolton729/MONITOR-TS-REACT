@@ -4,14 +4,16 @@ import * as React from 'react';
 // 组件
 import BreadCrumb from '../../components/BreadCrumb';
 import DetailHandler from '../../components/Handler/DetailHandler';
+import { openModal } from '../../components/Modal';
 // 常量
-// import { URL_PREFIX } from '../../utils/consts';
+import { MODEL_WIDTH_EDIT } from '../../utils/consts';
 // 方法
 import { dispatchAction } from '../../utils/fns';
 // 声明
 import { IDataMonitorItems, IDataMonitorProps, IDataMonitorStates } from './';
 // 模块
 import { dataMonitorCols } from './columns';
+import tpl from './detailTpl';
 // 样式
 // const styles = require('./index.less');
 // antd组件设置
@@ -20,6 +22,7 @@ const TabPane = Tabs.TabPane;
 // 枚举
 enum sortGroup {
   spread = '扩频表',
+  concentrator = '集中器',
   nblot = '物联网表',
 }
 
@@ -37,6 +40,7 @@ const expandedRowRender = (record: any): React.ReactNode => [
 
 @connect(({ datamonitor }: any) => ({
   loading: datamonitor.loading,
+  confirmLoading: datamonitor.confirmLoading,
   spreadList: datamonitor.spreadList,
   concentratorList: datamonitor.concentratorList,
   nblotList: datamonitor.nblotList,
@@ -49,6 +53,10 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTab: '',
       currentRadio: '',
       currentTable: '',
+      // Modal
+      visible: false,
+      modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
+      selectedRecord: [],
     };
   }
   componentDidMount() {
@@ -115,11 +123,11 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     }
   };
   // 查看
-  handlerShow = (record: any) => {
-    // console.log(record, 'datamonitor show');
-    const type = 1;
-
-    this.dispatchAction('detail/goto', { type, id: record.id });
+  handlerShow = (record: any, key: string) => {
+    this.setState({
+      selectedRecord: record,
+    });
+    this.openModal(key);
   };
   // 编辑
   handlerEdit = (record: any) => {
@@ -135,10 +143,24 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     console.log(current, 'current');
     console.log(size, 'size');
   };
+  // [Modal]
+  openModal = (modalSort: string = 'spread') => {
+    this.setState({ modalSort, visible: true });
+  };
+  closeModal = () => {
+    this.setState({ visible: false });
+  };
 
   render() {
-    const { loading } = this.props;
-    const { currentTab, currentRadio, currentTable } = this.state;
+    const { loading, confirmLoading } = this.props;
+    const {
+      visible,
+      modalSort,
+      selectedRecord,
+      currentTab,
+      currentRadio,
+      currentTable,
+    } = this.state;
     // 获取Table的Columns
     const getColumns = dataMonitorCols(this.handlerShow);
     // 生成Table渲染数据
@@ -153,8 +175,31 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       onChange: this.onChangePage,
       onShowSizeChange: this.onShowSizeChange,
     };
+    // Modal
+    const passChildren = tpl(
+      selectedRecord,
+      { closeModal: this.closeModal },
+      {
+        sortGroup,
+        modalSort,
+        isConfig: true,
+      }
+    );
+
     return (
       <div>
+        {// Modal
+        openModal.apply(this, [
+          {
+            title: '详情',
+            width: MODEL_WIDTH_EDIT,
+            children: passChildren,
+            visible,
+            closable: true,
+            confirmLoading,
+            footer: null,
+          },
+        ])}
         <div className="componentBackground">
           <BreadCrumb />
         </div>

@@ -11,6 +11,7 @@ export default {
 
   state: {
     loading: false,
+    confirmLoading: false,
     spreadList: [], // 扩频表
     concentratorList: [], // 集中器
     nblotList: [], // 物联网表
@@ -93,6 +94,12 @@ export default {
       return {
         ...state,
         loading: payload,
+      };
+    },
+    changeConfirmLoading(state, { payload }) {
+      return {
+        ...state,
+        confirmLoading: payload,
       };
     },
     changeSpreadList(state, { payload }) {

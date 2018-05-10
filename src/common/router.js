@@ -91,12 +91,12 @@ export const getRouterData = (app) => {
         import('../routes/Service/Custom')
       ),
     },
-    '/profile/custom/:id': {
-      component: dynamicWrapper(app, ['detail'], () => import('../routes/Service/Detail')),
-    },
-    '/profile/datamonitor/:id': {
-      component: dynamicWrapper(app, ['detail'], () => import('../routes/Service/Detail')),
-    },
+    // '/profile/custom/:id': {
+    //   component: dynamicWrapper(app, ['detail'], () => import('../routes/Service/Detail')),
+    // },
+    // '/profile/datamonitor/:id': {
+    //   component: dynamicWrapper(app, ['detail'], () => import('../routes/Service/Detail')),
+    // },
     '/operation/company': {
       component: dynamicWrapper(app, [], () => import('../routes/Operation/Company')),
     },

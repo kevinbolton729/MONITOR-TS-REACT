@@ -19,6 +19,7 @@ export default {
 
   state: {
     loading: false,
+    confirmLoading: false,
     spreadList: [], // 扩频表
     concentratorList: [], // 集中器
     shippingList: [], // 扩频表>发货记录
@@ -197,6 +198,12 @@ export default {
       return {
         ...state,
         loading: payload,
+      };
+    },
+    changeConfirmLoading(state, { payload }) {
+      return {
+        ...state,
+        confirmLoading: payload,
       };
     },
     changeSpreadList(state, { payload }) {

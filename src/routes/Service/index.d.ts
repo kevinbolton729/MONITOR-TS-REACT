@@ -13,6 +13,7 @@ export interface IBusinessItems {}
 
 export interface ICustomProps {
   loading: boolean;
+  confirmLoading: boolean;
   dispatch: Dispatch;
   spreadList: any[];
   concentratorList: any[];
@@ -27,6 +28,9 @@ export interface ICustomStates {
   currentTab: string;
   currentRadio: string;
   currentTable: string;
+  visible: boolean;
+  modalSort: string;
+  selectedRecord: any[];
 }
 
 export interface ICustomItems {
@@ -35,6 +39,7 @@ export interface ICustomItems {
 
 export interface IDataMonitorProps {
   loading: boolean;
+  confirmLoading: boolean;
   dispatch: Dispatch;
   spreadList: any[];
   concentratorList: any[];
@@ -45,6 +50,9 @@ export interface IDataMonitorStates {
   currentTab: string;
   currentRadio: string;
   currentTable: string;
+  visible: boolean;
+  modalSort: string;
+  selectedRecord: any[];
 }
 
 export interface IDataMonitorItems {}
