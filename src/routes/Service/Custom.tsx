@@ -162,13 +162,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   // 查看
   handlerShow = (record: any) => {
     // console.log(record, 'custom show');
-    const { dispatch } = this.props;
     const type = 0;
 
-    dispatch({
-      type: 'detail/goto',
-      payload: { type, id: record.id },
-    });
+    this.dispatchAction('detail/goto', { type, id: record.id });
   };
   // 编辑
   handlerEdit = (record: any) => {
