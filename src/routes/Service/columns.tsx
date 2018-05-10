@@ -1,4 +1,4 @@
-import { Divider, Icon } from 'antd';
+import { Icon } from 'antd';
 import * as React from 'react';
 // 样式
 const styles = require('./index.less');
@@ -12,7 +12,7 @@ const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, ty
   }
 
   // 分隔
-  const divider = <Divider type="vertical" />;
+  // const divider = <Divider type="vertical" />;
   // 查看详情
   const show = (
     <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record)}>
@@ -22,19 +22,12 @@ const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, ty
   // 配置(或编辑)
   const edit = (
     <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record)}>
-      <Icon type="eye-o" className={styles.iconStyle} />
+      <Icon type="setting" className={styles.iconStyle} />
     </span>
   );
 
   if (type === 0) return <div>{show}</div>;
-  if (type === 1)
-    return (
-      <div>
-        {show}
-        {divider}
-        {edit}
-      </div>
-    );
+  if (type === 1) return <div>{edit}</div>;
 
   console.log('请检查type的传入值是否正确？ type: 0:查看 1:查看 and 配置');
   return <div />;
@@ -42,7 +35,7 @@ const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, ty
 
 // 客户服务监控
 // Columns of Table
-export const customCols = (handlerShow: any) => {
+export const customCols = (fn: any) => {
   // 扩频表
   const spread = [
     {
@@ -76,7 +69,7 @@ export const customCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record });
+        return showAction({ fn, record });
       },
     },
   ];
@@ -113,7 +106,7 @@ export const customCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return <div>{showAction({ fn: handlerShow, record })}</div>;
+        return <div>{showAction({ fn, record })}</div>;
       },
     },
   ];
@@ -156,7 +149,7 @@ export const customCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record });
+        return showAction({ fn, record });
       },
     },
   ];
@@ -193,7 +186,7 @@ export const customCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record });
+        return showAction({ fn, record });
       },
     },
   ];
@@ -232,7 +225,7 @@ export const customCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record });
+        return showAction({ fn, record });
       },
     },
   ];
@@ -242,7 +235,7 @@ export const customCols = (handlerShow: any) => {
 
 // 业务数据监控的
 // Columns of Table
-export const dataMonitorCols = (handlerShow: any) => {
+export const dataMonitorCols = (fn: any) => {
   // 扩频表
   const spread = [
     {
@@ -276,7 +269,7 @@ export const dataMonitorCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record }, 1);
+        return showAction({ fn, record }, 1);
       },
     },
   ];
@@ -313,7 +306,7 @@ export const dataMonitorCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record }, 1);
+        return showAction({ fn, record }, 1);
       },
     },
   ];
@@ -350,7 +343,7 @@ export const dataMonitorCols = (handlerShow: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn: handlerShow, record }, 1);
+        return showAction({ fn, record }, 1);
       },
     },
   ];
