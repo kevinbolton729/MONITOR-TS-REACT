@@ -20,6 +20,7 @@ class Detail extends React.PureComponent<IDetailProps, IDetailStates> implements
     console.log(this.props, 'props');
   }
 
+  // 路由 返回前一页
   gotoBack = () => {
     const { history }: any = this.props;
     history.goBack();

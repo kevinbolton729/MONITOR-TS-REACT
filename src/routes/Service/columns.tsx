@@ -269,7 +269,7 @@ export const dataMonitorCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record }, 1);
+        return showAction({ fn, record });
       },
     },
   ];
@@ -306,7 +306,7 @@ export const dataMonitorCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record }, 1);
+        return showAction({ fn, record });
       },
     },
   ];
@@ -343,7 +343,7 @@ export const dataMonitorCols = (fn: any) => {
       key: 'action',
       width: 180,
       render: (text: any, record: any) => {
-        return showAction({ fn, record }, 1);
+        return showAction({ fn, record });
       },
     },
   ];
