@@ -40,9 +40,8 @@ const expandedRowRender = (record: any): React.ReactNode => [
   <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
 ];
 
-@connect(({ custom }: any) => ({
-  loading: custom.loading,
-  confirmLoading: custom.confirmLoading,
+@connect(({ loading, custom }: any) => ({
+  loading: loading.models.custom,
   spreadList: custom.spreadList,
   concentratorList: custom.concentratorList,
   shippingList: custom.shippingList,
@@ -198,7 +197,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
 
   render() {
-    const { loading, confirmLoading } = this.props;
+    const { loading } = this.props;
     const {
       visible,
       modalSort,
@@ -244,7 +243,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
             children: passChildren,
             visible,
             closable: true,
-            confirmLoading,
+            loading,
             footer: null,
           },
         ])}

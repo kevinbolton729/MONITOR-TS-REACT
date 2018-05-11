@@ -255,6 +255,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
             children: passChildren,
             visible,
             closable: true,
+            loading,
             footer: null,
           },
         ])}
