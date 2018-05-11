@@ -34,7 +34,7 @@ const itemStyle = {
 };
 
 export default (data: any, fn: any, opts: any) => {
-  const { getFieldDecorator } = opts.form;
+  const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
     <div className="hangSubTitle">
@@ -64,39 +64,44 @@ export default (data: any, fn: any, opts: any) => {
       <Row>
         <Col sm={24} md={8}>
           <Form.Item label="部门：" {...itemStyle}>
-            {getFieldDecorator('department', {
-              initialValue: '技术中心/办公室',
-            })(<Input size="large" style={{ width: '100%' }} />)}
+            {getFieldDecorator &&
+              getFieldDecorator('department', {
+                initialValue: '技术中心/办公室',
+              })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
         <Col sm={24} md={8}>
           <Form.Item label="姓名：" {...itemStyle}>
-            {getFieldDecorator('name', {
-              initialValue: '鱼子酱',
-            })(<Input size="large" style={{ width: '100%' }} />)}
+            {getFieldDecorator &&
+              getFieldDecorator('name', {
+                initialValue: '鱼子酱',
+              })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
       </Row>
       <Row>
         <Col sm={24} md={8}>
           <Form.Item label="办公室电话：" {...itemStyle}>
-            {getFieldDecorator('phone', {
-              initialValue: '028-12345678',
-            })(<Input size="large" style={{ width: '100%' }} />)}
+            {getFieldDecorator &&
+              getFieldDecorator('phone', {
+                initialValue: '028-12345678',
+              })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
         <Col sm={24} md={8}>
           <Form.Item label="手机号码：" {...itemStyle}>
-            {getFieldDecorator('tel', {
-              initialValue: '13912345678',
-            })(<Input size="large" style={{ width: '100%' }} />)}
+            {getFieldDecorator &&
+              getFieldDecorator('tel', {
+                initialValue: '13912345678',
+              })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
         <Col sm={24} md={8}>
           <Form.Item label="电子邮箱：" {...itemStyle}>
-            {getFieldDecorator('email', {
-              initialValue: 'k123456@qq.com',
-            })(<Input size="large" style={{ width: '100%' }} />)}
+            {getFieldDecorator &&
+              getFieldDecorator('email', {
+                initialValue: 'k123456@qq.com',
+              })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
       </Row>

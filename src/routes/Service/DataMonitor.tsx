@@ -54,9 +54,9 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentRadio: '',
       currentTable: '',
       // Modal
-      visible: false,
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
       selectedRecord: [],
+      visible: false,
       isEditConfig: false,
       isClick: false, // 更新配置时，是否点击【保存】
     };
