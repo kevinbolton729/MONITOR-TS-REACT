@@ -16,26 +16,36 @@ const proxy = {
   // [客户服务监控]
   // 获取扩频表 > 扩频表列表
   'GET /api/fetchspread': {
-    status: 1,
-    message: '获取数据成功',
-    extData: {
-      count: 1,
-      data: [
-        {
-          id: 'KXXX5678',
-          company: '四川海力智能燃气示范公司',
-          method: '自动',
-          status: 1,
-          uptime: '2018-04-27 15:51:25',
-          duty: {
-            department: '技术中心',
-            name: '鱼子酱',
-            phone: '028-12345678',
-            tel: '13912345678',
-            email: '12345678@qq.com',
+    $desc: 'this is the api description',
+    $params: {
+      pageSize: 1,
+      page: {
+        desc: '分页',
+        exp: 2,
+      },
+    },
+    $body: {
+      status: 1,
+      message: '获取数据成功',
+      extData: {
+        count: 1,
+        data: [
+          {
+            id: 'KXXX5678',
+            company: '四川海力智能燃气示范公司',
+            method: '自动',
+            status: 1,
+            uptime: '2018-04-27 15:51:25',
+            duty: {
+              department: '技术中心',
+              name: '鱼子酱',
+              phone: '028-12345678',
+              tel: '13912345678',
+              email: '12345678@qq.com',
+            },
           },
-        },
-      ],
+        ],
+      },
     },
   },
   // 获取集中器列表
