@@ -1,4 +1,4 @@
-import { Radio, Table, Tabs } from 'antd';
+import { Form, Radio, Table, Tabs } from 'antd';
 import { connect } from 'dva';
 import * as React from 'react';
 // 组件
@@ -57,6 +57,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       visible: false,
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
       selectedRecord: [],
+      isEditConfig: false,
     };
   }
   componentDidMount() {
@@ -133,6 +134,43 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   handlerEdit = (record: any) => {
     console.log(record, 'datamonitor edit');
   };
+  // 配置
+  handlerConfig = () => {
+    this.setState({
+      isEditConfig: true,
+    });
+  };
+  // 关闭编辑配置
+  closeConfig = () => {
+    this.setState({
+      isEditConfig: false,
+    });
+  };
+  // 表单
+  // 保存
+  onSubmit = (event: any) => {
+    event.preventDefault();
+    console.log('已点击【保存】');
+
+    const { form } = this.props;
+
+    form.validateFields({ force: true }, (err: any, values: any) => {
+      if (!err) {
+        console.log(values, 'Form values');
+
+        // 关闭Modal
+        setTimeout(() => {
+          this.closeModal();
+        }, 500);
+      }
+    });
+  };
+  // 重置
+  onReset = () => {
+    console.log('重置');
+    const { form } = this.props;
+    form.resetFields(['department', 'name', 'tel', 'mobile', 'email']);
+  };
   // 分页
   onChangePage = (page: number, pageSize: number) => {
     console.log(page, 'page');
@@ -152,7 +190,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   };
 
   render() {
-    const { loading, confirmLoading } = this.props;
+    const { loading, confirmLoading, form } = this.props;
     const {
       visible,
       modalSort,
@@ -160,6 +198,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTab,
       currentRadio,
       currentTable,
+      isEditConfig,
     } = this.state;
     // 获取Table的Columns
     const getColumns = dataMonitorCols(this.handlerShow);
@@ -178,11 +217,19 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     // Modal
     const passChildren = tpl(
       selectedRecord,
-      { closeModal: this.closeModal },
       {
+        closeModal: this.closeModal,
+        handlerConfig: this.handlerConfig,
+        closeConfig: this.closeConfig,
+        onSubmit: this.onSubmit,
+        onReset: this.onReset,
+      },
+      {
+        form,
         sortGroup,
         modalSort,
-        isConfig: true,
+        isConfig: true, // 是否显示配置按钮
+        isEditConfig, // 是否为配置编辑状态
       }
     );
 
@@ -242,4 +289,4 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   }
 }
 
-export default DataMonitor;
+export default Form.create()(DataMonitor) as any;

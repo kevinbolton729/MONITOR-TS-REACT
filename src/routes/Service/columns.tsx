@@ -4,7 +4,7 @@ import * as React from 'react';
 const styles = require('./index.less');
 
 // 操作区显示的按钮
-// type: 0:查看 1:查看 and 配置
+// type: 0:查看 1:配置 and 查看
 const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, type = 0) => {
   if (opts === 0) {
     console.log('请传入操作区的处理函数(或方法)');
@@ -29,7 +29,7 @@ const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, ty
   if (type === 0) return <div>{show}</div>;
   if (type === 1) return <div>{edit}</div>;
 
-  console.log('请检查type的传入值是否正确？ type: 0:查看 1:查看 and 配置');
+  console.log('请检查type的传入值是否正确？ type: 0:查看 1:配置 and 查看');
   return <div />;
 };
 

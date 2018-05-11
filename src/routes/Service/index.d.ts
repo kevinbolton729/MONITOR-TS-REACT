@@ -22,6 +22,7 @@ export interface ICustomProps {
   nblotShippingList: any[];
   unusualSpreadList: any[];
   unusualNblotList: any[];
+  form: any;
 }
 
 export interface ICustomStates {
@@ -44,13 +45,15 @@ export interface IDataMonitorProps {
   spreadList: any[];
   concentratorList: any[];
   nblotList: any[];
+  form: any;
 }
 
 export interface IDataMonitorStates {
+  visible: boolean;
+  isEditConfig: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;
-  visible: boolean;
   modalSort: string;
   selectedRecord: any[];
 }
