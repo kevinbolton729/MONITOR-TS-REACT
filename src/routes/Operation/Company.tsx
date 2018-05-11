@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Form, Table } from 'antd';
 import { connect } from 'dva';
 import * as React from 'react';
 // 组件
@@ -23,6 +23,7 @@ enum sortGroup {
 
 @connect(({ loading, company }: any) => ({
   loading: loading.models.company,
+  confirmLoading: loading.effects['company/fetchConfig'],
   companyList: company.companyList,
 }))
 class Company extends React.PureComponent<ICompanyProps, ICompanyStates> implements ICompanyItems {
@@ -30,15 +31,21 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     super(props);
     this.state = {
       // Modal
-      visible: false,
       modalSort: 'company', // 'company':燃气公司
       selectedRecord: [],
+      visible: false,
+      isEditConfig: false,
+      isClick: false, // 更新配置时，是否点击【保存】
     };
   }
 
   componentDidMount() {
     // 发起相应API请求
     this.startFetch();
+  }
+  componentDidUpdate() {
+    // 点击【保存】后，更新成功时关闭编辑配置
+    this.afterSaveCloseConfig();
   }
 
   // 获取数据
@@ -70,6 +77,50 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     });
     this.openModal(key);
   };
+  // 配置
+  handlerConfig = () => {
+    this.setState({
+      isEditConfig: true,
+    });
+  };
+  // 关闭编辑配置
+  closeConfig = () => {
+    this.setState({
+      isEditConfig: false,
+      isClick: false,
+    });
+  };
+  // 点击【保存】后，关闭编辑配置
+  afterSaveCloseConfig = () => {
+    if (this.state.isClick && !this.props.confirmLoading) {
+      this.closeConfig();
+    }
+  };
+  // 表单
+  // 保存
+  onSubmit = (data: any, event: any) => {
+    event.preventDefault();
+    console.log('已点击【保存】');
+    this.setState({ isClick: true });
+
+    const { confirmLoading, form } = this.props;
+
+    if (!confirmLoading) {
+      form.validateFields({ force: true }, (err: any, values: any) => {
+        if (!err) {
+          console.log(data.id, 'id');
+
+          this.dispatchAction('company/fetchConfig');
+        }
+      });
+    }
+  };
+  // 重置
+  onReset = () => {
+    console.log('重置');
+    const { form } = this.props;
+    form.resetFields(['department', 'name', 'phone', 'tel', 'email']);
+  };
   // 选择城市
   changeCity = (value: string[]) => {
     console.log(value, 'selected city');
@@ -93,8 +144,8 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   };
 
   render() {
-    const { loading } = this.props;
-    const { visible, modalSort, selectedRecord } = this.state;
+    const { loading, confirmLoading, form } = this.props;
+    const { visible, modalSort, selectedRecord, isEditConfig } = this.state;
     // 获取Table的Columns
     const getColumns = companyCols(this.handlerShow);
     // 生成Table渲染数据
@@ -112,10 +163,20 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     // Modal
     const passChildren = tpl(
       selectedRecord,
-      { closeModal: this.closeModal },
       {
+        closeModal: this.closeModal,
+        handlerConfig: this.handlerConfig,
+        closeConfig: this.closeConfig,
+        onSubmit: this.onSubmit,
+        onReset: this.onReset,
+      },
+      {
+        form,
         sortGroup,
         modalSort,
+        isConfig: true, // 是否显示配置按钮
+        isEditConfig, // 是否为配置编辑状态
+        confirmLoading,
       }
     );
 
@@ -160,4 +221,4 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   }
 }
 
-export default Company;
+export default Form.create()(Company) as any;

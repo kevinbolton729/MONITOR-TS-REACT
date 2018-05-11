@@ -30,10 +30,9 @@ const isEditConfig = (opts: any) => opts.isEditConfig;
 
 // FormItem 样式
 const itemStyle = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 18 },
+  // labelCol: { span: 6 },
+  // wrapperCol: { span: 18 },
 };
-
 // 栅格: Col设置
 const colQuery = {
   sm: 24,
@@ -54,7 +53,7 @@ export default (data: any, fn: any, opts: any) => {
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
     <div className="hangSubTitle">
-      <Row>
+      <Row gutter={24}>
         <Col {...colQuery}>
           <p>部门：</p>
         </Col>
@@ -62,7 +61,7 @@ export default (data: any, fn: any, opts: any) => {
           <p>姓名：</p>
         </Col>
       </Row>
-      <Row>
+      <Row gutter={24}>
         <Col {...colQuery}>
           <p>办公室电话：</p>
         </Col>
@@ -77,7 +76,7 @@ export default (data: any, fn: any, opts: any) => {
   );
   const saveForm = (
     <div key="saveForm" className="hangSubTitle">
-      <Row>
+      <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="部门：" {...itemStyle}>
             {getFieldDecorator &&
@@ -95,7 +94,7 @@ export default (data: any, fn: any, opts: any) => {
           </Form.Item>
         </Col>
       </Row>
-      <Row>
+      <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="办公室电话：" {...itemStyle}>
             {getFieldDecorator &&
@@ -197,7 +196,7 @@ export default (data: any, fn: any, opts: any) => {
         <p>指令详细：</p>
       </div>
       <div className="hangSubTitle">
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>指令类型：</p>
           </Col>
@@ -219,7 +218,7 @@ export default (data: any, fn: any, opts: any) => {
         <p>{`${opts.sortGroup[opts.modalSort]}`}:</p>
       </div>
       <div className="hangSubTitle">
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>表编号：</p>
           </Col>
@@ -232,7 +231,7 @@ export default (data: any, fn: any, opts: any) => {
             </Col>
           )}
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>价格(元)：</p>
           </Col>
@@ -243,7 +242,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>价格版本：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>价格状态：</p>
           </Col>
@@ -254,7 +253,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>有效期至：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>电池状态：</p>
           </Col>
@@ -265,7 +264,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>时长(使用/理想)：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>阀门状态：</p>
           </Col>
@@ -273,7 +272,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>指令执行后(阀门控制)：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>上报状态：</p>
           </Col>
@@ -289,7 +288,7 @@ export default (data: any, fn: any, opts: any) => {
         <p>燃气用户：</p>
       </div>
       <div className="hangSubTitle">
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>姓名：</p>
           </Col>
@@ -297,7 +296,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>卡号：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col span={24}>
             <p>详细地址：</p>
           </Col>
@@ -316,7 +315,7 @@ export default (data: any, fn: any, opts: any) => {
         <p>集中器：</p>
       </div>
       <div className="hangSubTitle">
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>编号：</p>
           </Col>
@@ -324,7 +323,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>燃气公司：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>通信卡：</p>
           </Col>
@@ -335,7 +334,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>实际表数/计划表数：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col span={24}>
             <p>安装地址：</p>
           </Col>
@@ -349,7 +348,7 @@ export default (data: any, fn: any, opts: any) => {
         <p>异常报警：</p>
       </div>
       <div className="hangSubTitle">
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>编号：</p>
           </Col>
@@ -360,7 +359,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>预警状态：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>报警类型：</p>
           </Col>
@@ -385,7 +384,7 @@ export default (data: any, fn: any, opts: any) => {
         <p>发货记录：</p>
       </div>
       <div className="hangSubTitle">
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>编号：</p>
           </Col>
@@ -393,7 +392,7 @@ export default (data: any, fn: any, opts: any) => {
             <p>燃气公司：</p>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <p>快递公司：</p>
           </Col>

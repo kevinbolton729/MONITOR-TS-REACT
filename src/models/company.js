@@ -1,5 +1,5 @@
 import { message as openMessage } from 'antd';
-import { fetchCompany } from '@/services/api';
+import { fetchCompany, fetchConfig } from '@/services/api';
 import { parseResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
@@ -27,6 +27,15 @@ export default {
         });
       } else {
         yield openMessage.warn(message);
+      }
+    },
+    // 更新配置
+    *fetchConfig(_, { call }) {
+      const response = yield call(fetchConfig);
+      const { status, message } = yield call(parseResponse, response);
+
+      if (status > 0) {
+        yield openMessage.success(message);
       }
     },
   },
