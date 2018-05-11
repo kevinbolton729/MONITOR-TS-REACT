@@ -2,10 +2,10 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-04-27 12:51:40
+ * @Last Modified time: 2018-05-11 17:42:15
  */
 
-import { Button, DatePicker, Form, Input, message } from 'antd';
+import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { MESSAGE_NOINPUT } from '../../utils/consts';
@@ -23,6 +23,29 @@ const searcHolder: any = {
   nblot: '表号/燃气公司名称',
   unusual: '请输入查询关键字',
 };
+
+const cityOptions = [
+  {
+    value: 'sichuan',
+    label: '四川',
+    children: [
+      {
+        value: 'chengdu',
+        label: '成都',
+      },
+    ],
+  },
+  {
+    value: 'yunnan',
+    label: '云南',
+    children: [
+      {
+        value: 'kunming',
+        label: '昆明',
+      },
+    ],
+  },
+];
 
 class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
   static contextTypes = {
@@ -59,28 +82,46 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
     const { value } = e.target;
     this.getSearch(value);
   };
-  // reset search
-  resetSearch = () => {
-    this.props.form.setFieldsValue({
-      search: '',
-      rangedate: null,
-    });
+  // reset
+  resetFields = () => {
+    const { form, hideDatePicker, showSelectCity } = this.props;
+    const { setFieldsValue } = form;
+
+    setFieldsValue({ search: '' });
+    if (!hideDatePicker) setFieldsValue({ rangedate: null });
+    if (showSelectCity) setFieldsValue({ city: null });
   };
   // click 重置 Button
   clickReset = () => {
     if (this.props.resetData) this.props.resetData();
-    this.resetSearch();
+    this.resetFields();
+  };
+  // 选择城市
+  changeCity = (value: string[]) => {
+    if (this.props.changeCity) this.props.changeCity(value);
   };
 
   render() {
     const { dately } = this.dateFormat;
-    const { form, sort } = this.props;
+    const { form, sort, hideDatePicker, showSelectCity } = this.props;
     const { getFieldDecorator } = form;
 
     return (
       <div className={styles.hander}>
         <Form>
+          {showSelectCity && (
+            <div className={styles.item}>
+              {getFieldDecorator('city')(
+                <Cascader
+                  options={cityOptions}
+                  onChange={this.changeCity}
+                  placeholder="省份/城市"
+                />
+              )}
+            </div>
+          )}
           <div className={styles.item}>
+            <span>查询：</span>
             {getFieldDecorator('search')(
               <Search
                 enterButton={true}
@@ -94,11 +135,13 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
           <div className={styles.item}>
             <Button onClick={this.clickReset}>重置</Button>
           </div>
-          <div className={styles.item}>
-            {getFieldDecorator('rangedate')(
-              <RangePicker allowClear={false} onChange={this.onChange} format={dately} />
-            )}
-          </div>
+          {hideDatePicker || (
+            <div className={styles.item}>
+              {getFieldDecorator('rangedate')(
+                <RangePicker allowClear={false} onChange={this.onChange} format={dately} />
+              )}
+            </div>
+          )}
         </Form>
       </div>
     );

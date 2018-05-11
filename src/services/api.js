@@ -95,3 +95,10 @@ export async function fetchConfig(params = {}) {
     body: params,
   });
 }
+// -- 燃气公司运营
+// 获取公司列表
+export async function fetchCompany(params = {}) {
+  return request('/api/fetchdatacompany', {
+    params,
+  });
+}

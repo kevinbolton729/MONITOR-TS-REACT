@@ -3,9 +3,12 @@ import * as React from 'react';
 
 export interface IDetailProps {
   sort?: string;
-  filterData?: any;
   form?: any;
+  filterData?: any;
   resetData?: any;
+  changeCity?: any;
+  hideDatePicker?: boolean;
+  showSelectCity?: boolean;
 }
 
 export interface IDetailStates {

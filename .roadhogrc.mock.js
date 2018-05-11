@@ -229,6 +229,25 @@ const proxy = {
     message: '已保存配置',
     extData: {},
   },
+  // [燃气公司运营]
+  // 获取公司列表
+  'GET /api/fetchdatacompany': {
+    status: 1,
+    message: '获取数据成功',
+    extData: {
+      count: 1,
+      data: [
+        {
+          companyCode: 'CXXX1234',
+          company: '四川海力智能燃气示范公司',
+          sysname: 'HL-6',
+          version: '6.0',
+          updatetime: '2018-04-27 15:51:25',
+          status: '正常',
+        },
+      ],
+    },
+  },
 };
 
 export default (noProxy ? {} : delay(proxy, 1500));
