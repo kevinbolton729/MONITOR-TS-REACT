@@ -38,9 +38,12 @@ const expandedRowRender = (record: any): React.ReactNode => [
   <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
 ];
 
-@connect(({ datamonitor }: any) => ({
-  loading: datamonitor.loading,
-  confirmLoading: datamonitor.confirmLoading,
+@connect(({ loading, datamonitor }: any) => ({
+  loading:
+    loading.effects['datamonitor/fetchDataSpread'] ||
+    loading.effects['datamonitor/fetchDataConcentrator'] ||
+    loading.effects['datamonitor/fetchDataNblot'],
+  confirmLoading: loading.effects['datamonitor/fetchConfig'],
   spreadList: datamonitor.spreadList,
   concentratorList: datamonitor.concentratorList,
   nblotList: datamonitor.nblotList,
@@ -128,6 +131,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     this.setState({
       selectedRecord: record,
     });
+    this.closeConfig();
     this.openModal(key);
   };
   // 编辑
@@ -148,28 +152,32 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   };
   // 表单
   // 保存
-  onSubmit = (event: any) => {
+  onSubmit = (data: any, event: any) => {
     event.preventDefault();
     console.log('已点击【保存】');
 
-    const { form } = this.props;
+    const { loading, form } = this.props;
 
-    form.validateFields({ force: true }, (err: any, values: any) => {
-      if (!err) {
-        console.log(values, 'Form values');
+    if (!loading) {
+      form.validateFields({ force: true }, (err: any, values: any) => {
+        if (!err) {
+          console.log(data.id, 'id');
 
-        // 关闭Modal
-        setTimeout(() => {
-          this.closeModal();
-        }, 500);
-      }
-    });
+          this.dispatchAction('datamonitor/fetchConfig');
+
+          // 关闭Modal
+          setTimeout(() => {
+            this.closeModal();
+          }, 500);
+        }
+      });
+    }
   };
   // 重置
   onReset = () => {
     console.log('重置');
     const { form } = this.props;
-    form.resetFields(['department', 'name', 'tel', 'mobile', 'email']);
+    form.resetFields(['department', 'name', 'phone', 'tel', 'email']);
   };
   // 分页
   onChangePage = (page: number, pageSize: number) => {
@@ -230,6 +238,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
         modalSort,
         isConfig: true, // 是否显示配置按钮
         isEditConfig, // 是否为配置编辑状态
+        confirmLoading,
       }
     );
 
@@ -243,7 +252,6 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
             children: passChildren,
             visible,
             closable: true,
-            confirmLoading,
             footer: null,
           },
         ])}

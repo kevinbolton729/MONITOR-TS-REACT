@@ -33,7 +33,7 @@ const itemStyle = {
   wrapperCol: { span: 18 },
 };
 
-export default (data: any[], fn: any, opts: any) => {
+export default (data: any, fn: any, opts: any) => {
   const { getFieldDecorator } = opts.form;
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
@@ -80,14 +80,14 @@ export default (data: any[], fn: any, opts: any) => {
       <Row>
         <Col sm={24} md={8}>
           <Form.Item label="办公室电话：" {...itemStyle}>
-            {getFieldDecorator('tel', {
+            {getFieldDecorator('phone', {
               initialValue: '028-12345678',
             })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
         <Col sm={24} md={8}>
           <Form.Item label="手机号码：" {...itemStyle}>
-            {getFieldDecorator('mobile', {
+            {getFieldDecorator('tel', {
               initialValue: '13912345678',
             })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
@@ -104,10 +104,10 @@ export default (data: any[], fn: any, opts: any) => {
   );
   // 操作区
   const handler = isEditConfig(opts) ? (
-    <Form key="editConfigForm" onSubmit={fn.onSubmit}>
+    <Form key="editConfigForm" onSubmit={fn.onSubmit.bind(null, data)}>
       {saveForm}
       <div style={{ marginTop: '48px' }}>
-        <Button key="save" type="primary" htmlType="submit">
+        <Button loading={opts.confirmLoading} key="save" type="primary" htmlType="submit">
           {BTN_SAVE}
         </Button>
         <Divider type="vertical" />

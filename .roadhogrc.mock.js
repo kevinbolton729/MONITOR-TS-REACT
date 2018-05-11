@@ -223,6 +223,12 @@ const proxy = {
       ],
     },
   },
+  // 更新配置
+  'POST /api/spread/fetchconfig': {
+    status: 1,
+    message: '已保存配置',
+    extData: {},
+  },
 };
 
 export default (noProxy ? {} : delay(proxy, 1500));

@@ -88,3 +88,10 @@ export async function fetchDataNblot(params = {}) {
     params,
   });
 }
+// 更新配置
+export async function fetchConfig(params = {}) {
+  return request('/api/spread/fetchconfig', {
+    method: 'POST',
+    body: params,
+  });
+}

@@ -1,5 +1,10 @@
 import { message as openMessage } from 'antd';
-import { fetchDataSpread, fetchDataConcentrator, fetchDataNblot } from '@/services/api';
+import {
+  fetchDataSpread,
+  fetchDataConcentrator,
+  fetchDataNblot,
+  fetchConfig,
+} from '@/services/api';
 import { parseResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
@@ -10,8 +15,6 @@ export default {
   namespace: 'datamonitor',
 
   state: {
-    loading: false,
-    confirmLoading: false,
     spreadList: [], // 扩频表
     concentratorList: [], // 集中器
     nblotList: [], // 物联网表
@@ -20,10 +23,6 @@ export default {
   effects: {
     // 获取扩频表列表
     *fetchDataSpread(_, { call, put }) {
-      yield put({
-        type: 'changeLoading',
-        payload: true,
-      });
       const response = yield call(fetchDataSpread);
       const { status, message, data } = yield call(parseResponse, response);
 
@@ -36,17 +35,9 @@ export default {
       } else {
         yield openMessage.warn(message);
       }
-      yield put({
-        type: 'changeLoading',
-        payload: false,
-      });
     },
     // 获取集中器列表
     *fetchDataConcentrator(_, { call, put }) {
-      yield put({
-        type: 'changeLoading',
-        payload: true,
-      });
       const response = yield call(fetchDataConcentrator);
       const { status, message, data } = yield call(parseResponse, response);
 
@@ -59,17 +50,9 @@ export default {
       } else {
         yield openMessage.warn(message);
       }
-      yield put({
-        type: 'changeLoading',
-        payload: false,
-      });
     },
     // 获取物联网表列表
     *fetchDataNblot(_, { call, put }) {
-      yield put({
-        type: 'changeLoading',
-        payload: true,
-      });
       const response = yield call(fetchDataNblot);
       const { status, message, data } = yield call(parseResponse, response);
 
@@ -82,26 +65,19 @@ export default {
       } else {
         yield openMessage.warn(message);
       }
-      yield put({
-        type: 'changeLoading',
-        payload: false,
-      });
+    },
+    // 更新配置
+    *fetchConfig(_, { call }) {
+      const response = yield call(fetchConfig);
+      const { status, message } = yield call(parseResponse, response);
+
+      if (status > 0) {
+        yield openMessage.success(message);
+      }
     },
   },
 
   reducers: {
-    changeLoading(state, { payload }) {
-      return {
-        ...state,
-        loading: payload,
-      };
-    },
-    changeConfirmLoading(state, { payload }) {
-      return {
-        ...state,
-        confirmLoading: payload,
-      };
-    },
     changeSpreadList(state, { payload }) {
       return {
         ...state,
