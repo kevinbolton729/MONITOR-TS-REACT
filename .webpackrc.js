@@ -36,7 +36,7 @@ module.exports = {
   theme: './src/theme.js',
   extraResolveExtensions: ['.json', '.js', '.jsx', '.ts', '.tsx', '.css', '.less', '.scss'],
   extraBabelPlugins: [
-    'transform-decorators-legacy',
+    // 'transform-decorators-legacy',
     ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
   ],
   env: {

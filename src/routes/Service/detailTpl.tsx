@@ -1,4 +1,5 @@
 import { Button, Col, Divider, Form, Input, Popover, Row, Steps } from 'antd';
+import { enquireScreen } from 'enquire-js';
 import * as React from 'react';
 // 组件
 // 常量
@@ -33,27 +34,42 @@ const itemStyle = {
   wrapperCol: { span: 18 },
 };
 
+// 栅格: Col设置
+const colQuery = {
+  sm: 24,
+  md: 8,
+};
+
+// 根据屏幕分辨率获取Steps的显示方向
+const getDirection = () => {
+  let isMobile = false;
+  enquireScreen((mobile: boolean) => {
+    isMobile = mobile || false;
+  });
+  return isMobile ? 'vertical' : 'horizontal';
+};
+
 export default (data: any, fn: any, opts: any) => {
   const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
     <div className="hangSubTitle">
       <Row>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <p>部门：</p>
         </Col>
-        <Col sm={24} md={16}>
+        <Col {...colQuery}>
           <p>姓名：</p>
         </Col>
       </Row>
       <Row>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <p>办公室电话：</p>
         </Col>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <p>手机号码：</p>
         </Col>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <p>电子邮箱：</p>
         </Col>
       </Row>
@@ -62,7 +78,7 @@ export default (data: any, fn: any, opts: any) => {
   const saveForm = (
     <div key="saveForm" className="hangSubTitle">
       <Row>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <Form.Item label="部门：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('department', {
@@ -70,7 +86,7 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <Form.Item label="姓名：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('name', {
@@ -80,7 +96,7 @@ export default (data: any, fn: any, opts: any) => {
         </Col>
       </Row>
       <Row>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <Form.Item label="办公室电话：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('phone', {
@@ -88,7 +104,7 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <Form.Item label="手机号码：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('tel', {
@@ -96,7 +112,7 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        <Col sm={24} md={8}>
+        <Col {...colQuery}>
           <Form.Item label="电子邮箱：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('email', {
@@ -140,7 +156,7 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div>
         {opts.modalSort !== 'nblot' ? (
-          <Steps current={1} progressDot={customDot}>
+          <Steps direction={getDirection()} current={1} progressDot={customDot}>
             <Step title="网关" />
             <Step
               title="数据中心"
@@ -159,7 +175,7 @@ export default (data: any, fn: any, opts: any) => {
             <Step title="数据中心" />
           </Steps>
         ) : (
-          <Steps current={2} progressDot={customDot}>
+          <Steps direction={getDirection()} current={2} progressDot={customDot}>
             <Step title="网关" />
             <Step title="数据中心" />
             <Step
@@ -182,74 +198,75 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>指令类型：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>指令状态：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>到达时间：</p>
           </Col>
         </Row>
       </div>
       <Divider />
       <div className="hangTitle">
-        <p>
+        {/* <p>
           {opts.tab && opts.radio
             ? `${opts.tab}/${opts.radio}`
             : `${opts.sortGroup[opts.modalSort]}`}：
-        </p>
+        </p> */}
+        <p>{`${opts.sortGroup[opts.modalSort]}`}:</p>
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>表编号：</p>
           </Col>
           <Col span={opts.modalSort !== 'nblot' ? 8 : 16}>
             <p>燃气公司：</p>
           </Col>
           {opts.modalSort !== 'nblot' && (
-            <Col sm={24} md={8}>
+            <Col {...colQuery}>
               <p>集中器：</p>
             </Col>
           )}
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>价格(元)：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>价格类型：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>价格版本：</p>
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>价格状态：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>调价时间：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>有效期至：</p>
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>电池状态：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>电池电压：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>时长(使用/理想)：</p>
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>阀门状态：</p>
           </Col>
           <Col span={16}>
@@ -257,13 +274,13 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>上报状态：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>未上报/已上报：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>上报时间：</p>
           </Col>
         </Row>
@@ -273,7 +290,7 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>姓名：</p>
           </Col>
           <Col span={16}>
@@ -293,7 +310,6 @@ export default (data: any, fn: any, opts: any) => {
       {noForm}
     </div>
   );
-  // 集中器
   const concentrator = (
     <div key="concentrator">
       <div className="hangTitle">
@@ -301,7 +317,7 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>编号：</p>
           </Col>
           <Col span={16}>
@@ -309,13 +325,13 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>通信卡：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>在线状态：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>实际表数/计划表数：</p>
           </Col>
         </Row>
@@ -327,7 +343,6 @@ export default (data: any, fn: any, opts: any) => {
       </div>
     </div>
   );
-  // 异常报警
   const unusual = (
     <div key="unusual">
       <div className="hangTitle">
@@ -335,24 +350,24 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>编号：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>燃气公司：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>预警状态：</p>
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>报警类型：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>报警次数：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>报警时间：</p>
           </Col>
         </Row>
@@ -364,7 +379,6 @@ export default (data: any, fn: any, opts: any) => {
       {noForm}
     </div>
   );
-  // 发货记录
   const shipping = (
     <div key="shipping">
       <div className="hangTitle">
@@ -372,7 +386,7 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>编号：</p>
           </Col>
           <Col span={16}>
@@ -380,23 +394,21 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>快递公司：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>发货单号：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>发货时间：</p>
           </Col>
         </Row>
       </div>
     </div>
   );
-  // 什么都没有
   const nocontent = <div>什么都没有</div>;
 
-  // 返回的值
   const content = {
     spread: [main, handler],
     nblot: [main, handler],

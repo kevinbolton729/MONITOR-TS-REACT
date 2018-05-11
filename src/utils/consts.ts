@@ -58,7 +58,7 @@ export const BTN_BACK = '返回';
 export const BTN_CLOSE = '关闭';
 export const BTN_CONFIG = '配置';
 // Model
-export const MODEL_WIDTH_EDIT = '75%';
+export const MODEL_WIDTH_EDIT = '95%';
 export const MODEL_ADDEDIT_TITLE = '添加/编辑';
 export const MODEL_ADDEDIT_DESCRIPTION = '此处显示 Model 的添加/编辑 HTML内容...';
 export const MODEL_DEL_TITLE = '删除操作';

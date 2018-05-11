@@ -8,6 +8,12 @@ import { BTN_CLOSE } from '../../utils/consts';
 // 样式
 // const styles = require('./');
 
+// 栅格: Col设置
+const colQuery = {
+  sm: 24,
+  md: 8,
+};
+
 export default (data: any, fn: any, opts: any) => {
   // 操作区
   const handler = (
@@ -23,24 +29,35 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Row>
+            <Col {...colQuery}>
+              <p>系统名称 / 版本号：</p>
+            </Col>
+            <Col {...colQuery}>
+              <p>采集方式：</p>
+            </Col>
+            <Col {...colQuery}>
+              <p>采集数据时间：</p>
+            </Col>
+          </Row>
+          <Col {...colQuery}>
             <p>IP地址/端口号：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>MAC地址：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>数据库版本：</p>
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>数据库时间是否与服务器时间同步：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>读写器/其他设备型号：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>DLL文件版本：</p>
           </Col>
         </Row>
@@ -51,25 +68,14 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div className="hangSubTitle">
         <Row>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>省份/城市：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>燃气公司：</p>
           </Col>
-          <Col sm={24} md={8}>
+          <Col {...colQuery}>
             <p>公司编号：</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={24} md={8}>
-            <p>系统名称 / 版本号：</p>
-          </Col>
-          <Col sm={24} md={8}>
-            <p>采集方式：</p>
-          </Col>
-          <Col sm={24} md={8}>
-            <p>采集数据时间：</p>
           </Col>
         </Row>
         <Row>
