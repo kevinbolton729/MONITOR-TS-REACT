@@ -51,6 +51,7 @@ export interface IDataMonitorProps {
 export interface IDataMonitorStates {
   visible: boolean;
   isEditConfig: boolean;
+  isClick: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;

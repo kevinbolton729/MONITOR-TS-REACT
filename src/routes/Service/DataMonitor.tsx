@@ -39,10 +39,7 @@ const expandedRowRender = (record: any): React.ReactNode => [
 ];
 
 @connect(({ loading, datamonitor }: any) => ({
-  loading:
-    loading.effects['datamonitor/fetchDataSpread'] ||
-    loading.effects['datamonitor/fetchDataConcentrator'] ||
-    loading.effects['datamonitor/fetchDataNblot'],
+  loading: loading.models.datamonitor && !loading.effects['datamonitor/fetchConfig'],
   confirmLoading: loading.effects['datamonitor/fetchConfig'],
   spreadList: datamonitor.spreadList,
   concentratorList: datamonitor.concentratorList,
@@ -61,6 +58,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
       selectedRecord: [],
       isEditConfig: false,
+      isClick: false, // 更新配置时，是否点击【保存】
     };
   }
   componentDidMount() {
@@ -74,6 +72,8 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   componentDidUpdate() {
     // 根据currentTab/currentRadio等发起相应API请求
     this.startFetch();
+    // 点击【保存】后，更新成功时关闭编辑配置
+    this.afterSaveCloseConfig();
   }
   // 获取数据
   // 生成最终显示的列表数据
@@ -148,27 +148,30 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   closeConfig = () => {
     this.setState({
       isEditConfig: false,
+      isClick: false,
     });
+  };
+  // 点击【保存】后，关闭编辑配置
+  afterSaveCloseConfig = () => {
+    if (this.state.isClick && !this.props.confirmLoading) {
+      this.closeConfig();
+    }
   };
   // 表单
   // 保存
   onSubmit = (data: any, event: any) => {
     event.preventDefault();
     console.log('已点击【保存】');
+    this.setState({ isClick: true });
 
-    const { loading, form } = this.props;
+    const { confirmLoading, form } = this.props;
 
-    if (!loading) {
+    if (!confirmLoading) {
       form.validateFields({ force: true }, (err: any, values: any) => {
         if (!err) {
           console.log(data.id, 'id');
 
           this.dispatchAction('datamonitor/fetchConfig');
-
-          // 关闭Modal
-          setTimeout(() => {
-            this.closeModal();
-          }, 500);
         }
       });
     }
