@@ -9,6 +9,10 @@ export interface ICompanyProps {
   companyList: any[];
 }
 
-export interface ICompanyStates {}
+export interface ICompanyStates {
+  visible: boolean;
+  modalSort: string;
+  selectedRecord: any[];
+}
 
 export interface ICompanyItems {}

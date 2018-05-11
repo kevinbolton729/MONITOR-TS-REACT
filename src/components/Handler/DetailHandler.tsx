@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-11 17:42:15
+ * @Last Modified time: 2018-05-11 18:30:09
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -22,6 +22,7 @@ const searcHolder: any = {
   spread: '表号/集中器编号/燃气公司名称',
   nblot: '表号/燃气公司名称',
   unusual: '请输入查询关键字',
+  company: '请输入燃气公司名称',
 };
 
 const cityOptions = [

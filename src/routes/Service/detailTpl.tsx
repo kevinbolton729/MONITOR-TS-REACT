@@ -4,7 +4,7 @@ import * as React from 'react';
 // 常量
 import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../utils/consts';
 // 声明
-import {} from './';
+// import {} from './';
 // 样式
 const styles = require('./');
 

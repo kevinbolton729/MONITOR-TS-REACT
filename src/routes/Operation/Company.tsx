@@ -4,15 +4,22 @@ import * as React from 'react';
 // 组件
 import BreadCrumb from '../../components/BreadCrumb';
 import DetailHandler from '../../components/Handler/DetailHandler';
+import { openModal } from '../../components/Modal';
 // 常量
-// import { URL_PREFIX } from '../../utils/consts';
+import { MODEL_WIDTH_EDIT } from '../../utils/consts';
 // 方法
 import { dispatchAction } from '../../utils/fns';
 // 声明
 import { ICompanyItems, ICompanyProps, ICompanyStates } from './';
 // 模块
 import { companyCols } from './columns';
+import tpl from './detailTpl';
 // 样式
+
+// 枚举
+enum sortGroup {
+  company = '燃气公司',
+}
 
 @connect(({ loading, company }: any) => ({
   loading: loading.models.company,
@@ -21,14 +28,15 @@ import { companyCols } from './columns';
 class Company extends React.PureComponent<ICompanyProps, ICompanyStates> implements ICompanyItems {
   constructor(props: any) {
     super(props);
+    this.state = {
+      // Modal
+      visible: false,
+      modalSort: 'company', // 'company':燃气公司
+      selectedRecord: [],
+    };
   }
 
   componentDidMount() {
-    // 发起相应API请求
-    this.startFetch();
-  }
-
-  componentDidUpdate() {
     // 发起相应API请求
     this.startFetch();
   }
@@ -56,8 +64,11 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     }
   };
   // 查看
-  handlerShow = (record: any) => {
-    console.log(record, 'company record');
+  handlerShow = (record: any, key: string) => {
+    this.setState({
+      selectedRecord: record,
+    });
+    this.openModal(key);
   };
   // 选择城市
   changeCity = (value: string[]) => {
@@ -73,9 +84,17 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     console.log(current, 'current');
     console.log(size, 'size');
   };
+  // [Modal]
+  openModal = (modalSort: string = 'company') => {
+    this.setState({ modalSort, visible: true });
+  };
+  closeModal = () => {
+    this.setState({ visible: false });
+  };
 
   render() {
     const { loading } = this.props;
+    const { visible, modalSort, selectedRecord } = this.state;
     // 获取Table的Columns
     const getColumns = companyCols(this.handlerShow);
     // 生成Table渲染数据
@@ -90,9 +109,30 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
       onChange: this.onChangePage,
       onShowSizeChange: this.onShowSizeChange,
     };
+    // Modal
+    const passChildren = tpl(
+      selectedRecord,
+      { closeModal: this.closeModal },
+      {
+        sortGroup,
+        modalSort,
+      }
+    );
 
     return (
       <div>
+        {// Modal
+        openModal.apply(this, [
+          {
+            title: '详情',
+            width: MODEL_WIDTH_EDIT,
+            children: passChildren,
+            visible,
+            closable: true,
+            loading,
+            footer: null,
+          },
+        ])}
         <div className="componentBackground">
           <BreadCrumb />
         </div>
@@ -102,11 +142,12 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
               changeCity={this.changeCity}
               showSelectCity={true}
               hideDatePicker={true}
+              sort="company"
             />
           </div>
           <div style={{ marginTop: '20px' }}>
             <Table
-              rowKey="id"
+              rowKey="companyCode"
               columns={getColumns.company}
               loading={loading}
               dataSource={dataSource}
