@@ -68,6 +68,19 @@ export interface IParse {
     data: any[];
   };
 }
+export interface INewParse {
+  (
+    params: {
+      isSuccessed: boolean;
+      message: string;
+      extData: any[];
+    }
+  ): {
+    isSuccessed: boolean;
+    message: string;
+    data: any[];
+  };
+}
 export interface IFns {
   setMd5: FuncStrToStr;
   twoDecimal: FuncStrToStr;

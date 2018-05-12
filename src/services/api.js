@@ -29,7 +29,7 @@ export async function fakeRegister(params = {}) {
 // -- 客户服务监控
 // 获取扩频表>扩频表列表
 export async function fetchSpread(params = {}) {
-  return request('/api/fetchspread', {
+  return request('/api/custom/fetchspread', {
     params,
   });
 }
