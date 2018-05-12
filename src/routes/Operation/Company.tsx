@@ -75,6 +75,7 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     this.setState({
       selectedRecord: record,
     });
+    this.closeConfig();
     this.openModal(key);
   };
   // 配置
@@ -119,7 +120,24 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   onReset = () => {
     console.log('重置');
     const { form } = this.props;
-    form.resetFields(['department', 'name', 'phone', 'tel', 'email']);
+    form.resetFields([
+      'sysname',
+      'version',
+      'method',
+      'updatetime',
+      'ip',
+      'port',
+      'mac',
+      'sqlversion',
+      'sync',
+      'read',
+      'other',
+      'dllverison',
+      'city',
+      'company',
+      'companyCode',
+      'des',
+    ]);
   };
   // 选择城市
   changeCity = (value: string[]) => {

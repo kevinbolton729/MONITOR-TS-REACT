@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-05 15:10:05
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-04-20 13:47:23
+ * @Last Modified time: 2018-05-12 10:14:51
  */
 import { Modal } from 'antd';
 import * as React from 'react';
@@ -94,9 +94,6 @@ export function openModal(this: React.Component, options: ModalOptions<string, b
       });
     };
   }
-  if (!newOptions.afterClose) {
-    newOptions.afterClose = null;
-  }
 
   return (
     <Modal
@@ -106,12 +103,12 @@ export function openModal(this: React.Component, options: ModalOptions<string, b
       visible={newOptions.visible}
       confirmLoading={newOptions.confirmLoading}
       closable={newOptions.closable}
-      maskClosable={newOptions.maskClosable}
+      maskClosable={newOptions.maskClosable || false}
       okText={newOptions.okText || '确定'}
       cancelText={newOptions.cancelText || '取消'}
       onOk={newOptions.handleOk}
       onCancel={newOptions.handleCancel}
-      afterClose={newOptions.afterClose}
+      afterClose={newOptions.afterClose || null}
       footer={newOptions.footer}
     >
       <div>

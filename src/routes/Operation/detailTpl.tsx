@@ -108,7 +108,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="版本号：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('version', {
-                initialValue: 'HL-6',
+                initialValue: '6.5',
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -237,7 +237,7 @@ export default (data: any, fn: any, opts: any) => {
         <Col span={24}>
           <Form.Item label="备注说明：" {...itemStyle}>
             {getFieldDecorator &&
-              getFieldDecorator('remark', {
+              getFieldDecorator('des', {
                 initialValue: '备注说明...',
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
