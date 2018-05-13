@@ -173,7 +173,7 @@ const proxy = {
     ],
   },
   // 获取物联网表 > 物联网表列表
-  'GET /api/monitor/fetchdatanblot': {
+  'GET /api/monitor/fetchnblot': {
     isSuccessed: true,
     message: '获取数据成功',
     extData: [

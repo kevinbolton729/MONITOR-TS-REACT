@@ -1,6 +1,6 @@
 import { message as openMessage } from 'antd';
 import { fetchCompany, fetchConfig } from '@/services/api';
-import { parseResponse } from '@/utils/parse';
+import { parseNewResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
 // 方法
@@ -17,9 +17,9 @@ export default {
     // 获取扩频表列表
     *fetchCompany(_, { call, put }) {
       const response = yield call(fetchCompany);
-      const { status, message, data } = yield call(parseResponse, response);
+      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         // console.log(data, 'data');
         yield put({
           type: 'changeCompanyList',
@@ -32,9 +32,9 @@ export default {
     // 更新配置
     *fetchConfig(_, { call }) {
       const response = yield call(fetchConfig);
-      const { status, message } = yield call(parseResponse, response);
+      const { isSuccessed, message } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         yield openMessage.success(message);
       }
     },

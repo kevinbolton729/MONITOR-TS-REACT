@@ -5,7 +5,7 @@ import {
   fetchDataNblot,
   fetchConfig,
 } from '@/services/api';
-import { parseResponse } from '@/utils/parse';
+import { parseNewResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
 // 方法
@@ -24,9 +24,9 @@ export default {
     // 获取扩频表列表
     *fetchDataSpread(_, { call, put }) {
       const response = yield call(fetchDataSpread);
-      const { status, message, data } = yield call(parseResponse, response);
+      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         // console.log(data, 'data');
         yield put({
           type: 'changeSpreadList',
@@ -39,9 +39,9 @@ export default {
     // 获取集中器列表
     *fetchDataConcentrator(_, { call, put }) {
       const response = yield call(fetchDataConcentrator);
-      const { status, message, data } = yield call(parseResponse, response);
+      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         // console.log(data, 'data');
         yield put({
           type: 'changeConcentratorList',
@@ -54,9 +54,9 @@ export default {
     // 获取物联网表列表
     *fetchDataNblot(_, { call, put }) {
       const response = yield call(fetchDataNblot);
-      const { status, message, data } = yield call(parseResponse, response);
+      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         // console.log(data, 'data');
         yield put({
           type: 'changeNblotList',
@@ -69,9 +69,9 @@ export default {
     // 更新配置
     *fetchConfig(_, { call }) {
       const response = yield call(fetchConfig);
-      const { status, message } = yield call(parseResponse, response);
+      const { isSuccessed, message } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         yield openMessage.success(message);
       }
     },

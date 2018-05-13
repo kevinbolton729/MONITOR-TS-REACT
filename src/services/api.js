@@ -41,56 +41,56 @@ export async function fetchConcentrator(params = {}) {
 }
 // 获取扩频表>发货记录列表
 export async function fetchShipping(params = {}) {
-  return request('/api/fetchshipping', {
+  return request('/api/custom/fetchshipping', {
     params,
   });
 }
 // 获取物联网表>物联网表列表
 export async function fetchNblot(params = {}) {
-  return request('/api/fetchnblot', {
+  return request('/api/custom/fetchnblot', {
     params,
   });
 }
 // 获取物联网表>发货记录列表
 export async function fetchNblotShipping(params = {}) {
-  return request('/api/fetchnblotshipping', {
+  return request('/api/custom/nblot/fetchshipping', {
     params,
   });
 }
 // 获取异常报警>扩频表列表
 export async function fetchUnusualSpread(params = {}) {
-  return request('/api/fetchunusualspread', {
+  return request('/api/custom/unusual/fetchspread', {
     params,
   });
 }
 // 获取异常报警>物联网表列表
 export async function fetchUnusualNblot(params = {}) {
-  return request('/api/fetchunusualnblot', {
+  return request('/api/custom/unusual/fetchnblot', {
     params,
   });
 }
 // -- 业务数据监控
 // 获取扩频表>扩频表列表
 export async function fetchDataSpread(params = {}) {
-  return request('/api/fetchdataspread', {
+  return request('/api/monitor/fetchspread', {
     params,
   });
 }
 // 获取扩频表>集中器列表
 export async function fetchDataConcentrator(params = {}) {
-  return request('/api/fetchdataconcentrator', {
+  return request('/api/monitor/fetchconcentrator', {
     params,
   });
 }
 // 获取物联网表>物联网表列表
 export async function fetchDataNblot(params = {}) {
-  return request('/api/fetchdatanblot', {
+  return request('/api/monitor/fetchnblot', {
     params,
   });
 }
 // 更新配置
 export async function fetchConfig(params = {}) {
-  return request('/api/spread/fetchconfig', {
+  return request('/api/monitor/spread/fetchconfig', {
     method: 'POST',
     body: params,
   });
@@ -98,7 +98,13 @@ export async function fetchConfig(params = {}) {
 // -- 燃气公司运营
 // 获取公司列表
 export async function fetchCompany(params = {}) {
-  return request('/api/fetchdatacompany', {
+  return request('/api/company/fetchdatacompany', {
+    params,
+  });
+}
+// 更新配置
+export async function fetchCompanyCompany(params = {}) {
+  return request('/api/company/fetchdatacompany', {
     params,
   });
 }
