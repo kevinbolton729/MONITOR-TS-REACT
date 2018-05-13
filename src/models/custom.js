@@ -8,7 +8,7 @@ import {
   fetchUnusualSpread,
   fetchUnusualNblot,
 } from '@/services/api';
-import { parseResponse } from '@/utils/parse';
+import { parseResponse, parseNewResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
 // 方法
@@ -31,9 +31,9 @@ export default {
     // 获取扩频表列表
     *fetchSpread(_, { call, put }) {
       const response = yield call(fetchSpread);
-      const { status, message, data } = yield call(parseResponse, response);
+      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         // console.log(data, 'data');
         yield put({
           type: 'changeSpreadList',
@@ -46,9 +46,9 @@ export default {
     // 获取集中器列表
     *fetchConcentrator(_, { call, put }) {
       const response = yield call(fetchConcentrator);
-      const { status, message, data } = yield call(parseResponse, response);
+      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
 
-      if (status > 0) {
+      if (isSuccessed) {
         // console.log(data, 'data');
         yield put({
           type: 'changeConcentratorList',

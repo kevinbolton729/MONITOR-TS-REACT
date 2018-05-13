@@ -13,13 +13,7 @@ export const parseResponse: IParse = params => {
   };
 };
 
-export const parseNewResponse: INewParse = params => {
-  const { isSuccessed, message, extData } = params;
-  const data = extData || [];
-
-  return {
-    isSuccessed,
-    message,
-    data,
-  };
-};
+export const parseNewResponse: INewParse = params => ({
+  ...params,
+  data: params.extData || [],
+});

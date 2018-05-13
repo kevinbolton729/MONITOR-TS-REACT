@@ -35,7 +35,7 @@ export async function fetchSpread(params = {}) {
 }
 // 获取扩频表>集中器列表
 export async function fetchConcentrator(params = {}) {
-  return request('/api/fetchconcentrator', {
+  return request('/api/custom/fetchconcentrator', {
     params,
   });
 }
