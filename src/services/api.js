@@ -4,8 +4,8 @@ import { setMd5 } from '@/utils/fns';
 // 常量
 import { API_DOMAIN } from '@/utils/consts';
 
-// [POST]
-// 登录
+// [LOGIN]
+// -- 登录
 export async function fakeAccountLogin(params) {
   const { username } = params;
   const password = setMd5(params.password);
@@ -16,16 +16,15 @@ export async function fakeAccountLogin(params) {
     body: { username, password },
   });
 }
-// 注册
+// -- 注册
 export async function fakeRegister(params = {}) {
   return request(`${API_DOMAIN}/api/server/register`, {
     method: 'POST',
     body: params,
   });
 }
-// [图片]
 
-// [GET]
+// [API]
 // -- 客户服务监控
 // 获取扩频表>扩频表列表
 export async function fetchSpread(params = {}) {
