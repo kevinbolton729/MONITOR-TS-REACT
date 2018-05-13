@@ -201,7 +201,7 @@ const proxy = {
   },
   // [燃气公司运营]
   // 获取公司列表
-  'GET /api/company/fetchdatacompany': {
+  'GET /api/company/fetchcompany': {
     isSuccessed: true,
     message: '获取数据成功',
     extData: [

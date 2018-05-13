@@ -1,5 +1,5 @@
 import { message as openMessage } from 'antd';
-import { fetchCompany, fetchConfig } from '@/services/api';
+import { fetchCompany, fetchCompanyConfig } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
@@ -31,7 +31,7 @@ export default {
     },
     // 更新配置
     *fetchConfig(_, { call }) {
-      const response = yield call(fetchConfig);
+      const response = yield call(fetchCompanyConfig);
       const { isSuccessed, message } = yield call(parseNewResponse, response);
 
       if (isSuccessed) {

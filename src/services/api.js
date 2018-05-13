@@ -98,13 +98,14 @@ export async function fetchConfig(params = {}) {
 // -- 燃气公司运营
 // 获取公司列表
 export async function fetchCompany(params = {}) {
-  return request('/api/company/fetchdatacompany', {
+  return request('/api/company/fetchcompany', {
     params,
   });
 }
 // 更新配置
-export async function fetchCompanyCompany(params = {}) {
-  return request('/api/company/fetchdatacompany', {
-    params,
+export async function fetchCompanyConfig(params = {}) {
+  return request('/api/company/fetchconfig', {
+    method: 'POST',
+    body: params,
   });
 }
