@@ -227,7 +227,7 @@ const proxy = {
   'POST /api/spread/fetchconfig': {
     status: 1,
     message: '已保存配置',
-    extData: {},
+    extData: [],
   },
   // [燃气公司运营]
   // 获取公司列表
