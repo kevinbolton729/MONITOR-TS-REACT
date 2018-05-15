@@ -10,11 +10,11 @@ export const PAGELOGIN = '/user/login';
 export const SECRETKEY_USER = 'SECRETKEY-BOLTON';
 // 接口
 // 开发环境
-// export const URL_PREFIX = 'http://127.0.0.1:7001/public';
-// export const API_DOMAIN = 'http://127.0.0.1:7001';
+export const URL_PREFIX = 'http://127.0.0.1:7002/public';
+export const API_DOMAIN = 'http://127.0.0.1:7002';
 // 生产环境
-export const URL_PREFIX = 'http://39.108.178.198:7001/public';
-export const API_DOMAIN = 'http://39.108.178.198:7001';
+// export const URL_PREFIX = 'http://192.168.5.104:7002/public';
+// export const API_DOMAIN = 'http://192.168.5.104:7002';
 export const LOGO_USER = '/images/logo.png';
 export const LOGO_PAGE = '/images/mainLogo.png';
 // Login/GlobalFooter 提示信息
@@ -24,8 +24,6 @@ export const BROWSER_INFO = '推荐使用360极速/Chrome/火狐等现代浏览�
 export const SERVICE_INFO = '2018 四川海力智能科技股份有限公司 提供技术支持';
 // 工作台
 export const ROLE_NAME = '产品 | 产品总监 - 设计 - UED';
-// 旗舰店channel id
-export const LINK_SHOP_ID = '5ab4f80c79cfed0a18d5bb7f';
 // API
 export const API_DATA_NOGET = '什么也没有';
 export const API_DATA_LOADING = '努力加载中...';
