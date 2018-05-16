@@ -39,7 +39,6 @@ import {
   MODEL_LOGINOUT_TITLE,
   MODEL_LOGINOUT_DESCRIPTION,
   MODEL_LOGINOUT_BTN_OK,
-  MESSAGE_CHANGESELECTEDSITE_NOSELECT,
 } from '@/utils/consts';
 // 方法
 // import {} from '@/utils/fns';
@@ -232,42 +231,10 @@ class BasicLayout extends React.PureComponent {
               });
             } else {
               message.error(validater);
-              dispatch({
-                type: 'user/changeConfirmLoading',
-                payload: true,
-              });
-              setTimeout(() => {
-                dispatch({
-                  type: 'user/changeConfirmLoading',
-                  payload: false,
-                });
-              }, 3000);
             }
           }
         }
       );
-    }
-  };
-  // submit 切换站点
-  submitChange = (e) => {
-    e.preventDefault();
-
-    const { dispatch, form } = this.props;
-    const selectedSiteid = form.getFieldValue('changesite');
-    // console.log(selectedSiteid, 'selectedSiteid');
-
-    if (selectedSiteid) {
-      dispatch({
-        type: 'global/changeSelectedSite',
-        payload: selectedSiteid,
-      });
-
-      // 关闭Modal
-      setTimeout(() => {
-        this.closeModal();
-      }, 500);
-    } else {
-      message.error(MESSAGE_CHANGESELECTEDSITE_NOSELECT);
     }
   };
   // submit 修改个人中心
@@ -294,17 +261,6 @@ class BasicLayout extends React.PureComponent {
             setTimeout(() => {
               this.closeModal();
             }, 500);
-          } else {
-            dispatch({
-              type: 'user/changeConfirmLoading',
-              payload: true,
-            });
-            setTimeout(() => {
-              dispatch({
-                type: 'user/changeConfirmLoading',
-                payload: false,
-              });
-            }, 3000);
           }
         }
       );
