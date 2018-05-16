@@ -1,17 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Layout,
-  Row,
-  Col,
-  Form,
-  Input,
-  Icon,
-  Divider,
-  Button,
-  message,
-  Radio,
-} from 'antd';
+import { Layout, Row, Col, Form, Input, Icon, Divider, Button, message, Radio } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { Route, Redirect, Switch, routerRedux } from 'dva/router';
@@ -43,9 +32,7 @@ import {
   BTN_SAVE,
   BTN_RESET,
   BTN_CANCEL,
-  BTN_CHANGE,
   FORM_EDIT_PWD_BTN,
-  MODEL_CHANGESELECTEDSITE_TITLE,
   MODEL_USERCENTER_TITLE,
   MODEL_SECURIY_TITLE,
   MODEL_SECURIY_DESCRIPTION,
@@ -110,6 +97,13 @@ enquireScreen((b) => {
 });
 const isMounted = { status: true };
 
+@connect(({ user, global }) => ({
+  currentUser: user.currentUser,
+  confirmLoading: user.confirmLoading,
+  collapsed: global.collapsed,
+  copyright: global.copyright,
+}))
+@Form.create()
 class BasicLayout extends React.PureComponent {
   static childContextTypes = {
     location: PropTypes.object,
@@ -194,22 +188,6 @@ class BasicLayout extends React.PureComponent {
       payload: collapsed,
     });
   };
-
-  // listen = () => {
-  //   if (document.readyState === 'complete') {
-  //     // 资源加载完成
-  //     this.setState({
-  //       isloaded: true,
-  //     });
-  //   }
-  // };
-  // handleNoticeClear = (type) => {
-  //   message.success(`清空了${type}`);
-  //   this.props.dispatch({
-  //     type: 'global/clearNotices',
-  //     payload: type,
-  //   });
-  // };
 
   // Form
   // validate password
@@ -352,13 +330,6 @@ class BasicLayout extends React.PureComponent {
     // this.props.form.setFieldsValue({ oldpwd: '', newpwd: '', confirmpwd: '' });
     this.props.form.resetFields();
   };
-  // handleNoticeVisibleChange = (visible) => {
-  //   if (visible) {
-  //     this.props.dispatch({
-  //       type: 'global/fetchNotices',
-  //     });
-  //   }
-  // };
   // show Modal
   showModal = (key = 'security') => {
     if (key === 'security') {
@@ -400,25 +371,15 @@ class BasicLayout extends React.PureComponent {
   render() {
     const {
       currentUser,
-      sitetypes,
       collapsed,
-      globalConfirmLoading,
       confirmLoading,
-      fetchingNotices,
-      notices,
       routerData,
       match,
       location,
       copyright,
       form,
-      currentSiteid,
     } = this.props;
     // 传入Modal的data
-    // site data
-    const passSites = sitetypes.map(item => ({
-      label: item.name,
-      value: item.siteid,
-    }));
     // sex data
     const passSex = [{ label: '男', value: '1' }, { label: '女', value: '0' }];
     const { getFieldDecorator } = form;
@@ -443,14 +404,10 @@ class BasicLayout extends React.PureComponent {
           <GlobalHeader
             logo={logo}
             currentUser={currentUser}
-            fetchingNotices={fetchingNotices}
-            notices={notices}
             collapsed={collapsed}
             isMobile={this.state.isMobile}
-            // onNoticeClear={this.handleNoticeClear}
             onCollapse={this.handleMenuCollapse}
             onMenuClick={this.handleMenuClick}
-            // onNoticeVisibleChange={this.handleNoticeVisibleChange}
           />
           {/* 默认: margin: 24px 24px 0 */}
           <Content style={{ margin: `${HEADERFIXTOP}px 24px 0`, height: '100%' }}>
@@ -532,27 +489,6 @@ class BasicLayout extends React.PureComponent {
               <Divider type="vertical" />
               <Button loading={confirmLoading} type="primary" htmlType="submit">
                 {FORM_EDIT_PWD_BTN}
-              </Button>
-            </div>
-          </FormItem>
-        </Form>
-      </div>
-    );
-    const changeSiteChildren = (
-      <div style={{ padding: '0 16' }}>
-        <Form onSubmit={this.submitChange}>
-          <FormItem label="切换至">
-            {getFieldDecorator('changesite', {
-              initialValue: currentSiteid || '',
-            })(<RadioGroup options={passSites} />)}
-          </FormItem>
-          <FormItem>
-            <div style={{ marginTop: '-24px', textAlign: 'center' }}>
-              <Divider>
-                <span className="dividerFont">{MODEL_CHANGESELECTEDSITE_TITLE}</span>
-              </Divider>
-              <Button loading={globalConfirmLoading} type="primary" htmlType="submit">
-                {BTN_CHANGE}
               </Button>
             </div>
           </FormItem>
@@ -651,18 +587,14 @@ class BasicLayout extends React.PureComponent {
     // 打开的Modal类型
     const sortModal = {
       0: securityChildren,
-      1: changeSiteChildren,
       2: userCenterChildren,
     };
     // Modal 标题
     const titleModal = {
       0: MODEL_SECURIY_TITLE,
-      1: MODEL_CHANGESELECTEDSITE_TITLE,
       2: MODEL_USERCENTER_TITLE,
     };
     const passChildren = sortModal[modalSort];
-
-    // const passChildren = modalSort === 0 ? securityChildren : changeSiteChildren;
 
     return (
       <div>
@@ -688,16 +620,4 @@ class BasicLayout extends React.PureComponent {
 }
 document.onreadystatechange = BasicLayout.listen;
 
-export default connect(({ user, global, loading }) => ({
-  currentUser: user.currentUser,
-  uploading: user.uploading,
-  globalConfirmLoading: global.globalConfirmLoading,
-  confirmLoading: user.confirmLoading,
-  currentSiteid: global.currentSiteid,
-  collapsed: global.collapsed,
-  copyright: global.copyright,
-  sitetypes: global.sitetypes,
-  channeltypes: global.channeltypes,
-  fetchingNotices: loading.effects['global/fetchNotices'],
-  notices: global.notices,
-}))(Form.create()(BasicLayout));
+export default BasicLayout;
