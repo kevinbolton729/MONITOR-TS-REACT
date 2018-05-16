@@ -15,5 +15,7 @@ export const parseResponse: IParse = params => {
 
 export const parseNewResponse: INewParse = params => ({
   ...params,
-  data: params.extData || [],
+  code: params.code,
+  message: params.message || '',
+  data: params.data || [],
 });

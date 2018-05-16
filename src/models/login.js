@@ -3,7 +3,7 @@ import { message as openMessage } from 'antd';
 import { fakeAccountLogin } from '@/services/api';
 import { setAuthority } from '@/utils/authority';
 import { reloadAuthorized } from '@/utils/Authorized';
-import { parseResponse } from '@/utils/parse';
+import { parseNewResponse } from '@/utils/parse';
 // import qs from 'qs';
 // 常量
 import {
@@ -13,6 +13,12 @@ import {
 } from '@/utils/consts';
 // 方法
 import { delToken } from '@/utils/fns';
+// 用户权限
+// const authorityCollection = {
+//   1000: 'admin',
+//   2000: 'custom',
+//   3000: 'devloper',
+// };
 
 export default {
   namespace: 'login',
@@ -24,7 +30,7 @@ export default {
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      const { status, message } = yield call(parseResponse, response);
+      const { code, message } = yield call(parseNewResponse, response);
       yield put({
         type: 'changeLoginStatus',
         payload: {
@@ -33,7 +39,7 @@ export default {
         },
       });
       // Login successfully
-      if (status > 0) {
+      if (code === 0) {
         reloadAuthorized();
         // const { token } = yield data[0];
         yield openMessage.success(MESSAGE_LOGINON_SUCCESS);

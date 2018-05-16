@@ -11,7 +11,7 @@ export async function fakeAccountLogin(params) {
   const password = setMd5(params.password);
   // await console.log(username, 'username');
   // await console.log(password, 'password');
-  return request(`${API_DOMAIN}/api/server/loginon`, {
+  return request(`${API_DOMAIN}/api/admin/loginon`, {
     method: 'POST',
     body: { username, password },
   });

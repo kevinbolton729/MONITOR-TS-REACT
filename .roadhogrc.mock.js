@@ -1,6 +1,6 @@
 import mockjs from 'mockjs';
 import { delay } from 'roadhog-api-doc';
-
+import { messageSuccess, saveSuccess } from './mock/fields';
 // 数据
 import {
   spreadData,
@@ -34,212 +34,36 @@ const getBody = (opts, code = 0) => ({
 const proxy = {
   // [客户服务监控]
   // 获取扩频表 > 扩频表列表
-  'GET /api/custom/fetchspread': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'KXXX5678',
-        company: '四川海力智能燃气示范公司',
-        method: '自动',
-        status: 1,
-        uptime: '2018-04-27 15:51:25',
-        duty: {
-          department: '技术中心',
-          name: '鱼子酱',
-          phone: '028-12345678',
-          tel: '13912345678',
-          email: '12345678@qq.com',
-        },
-      },
-    ],
-  },
+  'GET /api/custom/fetchspread': getBody({ data: spreadData }),
   // 获取集中器列表
-  'GET /api/custom/fetchconcentrator': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'JXXX5678',
-        company: '四川海力智能燃气示范公司',
-        card: '正常',
-        cardtime: '2018-04-27 15:51:25',
-        online: '在线',
-        fact: 41,
-        plan: 50,
-        address: '四川省成都市成华区崔家店路 附102号',
-      },
-    ],
-  },
+  'GET /api/custom/fetchconcentrator': getBody({ data: concentratorData }),
   // 获取扩频表 > 发货记录列表
-  'GET /api/custom/fetchshipping': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'KXXX5678',
-        company: '四川海力智能燃气示范公司',
-        express: '顺丰快递',
-        expressid: 'SF12345678',
-        expresstime: '2018-04-27 15:51:25',
-        status: '正常',
-      },
-    ],
-  },
+  'GET /api/custom/fetchshipping': getBody({ data: shippingData }),
   // 获取物联网表 > 物联网表列表
-  'GET /api/custom/fetchnblot': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'WXXX5678',
-        company: '四川海力智能燃气示范公司',
-        online: '在线',
-        status: '成功',
-        time: '2018-04-27 15:51:25',
-        duty: {
-          department: '技术中心',
-          name: '鱼子酱',
-          phone: '028-12345678',
-          tel: '13912345678',
-          email: '12345678@qq.com',
-        },
-      },
-    ],
-  },
+  'GET /api/custom/fetchnblot': getBody({ data: nblotData }),
   // 获取物联网表 > 发货记录列表
-  'GET /api/custom/nblot/fetchshipping': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'WXXX5678',
-        company: '四川海力智能燃气示范公司',
-        express: '顺丰快递',
-        expressid: 'SF12345678',
-        expresstime: '2018-04-27 15:51:25',
-        status: '正常',
-      },
-    ],
-  },
+  'GET /api/custom/nblot/fetchshipping': getBody({ data: shippingData }),
   // 获取异常报警 > 扩频表列表
-  'GET /api/custom/unusual/fetchspread': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'KXXX5678',
-        company: '四川海力智能燃气示范公司',
-        method: '异常关阀',
-        num: 2,
-        datetime: '2018-04-27 15:51:25',
-        status: '正常',
-      },
-    ],
-  },
+  'GET /api/custom/unusual/fetchspread': getBody({ data: unusualData }),
   // 获取异常报警 > 物联网表列表
-  'GET /api/custom/unusual/fetchnblot': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'WXXX5678',
-        company: '四川海力智能燃气示范公司',
-        method: '充值失败',
-        num: 1,
-        datetime: '2018-04-27 15:51:25',
-        status: '正常',
-      },
-    ],
-  },
+  'GET /api/custom/unusual/fetchnblot': getBody({ data: unusualData }),
   // [业务数据监控]
   // 获取扩频表 > 扩频表列表
-  'GET /api/monitor/fetchspread': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'KXXX1234',
-        company: '四川海力智能燃气示范公司',
-        method: '自动',
-        status: 1,
-        uptime: '2018-04-27 15:51:25',
-        duty: {
-          department: '技术中心',
-          name: '鱼子酱',
-          phone: '028-12345678',
-          tel: '13912345678',
-          email: '12345678@qq.com',
-        },
-      },
-    ],
-  },
+  'GET /api/monitor/fetchspread': getBody({ data: spreadData }),
   // 获取集中器列表
-  'GET /api/monitor/fetchconcentrator': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'JXXX1234',
-        company: '四川海力智能燃气示范公司',
-        card: '正常',
-        cardtime: '2018-04-27 15:51:25',
-        online: '在线',
-        fact: 41,
-        plan: 50,
-        address: '四川省成都市成华区崔家店路 附102号',
-      },
-    ],
-  },
+  'GET /api/monitor/fetchconcentrator': getBody({ data: concentratorData }),
   // 获取物联网表 > 物联网表列表
-  'GET /api/monitor/fetchnblot': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        id: 'WXXX1234',
-        company: '四川海力智能燃气示范公司',
-        online: '在线',
-        status: '成功',
-        time: '2018-04-27 15:51:25',
-        duty: {
-          department: '技术中心',
-          name: '鱼子酱',
-          phone: '028-12345678',
-          tel: '13912345678',
-          email: '12345678@qq.com',
-        },
-      },
-    ],
-  },
-  // 更新配置
-  'POST /api/monitor/spread/fetchconfig': {
-    isSuccessed: true,
-    message: '已保存配置',
-    extData: [],
-  },
+  'GET /api/monitor/fetchnblot': getBody({ data: nblotData }),
+  // [责任部门（或责任人）]
+  // 获取责任部门（或责任人）
+  'GET /api/duty/fetchduty': getBody({ data: dutyData }),
+  // 新增（或更新）责任部门（或责任人）
+  'POST /api/duty/fetchconfig': getBody({ message: saveSuccess }),
   // [燃气公司运营]
   // 获取公司列表
-  'GET /api/company/fetchcompany': {
-    isSuccessed: true,
-    message: '获取数据成功',
-    extData: [
-      {
-        companyCode: 'CXXX1234',
-        company: '四川海力智能燃气示范公司',
-        sysname: 'HL-6',
-        version: '6.0',
-        updatetime: '2018-04-27 15:51:25',
-        status: '正常',
-      },
-    ],
-  },
+  'GET /api/company/fetchcompany': getBody({ data: businessCompanyData }),
   // 更新配置
-  'POST /api/company/fetchconfig': {
-    isSuccessed: true,
-    message: '已保存配置',
-    extData: [],
-  },
+  'POST /api/company/fetchconfig': getBody({ message: saveSuccess }),
 };
 
 export default (noProxy ? {} : delay(proxy, 1500));

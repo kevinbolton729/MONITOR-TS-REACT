@@ -71,12 +71,12 @@ export interface IParse {
 export interface INewParse {
   (
     params: {
-      isSuccessed: boolean;
+      code: number | string;
       message: string;
-      extData: any[];
+      data: any[];
     }
   ): {
-    isSuccessed: boolean;
+    code: number | string;
     message: string;
     data: any[];
   };
