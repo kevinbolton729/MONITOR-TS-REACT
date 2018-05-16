@@ -4,7 +4,7 @@ import { parseNewResponse } from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
 // 方法
-import { delToken } from '@/utils/fns';
+import { noToken } from '@/utils/fns';
 
 export default {
   namespace: 'user',
@@ -12,7 +12,6 @@ export default {
   state: {
     currentUser: {},
     confirmLoading: false,
-    uploading: false,
   },
 
   effects: {
@@ -28,8 +27,7 @@ export default {
           payload: currentUser,
         });
       } else {
-        yield openMessage.warn(message);
-        yield call(delToken, { put }); // 删除localStorage中的Token
+        yield call(noToken, { message, put });
       }
     },
     // 修改登录密码
@@ -93,20 +91,5 @@ export default {
         confirmLoading: payload,
       };
     },
-    changeUpLoading(state, { payload }) {
-      return {
-        ...state,
-        uploading: payload,
-      };
-    },
-    // changeNotifyCount(state, action) {
-    //   return {
-    //     ...state,
-    //     currentUser: {
-    //       ...state.currentUser,
-    //       notifyCount: action.payload,
-    //     },
-    //   };
-    // },
   },
 };

@@ -1,18 +1,14 @@
 import { routerRedux } from 'dva/router';
 import { message as openMessage } from 'antd';
-import { fakeAccountLogin } from '@/services/api';
+import { fakeAccountLogin, accountLoginOut } from '@/services/api';
 import { setAuthority } from '@/utils/authority';
 import { reloadAuthorized } from '@/utils/Authorized';
 import { parseNewResponse } from '@/utils/parse';
 // import qs from 'qs';
 // 常量
-import {
-  MESSAGE_LOGINON_SUCCESS,
-  MESSAGE_LOGINOUT_SUCCESS,
-  // LOCALSTORAGENAME,
-} from '@/utils/consts';
+import { MESSAGE_LOGINON_SUCCESS, PAGELOGIN } from '@/utils/consts';
 // 方法
-import { delToken } from '@/utils/fns';
+import {} from '@/utils/fns';
 // 用户权限
 // const authorityCollection = {
 //   1000: 'admin',
@@ -50,6 +46,8 @@ export default {
       }
     },
     *logout(_, { put, call, select }) {
+      const response = yield call(accountLoginOut);
+      const { code, message } = yield call(parseNewResponse, response);
       try {
         // get location pathname
         const urlParams = new URL(window.location.href);
@@ -58,16 +56,21 @@ export default {
         urlParams.searchParams.set('redirect', pathname);
         window.history.replaceState(null, 'login', urlParams.href);
       } finally {
-        yield put({
-          type: 'changeLoginStatus',
-          payload: {
-            status: false,
-            currentAuthority: 'guest',
-          },
-        });
-        reloadAuthorized();
-        yield openMessage.success(MESSAGE_LOGINOUT_SUCCESS);
-        yield call(delToken, { put }); // 删除Token
+        if (code === 0) {
+          yield put({
+            type: 'changeLoginStatus',
+            payload: {
+              status: false,
+              currentAuthority: 'guest',
+            },
+          });
+          reloadAuthorized();
+          // yield openMessage.success(MESSAGE_LOGINOUT_SUCCESS);
+          yield openMessage.success(message);
+          yield put(routerRedux.push(PAGELOGIN));
+        } else {
+          yield openMessage.error(message);
+        }
       }
     },
   },

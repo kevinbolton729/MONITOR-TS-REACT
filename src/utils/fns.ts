@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-02-05 22:04:50
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-04-23 15:53:06
+ * @Last Modified time: 2018-05-16 16:44:50
  */
 import { message as openMessage } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -199,13 +199,6 @@ export const dispatchAction = (props: any, opts: { type: string; payload?: any }
 };
 
 // [models]
-// 删除Token,并跳转至登录页 /user/login
-export const delToken: IFns['delToken'] = function*(params) {
-  const { put } = yield params;
-
-  // yield localStorage.removeItem(LOCALSTORAGENAME);
-  yield put(routerRedux.push(PAGELOGIN));
-};
 // Token失效时，提示并跳转至 /user/login
 export const noToken: IFns['noToken'] = function*(params) {
   const { message, put } = yield params;

@@ -11,8 +11,6 @@ import {
   Button,
   message,
   Radio,
-  Avatar,
-  Upload,
 } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
@@ -33,13 +31,11 @@ import { openModal, openConfirm } from '@/components/Modal';
 // import { FirstPage } from '@/components/Other/FirstPage';
 
 // 样式
-import styles from '@/layouts/BasicLayout.less';
+// import styles from '@/layouts/BasicLayout.less';
 
 // 常量
 import {
   LOGO_PAGE,
-  URL_PREFIX,
-  API_DOMAIN,
   DOCUMENTITLE,
   COLLAPSEDWIDTH,
   NOCOLLAPSEDWIDTH,
@@ -59,7 +55,7 @@ import {
   MESSAGE_CHANGESELECTEDSITE_NOSELECT,
 } from '@/utils/consts';
 // 方法
-import { beforeUpload } from '@/utils/fns';
+// import {} from '@/utils/fns';
 
 const logo = LOGO_PAGE;
 
@@ -161,12 +157,6 @@ class BasicLayout extends React.PureComponent {
         });
       }
     });
-
-    // document.onreadystatechange = this.listen;
-  }
-  componentDidUpdate() {
-    // 上传完成/成功时
-    this.uploadFinished();
 
     // document.onreadystatechange = this.listen;
   }
@@ -406,35 +396,10 @@ class BasicLayout extends React.PureComponent {
       type: 'login/logout',
     });
   };
-  // 自定义上传 protrait
-  uploadProtrait = (event) => {
-    const { dispatch } = this.props;
-    const { file, filename } = event;
-    const formData = new FormData(); // 创建form对象
-
-    formData.append(filename, file, file.name);
-
-    dispatch({
-      type: 'user/uploadProtrait',
-      payload: formData,
-    });
-  };
-  // 上传(完成)成功
-  uploadFinished = () => {
-    const { dispatch, uploading } = this.props;
-
-    if (uploading === 'done' || uploading === 'error') {
-      dispatch({
-        type: 'user/changeUpLoading',
-        payload: false,
-      });
-    }
-  };
 
   render() {
     const {
       currentUser,
-      uploading,
       sitetypes,
       collapsed,
       globalConfirmLoading,
@@ -598,43 +563,11 @@ class BasicLayout extends React.PureComponent {
     const userCenterChildren = (
       <div style={{ padding: '0 16' }}>
         <Form onSubmit={this.submitUser}>
-          <Row>
+          {/* <Row>
             <Col span={6}>
               <FormItem label="头像">
                 <div className={styles.portrait}>
                   <Avatar size="large" src={`${URL_PREFIX}${currentUser.portrait}`} />
-                </div>
-              </FormItem>
-            </Col>
-            <Col span={18}>
-              <FormItem>
-                <div className={styles.upload}>
-                  {getFieldDecorator('portrait')(
-                    <Upload
-                      name="portrait"
-                      listType="picture-card"
-                      className="avatar-uploader"
-                      showUploadList={false}
-                      action={`${API_DOMAIN}/api/server/upload/portrait`}
-                      beforeUpload={beforeUpload}
-                      customRequest={this.uploadProtrait}
-                    >
-                      <div style={{ color: '#999' }}>
-                        <Icon type={uploading && uploading === 'loading' ? 'loading' : 'plus'} />
-                        <span style={{ display: 'block' }}>
-                          {uploading ? (
-                            uploading === 'loading' ? (
-                              '上传中...'
-                            ) : (
-                              <span className="primaryTheme">上传成功</span>
-                            )
-                          ) : (
-                            '更新头像'
-                          )}
-                        </span>
-                      </div>
-                    </Upload>
-                  )}
                 </div>
               </FormItem>
             </Col>
@@ -643,7 +576,7 @@ class BasicLayout extends React.PureComponent {
             <Divider>
               <span className="dividerFont">修改个人信息</span>
             </Divider>
-          </div>
+          </div> */}
           <Row>
             <Col span={12}>
               <FormItem label="昵称">
