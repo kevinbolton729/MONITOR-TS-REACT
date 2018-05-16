@@ -97,9 +97,9 @@ enquireScreen((b) => {
 });
 const isMounted = { status: true };
 
-@connect(({ user, global }) => ({
+@connect(({ user, global, loading }) => ({
   currentUser: user.currentUser,
-  confirmLoading: user.confirmLoading,
+  confirmLoading: loading.effects['user/editUser'] || loading.effects['user/editPassword'],
   collapsed: global.collapsed,
   copyright: global.copyright,
 }))
@@ -115,14 +115,11 @@ class BasicLayout extends React.PureComponent {
     super(props);
 
     this.state = {
-      // isloaded: false,
       isMobile,
       visible: false,
       // Modal Form
-      // 0: 安全中心 1:切换站点 2:个人中心
+      // 0: 安全中心 2:个人中心
       modalSort: 0,
-      // portrait loading
-      // portraitLoading: false,
     };
   }
 

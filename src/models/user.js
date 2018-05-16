@@ -11,7 +11,6 @@ export default {
 
   state: {
     currentUser: {},
-    confirmLoading: false,
   },
 
   effects: {
@@ -32,10 +31,6 @@ export default {
     },
     // 修改登录密码
     *editPassword({ payload }, { call, put }) {
-      yield put({
-        type: 'changeConfirmLoading',
-        payload: true,
-      });
       const response = yield call(editPassword, payload);
       const { code, message } = yield call(parseNewResponse, response);
 
@@ -48,17 +43,9 @@ export default {
       } else if (status !== -1) {
         yield openMessage.error(message);
       }
-      yield put({
-        type: 'changeConfirmLoading',
-        payload: false,
-      });
     },
     // 修改用户信息
     *editUser({ payload }, { call, put }) {
-      yield put({
-        type: 'changeConfirmLoading',
-        payload: true,
-      });
       const response = yield call(editUser, payload);
       const { code, message } = yield call(parseNewResponse, response);
 
@@ -71,10 +58,6 @@ export default {
       } else if (status !== -1) {
         yield openMessage.error(message);
       }
-      yield put({
-        type: 'changeConfirmLoading',
-        payload: false,
-      });
     },
   },
 
@@ -83,12 +66,6 @@ export default {
       return {
         ...state,
         currentUser: action.payload,
-      };
-    },
-    changeConfirmLoading(state, { payload }) {
-      return {
-        ...state,
-        confirmLoading: payload,
       };
     },
   },
