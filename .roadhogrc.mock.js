@@ -1,8 +1,27 @@
 import mockjs from 'mockjs';
 import { delay } from 'roadhog-api-doc';
 
+// 数据
+import {
+  spreadData,
+  nblotData,
+  concentratorData,
+  shippingData,
+  businessCompanyData,
+  unusualData,
+  userData,
+  dutyData,
+} from './mock/datas';
+
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
+
+// 获取接口返回的函数
+const getBody = (opts, code = 0) => ({
+  code,
+  message: opts.message || messageSuccess,
+  data: opts.data || [],
+});
 
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 // "POST /api/forms": (req, res) => {
