@@ -1,5 +1,7 @@
-import { Icon } from 'antd';
+import { Icon, Tag } from 'antd';
 import * as React from 'react';
+// 方法
+import { unixFormatter } from '../../utils/fns';
 // 样式
 const styles = require('./index.less');
 
@@ -58,8 +60,8 @@ export const customCols = (fn: any) => {
     },
     {
       title: '数据提取状态',
-      dataIndex: 'sendStatus',
-      key: 'sendStatus',
+      dataIndex: 'extractStatus',
+      key: 'extractStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },
@@ -77,8 +79,8 @@ export const customCols = (fn: any) => {
   const nblot = [
     {
       title: '表编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'nblotCode',
+      key: 'nblotCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -89,14 +91,14 @@ export const customCols = (fn: any) => {
     },
     {
       title: '在线状态',
-      dataIndex: 'online',
-      key: 'online',
+      dataIndex: 'onLineStatus',
+      key: 'onLineStatus',
       render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据上传状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'uploadStatus',
+      key: 'uploadStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },
@@ -114,8 +116,8 @@ export const customCols = (fn: any) => {
   const unusual = [
     {
       title: '表编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'meterCode',
+      key: 'meterCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -126,22 +128,22 @@ export const customCols = (fn: any) => {
     },
     {
       title: '报警类型/报警次数',
-      dataIndex: 'method',
-      key: 'method',
-      render: (text: any, record: any) => <span>{`${record.method} / ${record.num}`}</span>,
+      dataIndex: 'alarmType',
+      key: 'alarmType',
+      render: (text: any, record: any) => <span>{`${record.alarmType} / ${record.alarmNum}`}</span>,
     },
     {
       title: '报警时间',
-      dataIndex: 'datetime',
-      key: 'datetime',
-      render: (text: any) => <span>{text}</span>,
+      dataIndex: 'alarmAt',
+      key: 'alarmAt',
+      render: (text: any) => <span>{unixFormatter(text)}</span>,
     },
     {
       title: '预警状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'alarmStatus',
+      key: 'alarmStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => <Tag color="red">{text}</Tag>,
     },
     {
       title: '操作',
@@ -157,8 +159,8 @@ export const customCols = (fn: any) => {
   const concentrator = [
     {
       title: '编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'concentratorCode',
+      key: 'concentratorCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -168,15 +170,9 @@ export const customCols = (fn: any) => {
       render: (text: any) => <span>{text}</span>,
     },
     {
-      title: '通信卡状态',
-      dataIndex: 'card',
-      key: 'card',
-      render: (text: any) => <span>{text}</span>,
-    },
-    {
       title: '集中器在线状态',
-      dataIndex: 'online',
-      key: 'online',
+      dataIndex: 'cardStatus',
+      key: 'cardStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },
@@ -194,8 +190,8 @@ export const customCols = (fn: any) => {
   const shipping = [
     {
       title: '表编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'meterCode',
+      key: 'meterCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -208,16 +204,10 @@ export const customCols = (fn: any) => {
       title: '快递公司/发货单号/发货时间',
       dataIndex: 'express',
       key: 'express',
-      render: (text: any, record: any) => (
-        <span>{`${record.express} / ${record.expressid} / ${record.expresstime}`}</span>
-      ),
-    },
-    {
-      title: '数据提取状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any, record: any) => [
+        <Tag key="express">{record.express}</Tag>,
+        <span key="orderId">{`${record.orderId} / ${unixFormatter(record.deliveryAt)}`}</span>,
+      ],
     },
     {
       title: '操作',
@@ -240,8 +230,8 @@ export const dataMonitorCols = (fn: any) => {
   const spread = [
     {
       title: '表编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'spreadCode',
+      key: 'spreadCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -252,14 +242,14 @@ export const dataMonitorCols = (fn: any) => {
     },
     {
       title: '扫频方式',
-      dataIndex: 'method',
-      key: 'method',
+      dataIndex: 'scanMethod',
+      key: 'scanMethod',
       render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据提取状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'extractStatus',
+      key: 'extractStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },
@@ -277,8 +267,8 @@ export const dataMonitorCols = (fn: any) => {
   const nblot = [
     {
       title: '表编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'nblotCode',
+      key: 'nblotCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -289,14 +279,14 @@ export const dataMonitorCols = (fn: any) => {
     },
     {
       title: '在线状态',
-      dataIndex: 'online',
-      key: 'online',
+      dataIndex: 'onLineStatus',
+      key: 'onLineStatus',
       render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据上传状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'uploadStatus',
+      key: 'uploadStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },
@@ -314,8 +304,8 @@ export const dataMonitorCols = (fn: any) => {
   const concentrator = [
     {
       title: '编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'concentratorCode',
+      key: 'concentratorCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -325,15 +315,9 @@ export const dataMonitorCols = (fn: any) => {
       render: (text: any) => <span>{text}</span>,
     },
     {
-      title: '通信卡状态',
-      dataIndex: 'card',
-      key: 'card',
-      render: (text: any) => <span>{text}</span>,
-    },
-    {
       title: '集中器在线状态',
-      dataIndex: 'online',
-      key: 'online',
+      dataIndex: 'cardStatus',
+      key: 'cardStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },

@@ -94,7 +94,7 @@ const fields = {
   // 集中器
   concentrator: '集中器',
   concentratorCode: 'C0001000X', // 集中器编号
-  cardStatus: 0, // 通信卡状态 0:异常 1:正常
+  cardStatus: 0, // 集中器状态 0:异常 1:正常
   factNum: 53, // 实际挂表数
   totalNum: 200, // 全部表数
   setupAddress: '二仙桥崔家店路天空城', // 安装地址
@@ -127,6 +127,7 @@ const fields = {
   deliveryAt: `${typeUnix13}`, // 发货时间
   // 异常报警
   alarmNum: 3, // 报警次数
+  alarmType: '充值', // 报警类型
   alarmStatus: 1, // 预警状态 0:异常 1:正常
   alarmAt: `${typeUnix13}`, // 报警时间
   // 燃气公司运营

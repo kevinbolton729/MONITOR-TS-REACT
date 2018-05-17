@@ -24,7 +24,7 @@ export default {
       // Login successfully
       if (code === 0) {
         const currentAuthority = yield authority[data[0].role].value;
-        yield console.log(currentAuthority, 'currentAuthority');
+        // yield console.log(currentAuthority, 'currentAuthority');
         // 获取当前登录用户权限并保持权限值
         yield put({
           type: 'changeLoginStatus',

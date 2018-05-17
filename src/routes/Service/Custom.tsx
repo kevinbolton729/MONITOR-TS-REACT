@@ -28,17 +28,17 @@ enum sortGroup {
   shipping = '发货记录',
 }
 
-const expandedRowRender = (record: any): React.ReactNode => [
-  <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
-  <p key="2" style={{ margin: 0 }}>
-    姓名: <span className="expandSpan">{record.duty.name}</span>
-  </p>,
-  <p key="4" style={{ margin: 0 }}>
-    手机号码: <span className="expandSpan">{record.duty.tel}</span>
-  </p>,
-  <p key="3" style={{ margin: 0 }}>{`办公电话: ${record.duty.phone}`}</p>,
-  <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
-];
+// const expandedRowRender = (record: any): React.ReactNode => [
+//   <p key="1" style={{ margin: 0 }}>{`部门: ${record.duty.department}`}</p>,
+//   <p key="2" style={{ margin: 0 }}>
+//     姓名: <span className="expandSpan">{record.duty.name}</span>
+//   </p>,
+//   <p key="4" style={{ margin: 0 }}>
+//     手机号码: <span className="expandSpan">{record.duty.tel}</span>
+//   </p>,
+//   <p key="3" style={{ margin: 0 }}>{`办公电话: ${record.duty.phone}`}</p>,
+//   <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
+// ];
 
 @connect(({ loading, custom }: any) => ({
   loading: loading.models.custom,
@@ -283,7 +283,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
                 columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={dataSource}
-                expandedRowRender={expandedRowRender}
+                // expandedRowRender={expandedRowRender}
                 pagination={pagination}
               />
             ) : (
