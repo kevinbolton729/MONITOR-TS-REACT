@@ -21,11 +21,12 @@ const menuData = [
       {
         name: '服务监控',
         path: 'business',
+        authority: ['admin'], // 配置准入权限
       },
       {
         name: '业务数据监控',
         path: 'datamonitor',
-        authority: ['admin', 'monitor'], // 配置准入权限
+        authority: ['admin', 'monitor'],
       },
       {
         name: '客户服务监控',
@@ -46,30 +47,30 @@ const menuData = [
       },
     ],
   },
-  {
-    path: 'profile',
-    hideInMenu: true,
-    children: [
-      {
-        path: 'datamonitor',
-        children: [
-          {
-            name: '详情',
-            path: ':id',
-          },
-        ],
-      },
-      {
-        path: 'custom',
-        children: [
-          {
-            name: '详情',
-            path: ':id',
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   path: 'profile',
+  //   hideInMenu: true,
+  //   children: [
+  //     {
+  //       path: 'datamonitor',
+  //       children: [
+  //         {
+  //           name: '详情',
+  //           path: ':id',
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       path: 'custom',
+  //       children: [
+  //         {
+  //           name: '详情',
+  //           path: ':id',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 function formatter(data, parentPath = '', parentAuthority) {

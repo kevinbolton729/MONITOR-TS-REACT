@@ -80,12 +80,13 @@ export const getRouterData = (app) => {
     },
     '/service/business': {
       component: dynamicWrapper(app, [], () => import('../routes/Service/Business')),
+      authority: ['admin'], // 配置准入权限
     },
     '/service/datamonitor': {
       component: dynamicWrapper(app, ['datamonitor', 'detail'], () =>
         import('../routes/Service/DataMonitor')
       ),
-      authority: ['admin', 'monitor'], // 配置准入权限
+      authority: ['admin', 'monitor'],
     },
     '/service/custom': {
       component: dynamicWrapper(app, ['custom', 'detail'], () =>
