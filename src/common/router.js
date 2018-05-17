@@ -102,6 +102,7 @@ export const getRouterData = (app) => {
     // },
     '/operation/company': {
       component: dynamicWrapper(app, ['company'], () => import('../routes/Operation/Company')),
+      authority: ['admin', 'custom'],
     },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),

@@ -39,11 +39,11 @@ const menuData = [
     name: '运营管理',
     icon: 'bulb',
     path: 'operation',
+    authority: ['admin', 'custom'],
     children: [
       {
         name: '燃气公司运营',
         path: 'company',
-        authority: ['admin', 'custom'],
       },
     ],
   },
