@@ -20,7 +20,7 @@ export default {
       const { code, message, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
-        console.log(data, 'data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeCompanyList',
           payload: data,

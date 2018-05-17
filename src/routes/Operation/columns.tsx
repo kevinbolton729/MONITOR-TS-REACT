@@ -73,6 +73,7 @@ export const companyCols = (fn: any) => {
       title: '系统名称/版本号',
       dataIndex: 'sysName',
       key: 'sysName',
+      width: 200,
       render: (text: any, record: any) => [
         <span key="sysName">{record.detail.sysName}</span>,
         <span key="sysVersion">{` / ${record.detail.sysVersion}`}</span>,
@@ -91,7 +92,7 @@ export const companyCols = (fn: any) => {
       title: '运行状态',
       dataIndex: 'runStatus',
       key: 'runStatus',
-      width: 240,
+      width: 120,
       render: (text: any, record: any) => formatRunStatus(record.detail.runStatus),
     },
     {
