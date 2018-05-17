@@ -18,7 +18,7 @@ const string = 'String';
 const boolean = 'Boolean';
 const array = 'Array';
 const object = 'Object';
-const unix13 = 'Unix 时间戳(13位)';
+// const unix13 = 'Unix 时间戳(13位)';
 
 const fieldType = `${field}${type}`;
 
@@ -51,7 +51,7 @@ export const typeString = `[${fieldType}: ${string}]`; // eg.[字段类型: Stri
 export const typeBoolean = `[${fieldType}: ${boolean}]`; // eg.[字段类型: Boolean]
 export const typeArray = `[${fieldType}: ${array}]`; // eg.[字段类型: Array]
 export const typeObject = `[${fieldType}: ${object}]`; // eg.[字段类型: Object]
-export const typeUnix13 = `[${fieldType}: ${unix13}]`; // eg.[字段类型: Unix(13位)]
+export const typeUnix13 = 1524032521415;
 
 // 字段定义
 const fields = {
@@ -72,12 +72,12 @@ const fields = {
   priceValue: `历史价格金额(元) ${typeNumber} eg. 2.84`,
   priceVersion: `价格版本 ${typeString}`,
   priceStatus: `价格状态 ${typeNumber} 0:异常 1:正常`,
-  priceEndAt: `有效期至 ${typeUnix13}`,
+  priceEndAt: `${typeUnix13}`,
   // 扩频表
   spread: '扩频表',
   spreadCode: `表编号 ${typeString}`,
   companyCode: `公司编码 ${typeString}`,
-  company: `公司名称 ${typeString}`,
+  company: '海力智能燃气示范公司',
   scanMethod: `扫频方式 ${typeNumber} 0:手动 1:自动`,
   extractStatus: `数据提取状态 ${typeNumber} 0:失败 1:成功`,
   batteryStatus: `电池状态 ${typeNumber} 0:消耗过大 1:正常 2:消耗过快`,
@@ -90,7 +90,7 @@ const fields = {
   sendStatus: `上报状态 ${typeNumber} 0:未上报 1:正常`,
   noSend: `未上报(次数) ${typeNumber}`,
   finishedSend: `已上报(次数) ${typeNumber}`,
-  sendUpdateAt: `上报时间 ${typeUnix13}`,
+  sendUpdateAt: `${typeUnix13}`,
   // 集中器
   concentrator: '集中器',
   concentratorCode: `集中器编号 ${typeString}`,
@@ -124,16 +124,16 @@ const fields = {
   expressCode: `快递公司编号 ${typeString}`,
   express: `快递公司名称 ${typeString}`,
   orderId: `发货单号 ${typeString}`,
-  deliveryAt: `发货时间 ${typeUnix13}`,
+  deliveryAt: `${typeUnix13}`,
   // 异常报警
   alarmNum: `报警次数 ${typeNumber}`,
   alarmStatus: `预警状态 ${typeNumber} 0:异常 1:正常`,
-  alarmAt: `报警时间 ${typeUnix13}`,
+  alarmAt: `${typeUnix13}`,
   // 燃气公司运营
-  sysName: `系统名称 ${typeString}`,
-  sysVersion: `系统版本 ${typeString}`,
-  getMethod: `采集方式 ${typeNumber} 0:静默定时 1:静默实时`,
-  runStatus: `运行状态 ${typeNumber} 0:异常 1:正常`,
+  sysName: 'HL-6',
+  sysVersion: '6.5',
+  getMethod: 1, // 0:静默定时 1:静默实时
+  runStatus: 1, // 0:异常 1:正常
   ip: `IP地址 ${typeString}`,
   port: `端口号 ${typeString}`,
   mac: `MAC地址 ${typeString}`,
@@ -142,7 +142,7 @@ const fields = {
   readWrither: `读写器型号 ${typeString}`,
   otherDevices: `其他设备型号 ${typeString}`,
   dllVersion: `DLL文件版本 ${typeString}`,
-  getDataAt: `采集数据时间 ${typeUnix13}`,
+  getDataAt: `${typeUnix13}`,
   // 登录用户信息（资料）
   userid: `登录用户编码 ${typeString}`,
   nickname: `用户昵称(界面显示) ${typeString}`,

@@ -2,11 +2,12 @@
  * @Author: Kevin Bolton
  * @Date: 2018-02-05 22:04:50
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-16 16:44:50
+ * @Last Modified time: 2018-05-17 15:37:03
  */
 import { message as openMessage } from 'antd';
 import { routerRedux } from 'dva/router';
 import md5 from 'js-md5';
+import moment from 'moment';
 // 声明
 import { IFns } from '../global';
 // 常量
@@ -17,6 +18,10 @@ import {
   // LOCALSTORAGENAME,
   URL_PREFIX,
 } from './consts';
+
+// unix(13位)时间戳格式化 eg.
+export const unixFormatter = (timestamp: number | string, format = 'YYYY年MM月DD日 HH:mm:ss') =>
+  moment(parseInt(`${timestamp}`, 10)).format(format);
 
 // md5处理
 export const setMd5: IFns['setMd5'] = pwd => {

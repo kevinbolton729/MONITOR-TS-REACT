@@ -1,5 +1,7 @@
-import { Icon } from 'antd';
+import { Icon, Tag } from 'antd';
 import * as React from 'react';
+// 方法
+import { unixFormatter } from '../../utils/fns';
 // 样式
 const styles = require('./index.less');
 
@@ -33,6 +35,29 @@ const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, ty
   return <div />;
 };
 
+// 格式化运行状态
+const runStats = {
+  0: { label: '异常', color: 'red' },
+  1: { label: '正常', color: 'green' },
+};
+const formatRunStatus = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return <Tag color={runStats[stats].color}>{runStats[stats].label}</Tag>;
+};
+// 格式化采集方式
+const methodStats = {
+  0: { label: '静默定时', color: 'cyan' },
+  1: { label: '静默实时', color: 'gold' },
+};
+const formatGetMethod = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return (
+    <Tag key="getMethod" color={methodStats[stats].color}>
+      {methodStats[stats].label}
+    </Tag>
+  );
+};
+
 // 燃气公司运营
 // Columns of Table
 export const companyCols = (fn: any) => {
@@ -45,32 +70,29 @@ export const companyCols = (fn: any) => {
       render: (text: any) => <span>{text}</span>,
     },
     {
-      title: '系统名称',
-      dataIndex: 'sysname',
-      key: 'sysname',
-      render: (text: any) => <span>{text}</span>,
-    },
-    {
-      title: '版本号',
-      dataIndex: 'version',
-      key: 'version',
-      render: (text: any) => <span>{text}</span>,
+      title: '系统名称/版本号',
+      dataIndex: 'sysName',
+      key: 'sysName',
+      render: (text: any, record: any) => [
+        <span key="sysName">{record.detail.sysName}</span>,
+        <span key="sysVersion">{` / ${record.detail.sysVersion}`}</span>,
+      ],
     },
     {
       title: '采集方式',
-      dataIndex: 'method',
-      key: 'method',
+      dataIndex: 'getMethod',
+      key: 'getMethod',
       render: (text: any, record: any) => [
-        <span key="method">{text}</span>,
-        <span key="updatetime">{record.updatetime}</span>,
+        formatGetMethod(record.detail.getMethod),
+        <span key="getDataAt">{` ${unixFormatter(record.detail.getDataAt)}`}</span>,
       ],
     },
     {
       title: '运行状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'runStatus',
+      key: 'runStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any, record: any) => formatRunStatus(record.detail.runStatus),
     },
     {
       title: '操作',
