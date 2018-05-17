@@ -155,7 +155,6 @@ export const concentratorData = [
     factNum: fields.factNum,
     totalNum: fields.totalNum,
     cardStatus: fields.cardStatus,
-    onLineStatus: fields.onLineStatus,
     setupAddress: fields.setupAddress,
     createAt: fields.createAt,
     updateAt: fields.updateAt,
