@@ -128,15 +128,15 @@ export const spreadData = [
     noSend: fields.noSend,
     finishedSend: fields.finishedSend,
     sendUpdateAt: fields.sendUpdateAt,
-    [`priceHistory: ${fields.priceHistory}`]: [
+    priceHistory: [
       {
         priceValue: fields.priceValue,
         updateAt: `调价时间 ${fields.updateAt}`,
       },
     ],
     // [`duty: '${fields.duty}'`]: dutyCollection,
-    [`directive: '${fields.directive}'`]: directiveCollection,
-    [`user: ${fields.user}`]: {
+    directive: directiveCollection,
+    user: {
       userName: fields.userName,
       cardId: fields.cardId,
       address: fields.address,
@@ -187,15 +187,15 @@ export const nblotData = [
     noSend: fields.noSend,
     finishedSend: fields.finishedSend,
     sendUpdateAt: fields.sendUpdateAt,
-    [`priceHistory: ${fields.priceHistory}`]: [
+    priceHistory: [
       {
         priceValue: fields.priceValue,
         updateAt: `调价时间 ${fields.updateAt}`,
       },
     ],
     // [`duty: '${fields.duty}'`]: dutyCollection,
-    [`directive: '${fields.directive}'`]: directiveCollection,
-    [`user: ${fields.user}`]: {
+    directive: directiveCollection,
+    user: {
       userName: fields.userName,
       cardId: fields.cardId,
       address: fields.address,
@@ -233,7 +233,7 @@ export const unusualData = [
     alarmStatus: fields.alarmStatus,
     alarmAt: fields.alarmAt,
     // [`duty: '${fields.duty}'`]: dutyCollection,
-    [`directive: '${fields.directive}'`]: directiveCollection,
+    directive: directiveCollection,
   },
 ];
 
@@ -244,9 +244,9 @@ export const businessCompanyData = [
     company: fields.company,
     city: fields.city,
     description: fields.description,
-    [`detail ${fields.detail}`]: {
-      sysName: fields.sysname,
-      sysVersion: fields.sysversion,
+    detail: {
+      sysName: fields.sysName,
+      sysVersion: fields.sysVersion,
       getMethod: fields.getMethod,
       runStatus: fields.runStatus,
       ip: fields.ip,

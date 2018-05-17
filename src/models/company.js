@@ -17,10 +17,10 @@ export default {
     // 获取扩频表列表
     *fetchCompany(_, { call, put }) {
       const response = yield call(fetchCompany);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
-        // console.log(data, 'data');
+      if (code === 0) {
+        console.log(data, 'data');
         yield put({
           type: 'changeCompanyList',
           payload: data,
@@ -32,9 +32,9 @@ export default {
     // 更新配置
     *fetchConfig(_, { call }) {
       const response = yield call(fetchCompanyConfig);
-      const { isSuccessed, message } = yield call(parseNewResponse, response);
+      const { code, message } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         yield openMessage.success(message);
       }
     },
