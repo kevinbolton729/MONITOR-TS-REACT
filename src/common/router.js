@@ -85,11 +85,13 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['datamonitor', 'detail'], () =>
         import('../routes/Service/DataMonitor')
       ),
+      authority: ['admin', 'monitor'], // 配置准入权限
     },
     '/service/custom': {
       component: dynamicWrapper(app, ['custom', 'detail'], () =>
         import('../routes/Service/Custom')
       ),
+      authority: ['admin', 'custom'],
     },
     // '/profile/custom/:id': {
     //   component: dynamicWrapper(app, ['detail'], () => import('../routes/Service/Detail')),
@@ -105,6 +107,15 @@ export const getRouterData = (app) => {
     },
     '/user/login': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
+    },
+    '/exception/403': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
+    },
+    '/exception/404': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/404')),
+    },
+    '/exception/500': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/500')),
     },
     // '/user/register': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/Register')),

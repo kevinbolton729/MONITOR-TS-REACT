@@ -25,10 +25,12 @@ const menuData = [
       {
         name: '业务数据监控',
         path: 'datamonitor',
+        authority: ['admin', 'monitor'], // 配置准入权限
       },
       {
         name: '客户服务监控',
         path: 'custom',
+        authority: ['admin', 'custom'],
       },
     ],
   },
@@ -40,6 +42,7 @@ const menuData = [
       {
         name: '燃气公司运营',
         path: 'company',
+        authority: ['admin', 'custom'],
       },
     ],
   },

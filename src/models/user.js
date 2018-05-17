@@ -21,6 +21,7 @@ export default {
       const { code, message, data } = yield call(parseNewResponse, response);
       if (code === 0) {
         const currentUser = yield data[0];
+        // yield console.log(currentUser, 'currentUser');
         yield put({
           type: 'saveCurrentUser',
           payload: currentUser,

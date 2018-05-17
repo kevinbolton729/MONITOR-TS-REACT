@@ -1,7 +1,7 @@
 import { routerRedux } from 'dva/router';
 import { message as openMessage } from 'antd';
 import { fakeAccountLogin, accountLoginOut } from '@/services/api';
-import { setAuthority } from '@/utils/authority';
+import { setAuthority, authority } from '@/utils/authority';
 import { reloadAuthorized } from '@/utils/Authorized';
 import { parseNewResponse } from '@/utils/parse';
 // import qs from 'qs';
@@ -9,12 +9,6 @@ import { parseNewResponse } from '@/utils/parse';
 import { MESSAGE_LOGINON_SUCCESS, PAGELOGIN } from '@/utils/consts';
 // 方法
 import {} from '@/utils/fns';
-// 用户权限
-// const authorityCollection = {
-//   1000: 'admin',
-//   2000: 'custom',
-//   3000: 'devloper',
-// };
 
 export default {
   namespace: 'login',
@@ -26,20 +20,21 @@ export default {
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      const { code, message } = yield call(parseNewResponse, response);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: {
-          ...response,
-          currentAuthority: 'admin', // 此值应接口返回
-        },
-      });
+      const { code, message, data } = yield call(parseNewResponse, response);
       // Login successfully
       if (code === 0) {
-        reloadAuthorized();
-        // const { token } = yield data[0];
+        const currentAuthority = yield authority[data[0].role].value;
+        yield console.log(currentAuthority, 'currentAuthority');
+        // 获取当前登录用户权限并保持权限值
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            ...response,
+            currentAuthority,
+          },
+        });
+        yield reloadAuthorized();
         yield openMessage.success(MESSAGE_LOGINON_SUCCESS);
-        // yield localStorage.setItem(LOCALSTORAGENAME, qs.stringify({ token }));
         yield put(routerRedux.push('/'));
       } else {
         yield openMessage.error(message);
