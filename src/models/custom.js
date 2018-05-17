@@ -31,9 +31,9 @@ export default {
     // 获取扩频表列表
     *fetchSpread(_, { call, put }) {
       const response = yield call(fetchSpread);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         // console.log(data, 'data');
         yield put({
           type: 'changeSpreadList',
@@ -46,9 +46,9 @@ export default {
     // 获取集中器列表
     *fetchConcentrator(_, { call, put }) {
       const response = yield call(fetchConcentrator);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         // console.log(data, 'data');
         yield put({
           type: 'changeConcentratorList',
@@ -61,9 +61,9 @@ export default {
     // 获取扩频表>发货记录列表
     *fetchShipping(_, { call, put }) {
       const response = yield call(fetchShipping);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         // console.log(data, 'data');
         yield put({
           type: 'changeShippingList',
@@ -76,9 +76,9 @@ export default {
     // 获取物联网表列表
     *fetchNblot(_, { call, put }) {
       const response = yield call(fetchNblot);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         // console.log(data, 'data');
         yield put({
           type: 'changeNblotList',
@@ -91,9 +91,9 @@ export default {
     // 获取扩频表>发货记录列表
     *fetchNblotShipping(_, { call, put }) {
       const response = yield call(fetchNblotShipping);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         console.log(data, 'data');
         yield put({
           type: 'changeNblotShippingList',
@@ -106,9 +106,9 @@ export default {
     // 获取异常报警>扩频表列表
     *fetchUnusualSpread(_, { call, put }) {
       const response = yield call(fetchUnusualSpread);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         // console.log(data, 'data');
         yield put({
           type: 'changeUnusualSpreadList',
@@ -121,9 +121,9 @@ export default {
     // 获取异常报警>物联网表列表
     *fetchUnusualNblot(_, { call, put }) {
       const response = yield call(fetchUnusualNblot);
-      const { isSuccessed, message, data } = yield call(parseNewResponse, response);
+      const { code, message, data } = yield call(parseNewResponse, response);
 
-      if (isSuccessed) {
+      if (code === 0) {
         // console.log(data, 'data');
         yield put({
           type: 'changeUnusualNblotList',
