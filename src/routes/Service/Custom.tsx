@@ -279,7 +279,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
           <div style={{ marginTop: '20px' }}>
             {currentTable === 'spread' || currentTable === 'nblot' ? (
               <Table
-                rowKey="id"
+                rowKey="companyCode"
                 columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={dataSource}
@@ -288,7 +288,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
               />
             ) : (
               <Table
-                rowKey="id"
+                rowKey="companyCode"
                 columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={dataSource}

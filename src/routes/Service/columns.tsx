@@ -40,8 +40,8 @@ export const customCols = (fn: any) => {
   const spread = [
     {
       title: '表编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'spreadCode',
+      key: 'spreadCode',
       render: (text: any) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{text}</span>,
     },
     {
@@ -52,14 +52,14 @@ export const customCols = (fn: any) => {
     },
     {
       title: '扫频方式',
-      dataIndex: 'method',
-      key: 'method',
+      dataIndex: 'scanMethod',
+      key: 'scanMethod',
       render: (text: any) => <span>{text}</span>,
     },
     {
       title: '数据提取状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'sendStatus',
+      key: 'sendStatus',
       width: 240,
       render: (text: any) => <span>{text}</span>,
     },

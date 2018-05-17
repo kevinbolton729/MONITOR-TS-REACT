@@ -97,8 +97,8 @@ const directiveCollection = [
     directiveStatus: fields.directiveStatus,
     directiveDes: fields.directiveDes,
     directiveStep: fields.directiveStep,
-    createAt: `指令生成时间 ${fields.createAt}`,
-    updateAt: `指令到达时间 ${fields.updateAt}`,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
 
@@ -115,7 +115,7 @@ export const spreadData = [
     priceType: fields.priceType,
     priceVersion: fields.priceVersion,
     priceStatus: fields.priceStatus,
-    priceUpdateAt: `调价时间 ${fields.updateAt}`,
+    priceUpdateAt: fields.updateAt,
     priceEndAt: fields.priceEndAt,
     batteryStatus: fields.batteryStatus,
     remainVoltage: fields.remainVoltage,
@@ -131,7 +131,7 @@ export const spreadData = [
     priceHistory: [
       {
         priceValue: fields.priceValue,
-        updateAt: `调价时间 ${fields.updateAt}`,
+        updateAt: fields.updateAt,
       },
     ],
     // [`duty: '${fields.duty}'`]: dutyCollection,
@@ -141,8 +141,8 @@ export const spreadData = [
       cardId: fields.cardId,
       address: fields.address,
     },
-    createAt: `创建时间 ${fields.createAt}`,
-    updateAt: `更新时间 ${fields.updateAt}`,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
 
@@ -157,8 +157,8 @@ export const concentratorData = [
     cardStatus: fields.cardStatus,
     onLineStatus: fields.onLineStatus,
     setupAddress: fields.setupAddress,
-    createAt: `创建时间 ${fields.createAt}`,
-    updateAt: `更新时间 ${fields.updateAt}`,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
 
@@ -174,7 +174,7 @@ export const nblotData = [
     priceType: fields.priceType,
     priceVersion: fields.priceVersion,
     priceStatus: fields.priceStatus,
-    priceUpdateAt: `调价时间 ${fields.updateAt}`,
+    priceUpdateAt: fields.updateAt,
     priceEndAt: fields.priceEndAt,
     batteryStatus: fields.batteryStatus,
     remainVoltage: fields.remainVoltage,
@@ -190,7 +190,7 @@ export const nblotData = [
     priceHistory: [
       {
         priceValue: fields.priceValue,
-        updateAt: `调价时间 ${fields.updateAt}`,
+        updateAt: fields.updateAt,
       },
     ],
     // [`duty: '${fields.duty}'`]: dutyCollection,
@@ -200,8 +200,8 @@ export const nblotData = [
       cardId: fields.cardId,
       address: fields.address,
     },
-    createAt: `创建时间 ${fields.createAt}`,
-    updateAt: `更新时间 ${fields.updateAt}`,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
 
@@ -217,9 +217,9 @@ export const shippingData = [
     company: fields.company,
     express: fields.express,
     orderId: fields.orderId,
-    deliveryAt: `创建时间 ${fields.deliveryAt}`,
-    createAt: `创建时间 ${fields.createAt}`,
-    updateAt: `更新时间 ${fields.updateAt}`,
+    deliveryAt: fields.deliveryAt,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
 
@@ -259,8 +259,8 @@ export const businessCompanyData = [
       dllVersion: fields.dllVersion,
       getDataAt: fields.getDataAt,
     },
-    createAt: `创建时间 ${fields.createAt}`,
-    updateAt: `更新时间 ${fields.updateAt}`,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
 
@@ -274,7 +274,7 @@ export const userData = [
     sex: fields.sex,
     tel: fields.tel,
     email: fields.email,
-    createAt: `创建时间 ${fields.createAt}`,
-    updateAt: `更新时间 ${fields.updateAt}`,
+    createAt: fields.createAt,
+    updateAt: fields.updateAt,
   },
 ];
