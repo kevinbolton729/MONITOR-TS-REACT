@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-11 18:30:09
+ * @Last Modified time: 2018-05-18 11:43:40
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -112,8 +112,10 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
         <Form>
           {showSelectCity && (
             <div className={styles.item}>
+              <span>选择：</span>
               {getFieldDecorator('city')(
                 <Cascader
+                  style={{ width: 150 }}
                   options={cityOptions}
                   onChange={this.changeCity}
                   placeholder="省份/城市"
