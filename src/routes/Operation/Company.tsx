@@ -30,6 +30,8 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   constructor(props: any) {
     super(props);
     this.state = {
+      // 请求数据
+      isFetch: true,
       // Modal
       modalSort: 'company', // 'company':燃气公司
       selectedRecord: [],
@@ -48,6 +50,10 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     this.afterSaveCloseConfig();
   }
 
+  // 设置是否已请求过数据
+  covertFetch = (fetch = false) => {
+    this.setState({ isFetch: fetch });
+  };
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string = 'company') => {
@@ -65,10 +71,15 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   // 发起API请求
   startFetch = () => {
     const { companyList } = this.props;
+    const { isFetch } = this.state;
+
     // 获取扩频表 > 扩频表列表
-    if (companyList.length === 0) {
+    if (isFetch && companyList.length === 0) {
       this.dispatchAction('company/fetchCompany');
     }
+
+    // 已请求过数据
+    this.covertFetch(false);
   };
   // 查看
   handlerShow = (record: any, key: string) => {

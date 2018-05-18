@@ -15,6 +15,7 @@ export interface ICompanyStates {
   visible: boolean;
   isEditConfig: boolean;
   isClick: boolean;
+  isFetch: boolean;
   modalSort: string;
   selectedRecord: any[];
 }

@@ -2,7 +2,7 @@ import { message as openMessage } from 'antd';
 import { fetchCompany, fetchCompanyConfig } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
-// import {} from '@/utils/consts';
+import { API_DATA_ERROR, API_DATA_TIMEOUTMSG } from '@/utils/consts';
 // 方法
 // import { gotoPage } from '@/utils/fns';
 
@@ -17,7 +17,7 @@ export default {
     // 获取扩频表列表
     *fetchCompany(_, { call, put }) {
       const response = yield call(fetchCompany);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -26,7 +26,7 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 更新配置
@@ -36,6 +36,8 @@ export default {
 
       if (code === 0) {
         yield openMessage.success(message);
+      } else {
+        yield openMessage.warn(API_DATA_TIMEOUTMSG);
       }
     },
   },
