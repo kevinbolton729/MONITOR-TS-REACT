@@ -7,7 +7,7 @@ import {
 } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
-// import {} from '@/utils/consts';
+import { API_DATA_ERROR, API_DATA_TIMEOUTMSG } from '@/utils/consts';
 // 方法
 // import { gotoPage } from '@/utils/fns';
 
@@ -24,7 +24,7 @@ export default {
     // 获取扩频表列表
     *fetchDataSpread(_, { call, put }) {
       const response = yield call(fetchDataSpread);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -33,13 +33,13 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取集中器列表
     *fetchDataConcentrator(_, { call, put }) {
       const response = yield call(fetchDataConcentrator);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -48,13 +48,13 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取物联网表列表
     *fetchDataNblot(_, { call, put }) {
       const response = yield call(fetchDataNblot);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -63,7 +63,7 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 更新配置
@@ -73,6 +73,8 @@ export default {
 
       if (code === 0) {
         yield openMessage.success(message);
+      } else {
+        yield openMessage.warn(API_DATA_TIMEOUTMSG);
       }
     },
   },

@@ -10,7 +10,7 @@ import {
 } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
-// import {} from '@/utils/consts';
+import { API_DATA_ERROR } from '@/utils/consts';
 // 方法
 // import { gotoPage } from '@/utils/fns';
 
@@ -31,22 +31,22 @@ export default {
     // 获取扩频表列表
     *fetchSpread(_, { call, put }) {
       const response = yield call(fetchSpread);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
-        console.log(data, 'data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeSpreadList',
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取集中器列表
     *fetchConcentrator(_, { call, put }) {
       const response = yield call(fetchConcentrator);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -55,13 +55,13 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取扩频表>发货记录列表
     *fetchShipping(_, { call, put }) {
       const response = yield call(fetchShipping);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -70,13 +70,13 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取物联网表列表
     *fetchNblot(_, { call, put }) {
       const response = yield call(fetchNblot);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -85,28 +85,28 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取扩频表>发货记录列表
     *fetchNblotShipping(_, { call, put }) {
       const response = yield call(fetchNblotShipping);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
-        console.log(data, 'data');
+        // console.log(data, 'data');
         yield put({
           type: 'changeNblotShippingList',
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取异常报警>扩频表列表
     *fetchUnusualSpread(_, { call, put }) {
       const response = yield call(fetchUnusualSpread);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -115,13 +115,13 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
     // 获取异常报警>物联网表列表
     *fetchUnusualNblot(_, { call, put }) {
       const response = yield call(fetchUnusualNblot);
-      const { code, message, data } = yield call(parseNewResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         // console.log(data, 'data');
@@ -130,7 +130,7 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(message);
+        yield openMessage.warn(API_DATA_ERROR);
       }
     },
   },

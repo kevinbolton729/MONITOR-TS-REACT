@@ -57,6 +57,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTab: '',
       currentRadio: '',
       currentTable: '',
+      // 请求数据
+      isFetch: true,
       // Modal
       visible: false,
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
@@ -76,6 +78,10 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     this.startFetch();
   }
 
+  // 设置是否已请求过数据
+  covertFetch = (fetch = false) => {
+    this.setState({ isFetch: fetch });
+  };
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string) => {
@@ -116,6 +122,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentRadio: key === 'unusual' ? 'spread' : key,
       currentTable: key,
     });
+    this.covertFetch(true);
   };
   // Radio切换时
   radioChange = (e: any) => {
@@ -125,6 +132,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentRadio: value,
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
+    this.covertFetch(true);
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
@@ -137,35 +145,63 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       unusualSpreadList,
       unusualNblotList,
     } = this.props;
-    const { currentTab, currentRadio } = this.state;
+    const { currentTab, currentRadio, isFetch } = this.state;
     // 获取扩频表 > 扩频表列表
-    if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
+    if (
+      isFetch &&
+      currentTab !== 'unusual' &&
+      currentRadio === 'spread' &&
+      spreadList.length === 0
+    ) {
       this.dispatchAction('custom/fetchSpread');
     }
     // 获取集中器列表;
-    if (currentRadio === 'concentrator' && concentratorList.length === 0) {
+    if (isFetch && currentRadio === 'concentrator' && concentratorList.length === 0) {
       this.dispatchAction('custom/fetchConcentrator');
     }
     // 获取扩频表 > 发货记录列表;
-    if (currentTab === 'spread' && currentRadio === 'shipping' && shippingList.length === 0) {
+    if (
+      isFetch &&
+      currentTab === 'spread' &&
+      currentRadio === 'shipping' &&
+      shippingList.length === 0
+    ) {
       this.dispatchAction('custom/fetchShipping');
     }
     // 获取物联网表 > 物联网表列表
-    if (currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
+    if (isFetch && currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
       this.dispatchAction('custom/fetchNblot');
     }
     // 获取物联网表 > 发货记录列表
-    if (currentTab === 'nblot' && currentRadio === 'shipping' && nblotShippingList.length === 0) {
+    if (
+      isFetch &&
+      currentTab === 'nblot' &&
+      currentRadio === 'shipping' &&
+      nblotShippingList.length === 0
+    ) {
       this.dispatchAction('custom/fetchNblotShipping');
     }
     // 获取异常报警 > 扩频表列表
-    if (currentTab === 'unusual' && currentRadio === 'spread' && unusualSpreadList.length === 0) {
+    if (
+      isFetch &&
+      currentTab === 'unusual' &&
+      currentRadio === 'spread' &&
+      unusualSpreadList.length === 0
+    ) {
       this.dispatchAction('custom/fetchUnusualSpread');
     }
     // 获取异常报警 > 物联网表列表
-    if (currentTab === 'unusual' && currentRadio === 'nblot' && unusualNblotList.length === 0) {
+    if (
+      isFetch &&
+      currentTab === 'unusual' &&
+      currentRadio === 'nblot' &&
+      unusualNblotList.length === 0
+    ) {
       this.dispatchAction('custom/fetchUnusualNblot');
     }
+
+    // 已请求过数据
+    this.covertFetch(false);
   };
   // 查看
   handlerShow = (record: any, key: string) => {

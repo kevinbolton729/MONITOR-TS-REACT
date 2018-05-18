@@ -53,6 +53,8 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTab: '',
       currentRadio: '',
       currentTable: '',
+      // 请求数据
+      isFetch: true,
       // Modal
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
       selectedRecord: [],
@@ -75,6 +77,11 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     // 点击【保存】后，更新成功时关闭编辑配置
     this.afterSaveCloseConfig();
   }
+
+  // 设置是否已请求过数据
+  covertFetch = (fetch = false) => {
+    this.setState({ isFetch: fetch });
+  };
   // 获取数据
   // 生成最终显示的列表数据
   showData = (type: string) => {
@@ -99,6 +106,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentRadio: key === 'unusual' ? 'spread' : key,
       currentTable: key,
     });
+    this.covertFetch(true);
   };
   // Radio切换时
   radioChange = (e: any) => {
@@ -108,23 +116,33 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentRadio: value,
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
+    this.covertFetch(true);
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
     const { spreadList, concentratorList, nblotList } = this.props;
-    const { currentTab, currentRadio } = this.state;
+    const { currentTab, currentRadio, isFetch } = this.state;
+
     // 获取扩频表 > 扩频表列表
-    if (currentTab !== 'unusual' && currentRadio === 'spread' && spreadList.length === 0) {
+    if (
+      isFetch &&
+      currentTab !== 'unusual' &&
+      currentRadio === 'spread' &&
+      spreadList.length === 0
+    ) {
       this.dispatchAction('datamonitor/fetchDataSpread');
     }
     // 获取集中器列表;
-    if (currentRadio === 'concentrator' && concentratorList.length === 0) {
+    if (isFetch && currentRadio === 'concentrator' && concentratorList.length === 0) {
       this.dispatchAction('datamonitor/fetchDataConcentrator');
     }
     // 获取物联网表 > 物联网表列表
-    if (currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
+    if (isFetch && currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
       this.dispatchAction('datamonitor/fetchDataNblot');
     }
+
+    // 已请求过数据
+    this.covertFetch(false);
   };
   // 查看
   handlerShow = (record: any, key: string) => {

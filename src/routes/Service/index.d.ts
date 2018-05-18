@@ -26,10 +26,11 @@ export interface ICustomProps {
 }
 
 export interface ICustomStates {
+  visible: boolean;
+  isFetch: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;
-  visible: boolean;
   modalSort: string;
   selectedRecord: any[];
 }
@@ -52,6 +53,7 @@ export interface IDataMonitorStates {
   visible: boolean;
   isEditConfig: boolean;
   isClick: boolean;
+  isFetch: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;
