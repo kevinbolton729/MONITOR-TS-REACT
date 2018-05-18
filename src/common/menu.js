@@ -9,7 +9,7 @@ const menuData = [
       {
         name: '工作台',
         path: 'workspace',
-        // hideInMenu: true,
+        // hideInMenu: true, // 隐藏
       },
     ],
   },
@@ -22,6 +22,7 @@ const menuData = [
         name: '服务监控',
         path: 'business',
         authority: ['admin'], // 配置准入权限
+        hideInMenu: true,
       },
       {
         name: '业务数据监控',
