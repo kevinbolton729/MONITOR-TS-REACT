@@ -76,7 +76,7 @@ const fields = {
   directiveType: '充值', // 指令类型
   directiveStatus: 1, // 指令状态 0:异常 1:正常
   directiveDes: '用户已支付', // 指令描述 eg.用户已支付 / 费用已上表 等
-  directiveStep: 2, // 指令阶段 从小标0开始
+  directiveStep: 1, // 指令阶段 从小标0开始
   // 发货记录
   packageCode: 'PK0001', // 装箱编号
   palletCode: 'PT0002', // 托盘编号

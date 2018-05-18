@@ -57,3 +57,5 @@ export const formatGetMethod = (status: number | string) => {
     </Tag>
   );
 };
+// 格式化数据库时间是否与服务器时间同步
+export const formatSync = (status: boolean) => (status ? '是' : '否');

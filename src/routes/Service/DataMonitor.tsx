@@ -147,7 +147,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   // 查看
   handlerShow = (record: any, key: string) => {
     this.setState({
-      selectedRecord: record,
+      selectedRecord: [record],
     });
     this.closeConfig();
     this.openModal(key);

@@ -97,3 +97,12 @@ export const formatAlarmType = (alarmType: string) => (
     {alarmType}
   </Tag>
 );
+// 格式化指令状态
+const directiveStats = {
+  0: { label: '异常', color: 'red' },
+  1: { label: '正常', color: 'green' },
+};
+export const formatDirectiveStatus = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return <Tag color={directiveStats[stats].color}>{directiveStats[stats].label}</Tag>;
+};

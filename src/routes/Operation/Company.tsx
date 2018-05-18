@@ -84,7 +84,7 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   // 查看
   handlerShow = (record: any, key: string) => {
     this.setState({
-      selectedRecord: record,
+      selectedRecord: [record],
     });
     this.closeConfig();
     this.openModal(key);

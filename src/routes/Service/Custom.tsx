@@ -206,7 +206,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   // 查看
   handlerShow = (record: any, key: string) => {
     this.setState({
-      selectedRecord: record,
+      selectedRecord: [record],
     });
     this.openModal(key);
   };

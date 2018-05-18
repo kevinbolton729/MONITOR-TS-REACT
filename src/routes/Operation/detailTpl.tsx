@@ -1,8 +1,11 @@
 import { Button, Col, Divider, Form, Input, Row } from 'antd';
 import * as React from 'react';
-// 组件
 // 常量
 import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../utils/consts';
+// 方法
+import { unixFormatter } from '../../utils/fns';
+// help工具
+import { formatGetMethod, formatSync } from './help';
 // 声明
 // import {} from './';
 // 样式
@@ -25,6 +28,7 @@ const colQuery = {
 };
 
 export default (data: any, fn: any, opts: any) => {
+  // console.log(data, 'selectedRecord');
   const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   const noEditSys = isEditConfig(opts) || [
     <div key="title" className="hangTitle">
@@ -33,35 +37,46 @@ export default (data: any, fn: any, opts: any) => {
     <div key="subtitle" className="hangSubTitle">
       <Row gutter={24}>
         <Col {...colQuery}>
-          <p>系统名称 / 版本号：</p>
+          <span>系统名称 / 版本号：</span>
+          {data.length && <span>{`${data[0].detail.sysName} / ${data[0].detail.sysVersion}`}</span>}
         </Col>
         <Col {...colQuery}>
-          <p>采集方式：</p>
+          <span>采集方式：</span>
+          {data.length && formatGetMethod(data[0].detail.getMethod)}
         </Col>
         <Col {...colQuery}>
-          <p>采集数据时间：</p>
-        </Col>
-      </Row>
-      <Row gutter={24}>
-        <Col {...colQuery}>
-          <p>IP地址/端口号：</p>
-        </Col>
-        <Col {...colQuery}>
-          <p>MAC地址：</p>
-        </Col>
-        <Col {...colQuery}>
-          <p>数据库版本：</p>
+          <span>采集数据时间：</span>
+          {data.length && <span>{unixFormatter(data[0].detail.getDataAt)}</span>}
         </Col>
       </Row>
       <Row gutter={24}>
         <Col {...colQuery}>
-          <p>数据库时间是否与服务器时间同步：</p>
+          <span>IP地址/端口号：</span>
+          {data.length && <span>{`${data[0].detail.ip} [${data[0].detail.port}]`}</span>}
         </Col>
         <Col {...colQuery}>
-          <p>读写器/其他设备型号：</p>
+          <span>MAC地址：</span>
+          {data.length && <span>{data[0].detail.mac}</span>}
         </Col>
         <Col {...colQuery}>
-          <p>DLL文件版本：</p>
+          <span>数据库版本：</span>
+          {data.length && <span>{data[0].detail.sqlVersion}</span>}
+        </Col>
+      </Row>
+      <Row gutter={24}>
+        <Col {...colQuery}>
+          <span>数据库时间是否与服务器时间同步：</span>
+          {data.length && <span>{formatSync(data[0].detail.sync)}</span>}
+        </Col>
+        <Col {...colQuery}>
+          <span>读写器/其他设备型号：</span>
+          {data.length && (
+            <span>{`${data[0].detail.readWrither} / ${data[0].detail.otherDevices}`}</span>
+          )}
+        </Col>
+        <Col {...colQuery}>
+          <span>DLL文件版本：</span>
+          {data.length && <span>{data[0].detail.dllVersion}</span>}
         </Col>
       </Row>
     </div>,
@@ -74,18 +89,18 @@ export default (data: any, fn: any, opts: any) => {
     <div key="subtitle" className="hangSubTitle">
       <Row gutter={24}>
         <Col {...colQuery}>
-          <p>省份/城市：</p>
+          <span>省份/城市：</span>
         </Col>
         <Col {...colQuery}>
-          <p>燃气公司：</p>
+          <span>燃气公司：</span>
         </Col>
         <Col {...colQuery}>
-          <p>公司编号：</p>
+          <span>公司编号：</span>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col span={24}>
-          <p>备注说明：</p>
+          <span>备注说明：</span>
         </Col>
       </Row>
     </div>,
@@ -245,7 +260,6 @@ export default (data: any, fn: any, opts: any) => {
       </Row>
     </div>,
   ];
-  // 操作区
   const handler = isEditConfig(opts) ? (
     <Form key="editConfigForm" onSubmit={fn.onSubmit.bind(null, data)}>
       {saveSys}
@@ -271,17 +285,14 @@ export default (data: any, fn: any, opts: any) => {
       <Button onClick={fn.closeModal}>{BTN_CLOSE}</Button>
     </div>
   );
-  // 燃气公司(主模板)
   const main = (
     <div key="main">
       {noEditSys}
       {noEditCompany}
     </div>
   );
-  // 什么都没有
   const nocontent = <div>什么都没有</div>;
 
-  // 返回的值
   const content = {
     company: [main, handler],
   };

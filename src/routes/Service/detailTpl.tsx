@@ -1,9 +1,17 @@
 import { Button, Col, Divider, Form, Input, Popover, Row, Steps } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import * as React from 'react';
-// 组件
 // 常量
 import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../utils/consts';
+// 方法
+import { unixFormatter } from '../../utils/fns';
+// help工具
+import {
+  formatAlarmStatus,
+  formatAlarmType,
+  formatCardStatus,
+  formatDirectiveStatus,
+} from './help';
 // 声明
 // import {} from './';
 // 样式
@@ -49,27 +57,28 @@ const getDirection = () => {
 };
 
 export default (data: any, fn: any, opts: any) => {
+  console.log(data, 'selectedRecord');
   const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
     <div className="hangSubTitle">
       <Row gutter={24}>
         <Col {...colQuery}>
-          <p>部门：</p>
+          <span>部门：</span>
         </Col>
         <Col {...colQuery}>
-          <p>姓名：</p>
+          <span>姓名：</span>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col {...colQuery}>
-          <p>办公室电话：</p>
+          <span>办公室电话：</span>
         </Col>
         <Col {...colQuery}>
-          <p>手机号码：</p>
+          <span>手机号码：</span>
         </Col>
         <Col {...colQuery}>
-          <p>电子邮箱：</p>
+          <span>电子邮箱：</span>
         </Col>
       </Row>
     </div>
@@ -147,6 +156,27 @@ export default (data: any, fn: any, opts: any) => {
       <Button onClick={fn.closeModal}>{BTN_CLOSE}</Button>
     </div>
   );
+  // 获取指令追踪的当前step
+  const currentStep = data.length
+    ? data[0].directive
+      ? data[0].directive[data[0].directive.length - 1].directiveStep
+      : 0
+    : 0;
+  // 获取当前查询的指令
+  const currentDirective = data.length
+    ? data[0].directive
+      ? data[0].directive[data[0].directive.length - 1]
+      : ''
+    : '';
+  // 获取当前指令步骤的描述
+  const currentDirectiveDesc = [
+    <p key="name" className={styles.dotp}>
+      {data.length && currentDirective.directiveDes}
+    </p>,
+    <span key="date" className={styles.dotspan}>
+      {data.length && unixFormatter(currentDirective.updateAt)}
+    </span>,
+  ];
   // 扩频表/物联网表(主模板)
   const main = (
     <div key="main">
@@ -155,40 +185,20 @@ export default (data: any, fn: any, opts: any) => {
       </div>
       <div>
         {opts.modalSort !== 'nblot' ? (
-          <Steps direction={getDirection()} current={1} progressDot={customDot}>
-            <Step title="网关" />
-            <Step
-              title="数据中心"
-              description={[
-                <p key="name" className={styles.dotp}>
-                  用户已支付
-                </p>,
-                <span key="date" className={styles.dotspan}>
-                  2018-05-10 18:55
-                </span>,
-              ]}
-            />
-            <Step title="集中器" />
-            <Step title="扩频表" />
-            <Step title="集中器" />
-            <Step title="数据中心" />
+          <Steps direction={getDirection()} current={currentStep} progressDot={customDot}>
+            <Step title="网关" description={currentStep === 0 ? currentDirectiveDesc : []} />
+            <Step title="数据中心" description={currentStep === 1 ? currentDirectiveDesc : []} />
+            <Step title="集中器" description={currentStep === 2 ? currentDirectiveDesc : []} />
+            <Step title="扩频表" description={currentStep === 3 ? currentDirectiveDesc : []} />
+            <Step title="集中器" description={currentStep === 4 ? currentDirectiveDesc : []} />
+            <Step title="数据中心" description={currentStep === 5 ? currentDirectiveDesc : []} />
           </Steps>
         ) : (
-          <Steps direction={getDirection()} current={2} progressDot={customDot}>
-            <Step title="网关" />
-            <Step title="数据中心" />
-            <Step
-              title="物联网表"
-              description={[
-                <p key="name" className={styles.dotp}>
-                  用户已支付
-                </p>,
-                <span key="date" className={styles.dotspan}>
-                  2018-05-10 18:55
-                </span>,
-              ]}
-            />
-            <Step title="数据中心" />
+          <Steps direction={getDirection()} current={currentStep} progressDot={customDot}>
+            <Step title="网关" description={currentStep === 0 ? currentDirectiveDesc : []} />
+            <Step title="数据中心" description={currentStep === 1 ? currentDirectiveDesc : []} />
+            <Step title="物联网表" description={currentStep === 2 ? currentDirectiveDesc : []} />
+            <Step title="数据中心" description={currentStep === 3 ? currentDirectiveDesc : []} />
           </Steps>
         )}
       </div>
@@ -198,13 +208,19 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>指令类型：</p>
+            <span>指令类型：</span>
+            {data.length && data[0].directive && <span>{currentDirective.directiveType}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>指令状态：</p>
+            <span>指令状态：</span>
+            {data.length &&
+              data[0].directive &&
+              formatDirectiveStatus(currentDirective.directiveStatus)}
           </Col>
           <Col {...colQuery}>
-            <p>到达时间：</p>
+            <span>到达时间：</span>
+            {data.length &&
+              data[0].directive && <span>{unixFormatter(currentDirective.updateAt)}</span>}
           </Col>
         </Row>
       </div>
@@ -220,67 +236,90 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>表编号：</p>
+            <span>表编号：</span>
+            {data.length && (
+              <span>{opts.modalSort !== 'nblot' ? data[0].spreadCode : data[0].nblotCode}</span>
+            )}
           </Col>
           <Col span={opts.modalSort !== 'nblot' ? 8 : 16}>
-            <p>燃气公司：</p>
+            <span>燃气公司：</span>
+            {data.length && <span>{data[0].company}</span>}
           </Col>
           {opts.modalSort !== 'nblot' && (
             <Col {...colQuery}>
-              <p>集中器：</p>
+              <span>集中器：</span>
+              {data.length && <span>{data[0].concentratorCode}</span>}
             </Col>
           )}
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>价格(元)：</p>
+            <span>价格(元)：</span>
+            {data.length && <span>{data[0].price}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>价格类型：</p>
+            <span>价格类型：</span>
+            {data.length && <span>{data[0].priceType}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>价格版本：</p>
-          </Col>
-        </Row>
-        <Row gutter={24}>
-          <Col {...colQuery}>
-            <p>价格状态：</p>
-          </Col>
-          <Col {...colQuery}>
-            <p>调价时间：</p>
-          </Col>
-          <Col {...colQuery}>
-            <p>有效期至：</p>
+            <span>价格版本：</span>
+            {data.length && <span>{data[0].priceVersion}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>电池状态：</p>
+            <span>价格状态：</span>
+            {data.length && <span>{data[0].priceStatus}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>电池电压：</p>
+            <span>调价时间：</span>
+            {data.length && <span>{unixFormatter(data[0].priceUpdateAt)}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>时长(使用/理想)：</p>
+            <span>有效期至：</span>
+            {data.length && <span>{unixFormatter(data[0].priceEndAt)}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>阀门状态：</p>
+            <span>电池状态：</span>
+            {data.length && <span>{data[0].batteryStatus}</span>}
+          </Col>
+          <Col {...colQuery}>
+            <span>电池电压：</span>
+            {data.length && (
+              <span>{`${data[0].remainVoltage} / ${data[0].totalVoltage} ( ${data[0].remainVoltage /
+                data[0].totalVoltage *
+                100}% )`}</span>
+            )}
+          </Col>
+          <Col {...colQuery}>
+            <span>时长(使用/理想)：</span>
+            {data.length && <span>{`${data[0].useDuration} / ${data[0].desigDuration}`}</span>}
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col {...colQuery}>
+            <span>阀门状态：</span>
+            {data.length && <span>{data[0].tapStatus}</span>}
           </Col>
           <Col span={16}>
-            <p>指令执行后(阀门控制)：</p>
+            <span>指令执行后(阀门控制)：</span>
+            {data.length && <span>{data[0].tapControl}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>上报状态：</p>
+            <span>上报状态：</span>
+            {data.length && <span>{data[0].sendStatus}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>未上报/已上报：</p>
+            <span>未上报/已上报：</span>
+            {data.length && <span>{`${data[0].noSend} / ${data[0].finishedSend}`}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>上报时间：</p>
+            <span>上报时间：</span>
+            {data.length && <span>{unixFormatter(data[0].sendUpdateAt)}</span>}
           </Col>
         </Row>
       </div>
@@ -290,15 +329,18 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>姓名：</p>
+            <span>姓名：</span>
+            {data.length && data[0].user && <span>{data[0].user.userName}</span>}
           </Col>
           <Col span={16}>
-            <p>卡号：</p>
+            <span>卡号：</span>
+            {data.length && data[0].user && <span>{data[0].user.cardId}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col span={24}>
-            <p>详细地址：</p>
+            <span>详细地址：</span>
+            {data.length && data[0].user && <span>{data[0].user.address}</span>}
           </Col>
         </Row>
       </div>
@@ -317,26 +359,32 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>编号：</p>
+            <span>编号：</span>
+            {data.length && <span>{data[0].concentratorCode}</span>}
           </Col>
           <Col span={16}>
-            <p>燃气公司：</p>
+            <span>燃气公司：</span>
+            {data.length && <span>{data[0].company}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>通信卡：</p>
+            <span>集中器状态：</span>
+            {data.length && data[0].cardStatus && formatCardStatus(data[0].cardStatus)}
           </Col>
           <Col {...colQuery}>
-            <p>在线状态：</p>
-          </Col>
-          <Col {...colQuery}>
-            <p>实际表数/计划表数：</p>
+            <span>实际表数/计划表数：</span>
+            {data.length && (
+              <span>{`${data[0].factNum ? data[0].factNum : 0} / ${
+                data[0].totalNum ? data[0].totalNum : 0
+              }`}</span>
+            )}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col span={24}>
-            <p>安装地址：</p>
+            <span>安装地址：</span>
+            {data.length && <span>{data[0].setupAddress}</span>}
           </Col>
         </Row>
       </div>
@@ -350,24 +398,30 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>编号：</p>
+            <span>编号：</span>
+            {data.length && <span>{data[0].meterCode}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>燃气公司：</p>
+            <span>燃气公司：</span>
+            {data.length && <span>{data[0].companyCode}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>预警状态：</p>
+            <span>预警状态：</span>
+            {data.length && data[0].alarmStatus && formatAlarmStatus(data[0].alarmStatus)}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>报警类型：</p>
+            <span>报警类型：</span>
+            {data.length && formatAlarmType(data[0].alarmType)}
           </Col>
           <Col {...colQuery}>
-            <p>报警次数：</p>
+            <span>报警次数：</span>
+            {data.length && <span>{data[0].alarmNum}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>报警时间：</p>
+            <span>报警时间：</span>
+            {data.length && <span>{unixFormatter(data[0].alarmAt)}</span>}
           </Col>
         </Row>
       </div>
@@ -386,21 +440,26 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>编号：</p>
+            <span>编号：</span>
+            {data.length && <span>{data[0].expressCode}</span>}
           </Col>
           <Col span={16}>
-            <p>燃气公司：</p>
+            <span>燃气公司：</span>
+            {data.length && <span>{data[0].company}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <p>快递公司：</p>
+            <span>快递公司：</span>
+            {data.length && <span>{data[0].express}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>发货单号：</p>
+            <span>发货单号：</span>
+            {data.length && <span>{data[0].orderId}</span>}
           </Col>
           <Col {...colQuery}>
-            <p>发货时间：</p>
+            <span>发货时间：</span>
+            {data.length && <span>{unixFormatter(data[0].deliveryAt)}</span>}
           </Col>
         </Row>
       </div>
