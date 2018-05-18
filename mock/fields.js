@@ -1,27 +1,3 @@
-const group = {
-  login: '用户登录',
-  loginout: '用户安全退出',
-  user: '用户信息（资料）',
-  updateUser: '修改用户信息（资料）',
-  updatePwd: '修改登录密码',
-  dataMonitor: '业务数据监控',
-  custom: '客户服务监控',
-  company: '燃气公司运营',
-  duty: '责任部门（或责任人）',
-};
-
-const api = '接口';
-const field = '字段';
-const type = '类型';
-const number = 'Number';
-const string = 'String';
-const boolean = 'Boolean';
-const array = 'Array';
-const object = 'Object';
-// const unix13 = 'Unix 时间戳(13位)';
-
-const fieldType = `${field}${type}`;
-
 // 文字信息
 export const messageSuccess = '获取数据成功';
 export const saveSuccess = '已保存配置';
@@ -34,23 +10,7 @@ export const tagRequired = '[必填]';
 export const tagNoRequired = '[选填]';
 // 字数限制
 export const wordLimit = '字数不超过200字';
-// 接口
-export const apiLogin = `[${group.login}] ${api}:`; // eg.[用户登录] 接口:
-export const apiLoginOut = `[${group.loginout}] ${api}:`; // eg.[用户安全退出] 接口:
-export const apiGetUser = `[${group.user}] ${api}:`; // eg.[用户信息（资料）] 接口:
-export const apiUpdatePwd = `[${group.updatePwd}] ${api}:`; // eg.[修改登录密码] 接口:
-export const apiUpdateUser = `[${group.updateUser}] ${api}:`; // eg.[修改用户信息（资料）] 接口:
-export const apiCustom = `[${group.custom}] ${api}:`; // eg.[客户服务监控] 接口:
-export const apiDataMonitor = `[${group.dataMonitor}] ${api}:`; // eg.[业务数据监控] 接口:
-export const apiCompany = `[${group.company}] ${api}:`; // eg.[燃气公司运营] 接口:
-export const apiDuty = `[${group.duty}] ${api}:`; // eg.[责任部门（或责任人）] 接口:
-
 // 字段类型
-export const typeNumber = `[${fieldType}: ${number}]`; // eg.[字段类型: Number]
-export const typeString = `[${fieldType}: ${string}]`; // eg.[字段类型: String]
-export const typeBoolean = `[${fieldType}: ${boolean}]`; // eg.[字段类型: Boolean]
-export const typeArray = `[${fieldType}: ${array}]`; // eg.[字段类型: Array]
-export const typeObject = `[${fieldType}: ${object}]`; // eg.[字段类型: Object]
 export const typeUnix13 = 1524032521415;
 
 // 字段定义
@@ -145,9 +105,9 @@ const fields = {
   dllVersion: 'DLL 1.0.5', // DLL文件版本
   getDataAt: `${typeUnix13}`, // 采集数据时间
   // 登录用户信息（资料）
-  userid: `登录用户编码 ${typeString}`, // 登录用户编码
+  userid: '登录用户编码', // 登录用户编码
   nickname: '鱼子酱', // 用户昵称(界面显示)
-  portrait: `头像地址 ${typeString}`, // 头像地址
+  portrait: '头像地址', // 头像地址
   role: 1000, // 用户权限 eg. 1000:'admin' 2000:'monitor' 3000:'custom'
   sex: 1, // 用户权限 ${typeNumber} eg. 0:女 1:男
 };
