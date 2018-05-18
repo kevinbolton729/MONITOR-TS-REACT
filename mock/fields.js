@@ -102,7 +102,7 @@ const fields = {
   nblot: '物联网表',
   nblotCode: 'N0001000X', // 表编号
   onLineStatus: 0, // 在线状态 0:已离线 1:在线
-  uploadStatus: 0, // 数据上传状态 0:失败 1:成功
+  uploadStatus: 1, // 数据上传状态 0:失败 1:成功
   // 责任部门（或责任人）
   duty: '责任部门（或责任人）',
   department: '客户服务部', // 部门
@@ -127,7 +127,7 @@ const fields = {
   deliveryAt: `${typeUnix13}`, // 发货时间
   // 异常报警
   alarmNum: 3, // 报警次数
-  alarmType: '充值', // 报警类型
+  alarmType: '开户', // 报警类型
   alarmStatus: 1, // 预警状态 0:异常 1:正常
   alarmAt: `${typeUnix13}`, // 报警时间
   // 燃气公司运营

@@ -1,39 +1,18 @@
-import { Icon, Tag } from 'antd';
 import * as React from 'react';
 // 方法
 import { unixFormatter } from '../../utils/fns';
-// 样式
-const styles = require('./index.less');
-
-// 操作区显示的按钮
-// type: 0:查看 1:配置 and 查看
-const showAction: (opts?: any, type?: number) => React.ReactNode = (opts = 0, type = 0) => {
-  if (opts === 0) {
-    console.log('请传入操作区的处理函数(或方法)');
-    return <div />;
-  }
-
-  // 分隔
-  // const divider = <Divider type="vertical" />;
-  // 查看详情
-  const show = (
-    <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record, opts.key)}>
-      <Icon type="eye-o" className={styles.iconStyle} />
-    </span>
-  );
-  // 配置(或编辑)
-  const edit = (
-    <span className={styles.handleHref} onClick={opts.fn.bind(null, opts.record)}>
-      <Icon type="setting" className={styles.iconStyle} />
-    </span>
-  );
-
-  if (type === 0) return <div>{show}</div>;
-  if (type === 1) return <div>{edit}</div>;
-
-  console.log('请检查type的传入值是否正确？ type: 0:查看 1:配置 and 查看');
-  return <div />;
-};
+// help工具
+import {
+  formatAlarmStatus,
+  formatAlarmType,
+  formatCardStatus,
+  formatExpress,
+  formatExtractStatus,
+  formatOnLineStatus,
+  formatScanMethod,
+  formatUploadStatus,
+  showAction,
+} from './help';
 
 // 客户服务监控
 // Columns of Table
@@ -56,14 +35,14 @@ export const customCols = (fn: any) => {
       title: '扫频方式',
       dataIndex: 'scanMethod',
       key: 'scanMethod',
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatScanMethod(text),
     },
     {
       title: '数据提取状态',
       dataIndex: 'extractStatus',
       key: 'extractStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatExtractStatus(text),
     },
     {
       title: '操作',
@@ -93,14 +72,14 @@ export const customCols = (fn: any) => {
       title: '在线状态',
       dataIndex: 'onLineStatus',
       key: 'onLineStatus',
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatOnLineStatus(text),
     },
     {
       title: '数据上传状态',
       dataIndex: 'uploadStatus',
       key: 'uploadStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatUploadStatus(text),
     },
     {
       title: '操作',
@@ -130,7 +109,10 @@ export const customCols = (fn: any) => {
       title: '报警类型/报警次数',
       dataIndex: 'alarmType',
       key: 'alarmType',
-      render: (text: any, record: any) => <span>{`${record.alarmType} / ${record.alarmNum}`}</span>,
+      render: (text: any, record: any) => [
+        formatAlarmType(record.alarmType),
+        <span key="alarmNum">{`${record.alarmNum}`}</span>,
+      ],
     },
     {
       title: '报警时间',
@@ -143,7 +125,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'alarmStatus',
       key: 'alarmStatus',
       width: 240,
-      render: (text: any) => <Tag color="red">{text}</Tag>,
+      render: (text: any) => formatAlarmStatus(text),
     },
     {
       title: '操作',
@@ -174,7 +156,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'cardStatus',
       key: 'cardStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatCardStatus(text),
     },
     {
       title: '操作',
@@ -205,7 +187,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'express',
       key: 'express',
       render: (text: any, record: any) => [
-        <Tag key="express">{record.express}</Tag>,
+        formatExpress(record.express),
         <span key="orderId">{`${record.orderId} / ${unixFormatter(record.deliveryAt)}`}</span>,
       ],
     },
@@ -244,14 +226,14 @@ export const dataMonitorCols = (fn: any) => {
       title: '扫频方式',
       dataIndex: 'scanMethod',
       key: 'scanMethod',
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatScanMethod(text),
     },
     {
       title: '数据提取状态',
       dataIndex: 'extractStatus',
       key: 'extractStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatExtractStatus(text),
     },
     {
       title: '操作',
@@ -281,14 +263,14 @@ export const dataMonitorCols = (fn: any) => {
       title: '在线状态',
       dataIndex: 'onLineStatus',
       key: 'onLineStatus',
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatOnLineStatus(text),
     },
     {
       title: '数据上传状态',
       dataIndex: 'uploadStatus',
       key: 'uploadStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatUploadStatus(text),
     },
     {
       title: '操作',
@@ -319,7 +301,7 @@ export const dataMonitorCols = (fn: any) => {
       dataIndex: 'cardStatus',
       key: 'cardStatus',
       width: 240,
-      render: (text: any) => <span>{text}</span>,
+      render: (text: any) => formatCardStatus(text),
     },
     {
       title: '操作',
