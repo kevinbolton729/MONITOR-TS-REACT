@@ -3,16 +3,13 @@ import * as React from 'react';
 import { unixFormatter } from '../../utils/fns';
 // help工具
 import {
-  formatAlarmStatus,
   formatAlarmType,
-  formatCardStatus,
+  formatDefaultStatus,
   formatExpress,
-  formatExtractStatus,
   formatOnLineStatus,
   formatScanMethod,
-  formatUploadStatus,
   showAction,
-} from './help';
+} from '../../utils/help';
 
 // 客户服务监控
 // Columns of Table
@@ -42,7 +39,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'extractStatus',
       key: 'extractStatus',
       width: 240,
-      render: (text: any) => formatExtractStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',
@@ -79,7 +76,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'uploadStatus',
       key: 'uploadStatus',
       width: 240,
-      render: (text: any) => formatUploadStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',
@@ -125,7 +122,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'alarmStatus',
       key: 'alarmStatus',
       width: 240,
-      render: (text: any) => formatAlarmStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',
@@ -156,7 +153,7 @@ export const customCols = (fn: any) => {
       dataIndex: 'cardStatus',
       key: 'cardStatus',
       width: 240,
-      render: (text: any) => formatCardStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',
@@ -233,7 +230,7 @@ export const dataMonitorCols = (fn: any) => {
       dataIndex: 'extractStatus',
       key: 'extractStatus',
       width: 240,
-      render: (text: any) => formatExtractStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',
@@ -270,7 +267,7 @@ export const dataMonitorCols = (fn: any) => {
       dataIndex: 'uploadStatus',
       key: 'uploadStatus',
       width: 240,
-      render: (text: any) => formatUploadStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',
@@ -301,7 +298,7 @@ export const dataMonitorCols = (fn: any) => {
       dataIndex: 'cardStatus',
       key: 'cardStatus',
       width: 240,
-      render: (text: any) => formatCardStatus(text),
+      render: (text: any) => formatDefaultStatus(text),
     },
     {
       title: '操作',

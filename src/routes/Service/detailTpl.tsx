@@ -6,12 +6,7 @@ import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../ut
 // 方法
 import { unixFormatter } from '../../utils/fns';
 // help工具
-import {
-  formatAlarmStatus,
-  formatAlarmType,
-  formatCardStatus,
-  formatDirectiveStatus,
-} from './help';
+import { formatAlarmType, formatDefaultStatus } from '../../utils/help';
 // 声明
 // import {} from './';
 // 样式
@@ -57,7 +52,7 @@ const getDirection = () => {
 };
 
 export default (data: any, fn: any, opts: any) => {
-  console.log(data, 'selectedRecord');
+  // console.log(data, 'selectedRecord');
   const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
@@ -215,7 +210,7 @@ export default (data: any, fn: any, opts: any) => {
             <span>指令状态：</span>
             {data.length &&
               data[0].directive &&
-              formatDirectiveStatus(currentDirective.directiveStatus)}
+              formatDefaultStatus(currentDirective.directiveStatus)}
           </Col>
           <Col {...colQuery}>
             <span>到达时间：</span>
@@ -370,7 +365,7 @@ export default (data: any, fn: any, opts: any) => {
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>集中器状态：</span>
-            {data.length && data[0].cardStatus && formatCardStatus(data[0].cardStatus)}
+            {data.length && data[0].cardStatus && formatDefaultStatus(data[0].cardStatus)}
           </Col>
           <Col {...colQuery}>
             <span>实际表数/计划表数：</span>
@@ -407,7 +402,7 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>预警状态：</span>
-            {data.length && data[0].alarmStatus && formatAlarmStatus(data[0].alarmStatus)}
+            {data.length && data[0].alarmStatus && formatDefaultStatus(data[0].alarmStatus)}
           </Col>
         </Row>
         <Row gutter={24}>

@@ -2,7 +2,7 @@ import * as React from 'react';
 // 方法
 import { unixFormatter } from '../../utils/fns';
 // help工具
-import { formatGetMethod, formatRunStatus, showAction } from './help';
+import { formatDefaultStatus, formatGetMethod, showAction } from '../../utils/help';
 
 // 燃气公司运营
 // Columns of Table
@@ -39,7 +39,7 @@ export const companyCols = (fn: any) => {
       dataIndex: 'runStatus',
       key: 'runStatus',
       width: 120,
-      render: (text: any, record: any) => formatRunStatus(record.detail.runStatus),
+      render: (text: any, record: any) => formatDefaultStatus(record.detail.runStatus),
     },
     {
       title: '操作',

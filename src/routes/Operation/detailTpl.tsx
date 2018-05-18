@@ -5,7 +5,7 @@ import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../ut
 // 方法
 import { unixFormatter } from '../../utils/fns';
 // help工具
-import { formatGetMethod, formatSync } from './help';
+import { formatGetMethod, formatSync } from '../../utils/help';
 // 声明
 // import {} from './';
 // 样式

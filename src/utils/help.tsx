@@ -3,7 +3,7 @@ import * as React from 'react';
 // 方法
 // import {} from '../../utils/fns';
 // 样式
-const styles = require('./index.less');
+const styles = require('../static/index.less');
 
 // 操作区显示的按钮
 // type: 0:查看 1:配置 and 查看
@@ -35,6 +35,15 @@ export const showAction: (opts?: any, type?: number) => React.ReactNode = (opts 
   return <div />;
 };
 
+// 格式化状态 eg. 异常/正常
+export const defaultStats = {
+  0: { label: '异常', color: 'red' },
+  1: { label: '正常', color: 'green' },
+};
+export const formatDefaultStatus = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return <Tag color={defaultStats[stats].color}>{defaultStats[stats].label}</Tag>;
+};
 // 格式化扫频方式
 const scanStats = {
   0: { label: '手动', color: 'cyan' },
@@ -43,15 +52,6 @@ const scanStats = {
 export const formatScanMethod = (status: number | string) => {
   const stats = parseInt(`${status}`, 10);
   return <Tag color={scanStats[stats].color}>{scanStats[stats].label}</Tag>;
-};
-// 格式化数据提取状态
-const extractStats = {
-  0: { label: '失败', color: 'red' },
-  1: { label: '成功', color: 'green' },
-};
-export const formatExtractStatus = (status: number | string) => {
-  const stats = parseInt(`${status}`, 10);
-  return <Tag color={extractStats[stats].color}>{extractStats[stats].label}</Tag>;
 };
 // 格式化在线状态
 const onLineStats = {
@@ -62,33 +62,21 @@ export const formatOnLineStatus = (status: number | string) => {
   const stats = parseInt(`${status}`, 10);
   return <Tag color={onLineStats[stats].color}>{onLineStats[stats].label}</Tag>;
 };
-// 格式化数据上传状态
-const uploadStats = {
-  0: { label: '失败', color: 'red' },
-  1: { label: '成功', color: 'green' },
+// 格式化采集方式
+const methodStats = {
+  0: { label: '静默定时', color: 'cyan' },
+  1: { label: '静默实时', color: 'gold' },
 };
-export const formatUploadStatus = (status: number | string) => {
+export const formatGetMethod = (status: number | string) => {
   const stats = parseInt(`${status}`, 10);
-  return <Tag color={uploadStats[stats].color}>{uploadStats[stats].label}</Tag>;
+  return (
+    <Tag key="getMethod" color={methodStats[stats].color}>
+      {methodStats[stats].label}
+    </Tag>
+  );
 };
-// 格式化预警状态
-const alarmStats = {
-  0: { label: '异常', color: 'red' },
-  1: { label: '成功', color: 'green' },
-};
-export const formatAlarmStatus = (status: number | string) => {
-  const stats = parseInt(`${status}`, 10);
-  return <Tag color={alarmStats[stats].color}>{alarmStats[stats].label}</Tag>;
-};
-// 格式化集中器状态
-const cardStats = {
-  0: { label: '异常', color: 'red' },
-  1: { label: '成功', color: 'green' },
-};
-export const formatCardStatus = (status: number | string) => {
-  const stats = parseInt(`${status}`, 10);
-  return <Tag color={cardStats[stats].color}>{cardStats[stats].label}</Tag>;
-};
+// 格式化数据库时间是否与服务器时间同步
+export const formatSync = (status: boolean) => (status ? '是' : '否');
 // 格式化快递公司
 export const formatExpress = (express: string) => <Tag key="express">{express}</Tag>;
 // 格式化报警类型
@@ -97,12 +85,3 @@ export const formatAlarmType = (alarmType: string) => (
     {alarmType}
   </Tag>
 );
-// 格式化指令状态
-const directiveStats = {
-  0: { label: '异常', color: 'red' },
-  1: { label: '正常', color: 'green' },
-};
-export const formatDirectiveStatus = (status: number | string) => {
-  const stats = parseInt(`${status}`, 10);
-  return <Tag color={directiveStats[stats].color}>{directiveStats[stats].label}</Tag>;
-};
