@@ -319,4 +319,4 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   }
 }
 
-export default Form.create()(DataMonitor) as any;
+export default Form.create()(DataMonitor) as React.ClassicComponentClass<IDataMonitorProps>;

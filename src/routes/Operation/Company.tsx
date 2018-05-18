@@ -250,4 +250,4 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   }
 }
 
-export default Form.create()(Company) as any;
+export default Form.create()(Company) as React.ClassicComponentClass<ICompanyProps>;
