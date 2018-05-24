@@ -68,7 +68,7 @@ const fields = {
   department: '客户服务部', // 部门
   name: '鱼子酱', // 姓名
   phone: '(028) 12345678', // 办公电话
-  tel: '13912345678', // 手机号码
+  tel: '13712345678', // 手机号码
   email: 'example@qq.com', // 电子邮箱
   // 指令
   directive: '指令',
