@@ -1,11 +1,11 @@
-import { Button, Col, Divider, Form, Input, Row } from 'antd';
+import { Button, Col, Divider, Form, Input, Radio, Row } from 'antd';
 import * as React from 'react';
 // 常量
 import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../utils/consts';
 // 方法
 import { unixFormatter } from '../../utils/fns';
 // help工具
-import { formatGetMethod, formatSync } from '../../utils/help';
+import { formatGetMethod, formatSync, methodStats } from '../../utils/help';
 // 声明
 // import {} from './';
 // 样式
@@ -25,6 +25,17 @@ const itemStyle = {
 const colQuery = {
   sm: 24,
   md: 8,
+};
+
+// 获取Radio中采集方式的ReactNode
+const passMethod = () => {
+  const result = [];
+  for (const key in methodStats) {
+    if (methodStats.hasOwnProperty(key)) {
+      result.push({ label: methodStats[key].label, value: key });
+    }
+  }
+  return result;
 };
 
 export default (data: any, fn: any, opts: any) => {
@@ -155,8 +166,8 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="采集方式：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('method', {
-                initialValue: companyData.getMethod,
-              })(<Input size="large" style={{ width: '100%' }} />)}
+                initialValue: isData ? `${data[0].detail.getMethod}` : '',
+              })(<Radio.Group options={passMethod()} style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
       </Row>

@@ -121,6 +121,7 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
       form.validateFields({ force: true }, (err: any, values: any) => {
         if (!err) {
           // console.log(data.id, 'id');
+          // console.log(values, 'values');
 
           this.dispatchAction('company/fetchConfig');
         }

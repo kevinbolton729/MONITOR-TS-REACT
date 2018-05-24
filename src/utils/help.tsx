@@ -63,7 +63,7 @@ export const formatOnLineStatus = (status: number | string) => {
   return <Tag color={onLineStats[stats].color}>{onLineStats[stats].label}</Tag>;
 };
 // 格式化采集方式
-const methodStats = {
+export const methodStats = {
   0: { label: '静默定时', color: 'cyan' },
   1: { label: '静默实时', color: 'gold' },
 };
