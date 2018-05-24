@@ -40,14 +40,14 @@ const fields = {
   company: '海力智能燃气示范公司', // 公司名称
   scanMethod: 0, // 扫频方式 0:手动 1:自动
   extractStatus: 1, // 数据提取状态 0:失败 1:成功
-  batteryStatus: 1, // 电池状态  0:消耗过大 1:正常 2:消耗过快
+  batteryStatus: 2, // 电池状态  0:消耗过大 1:正常 2:消耗过快
   remainVoltage: 1.2, // 剩余电压
   totalVoltage: 3.0, // 满电电压
   useDuration: 50, // 已使用时长(小时)
   desigDuration: 3000, // 理想使用时长(小时)
-  tapStatus: 2, // 阀门状态 0:异常 1:开启 2:关闭
+  tapStatus: 0, // 阀门状态 0:异常 1:开启 2:关闭
   tapControl: 1, // 阀门控制(指令执行后) 0:异常 1:开启 2:关闭
-  sendStatus: 1, // 上报状态 0:未上报 1:正常
+  sendStatus: 1, // 上报状态 0:异常 1:正常
   noSend: 3, // 未上报(次数)
   finishedSend: 30, // 已上报(次数)
   sendUpdateAt: `${typeUnix13}`, // 上报时间

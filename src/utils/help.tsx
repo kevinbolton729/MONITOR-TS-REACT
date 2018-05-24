@@ -75,6 +75,35 @@ export const formatGetMethod = (status: number | string) => {
     </Tag>
   );
 };
+// 格式化价格类型
+const priceTypeStats = {
+  0: { label: '后付费', color: 'cyan' },
+  1: { label: '预付费', color: 'gold' },
+};
+export const formatPriceType = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return <Tag color={priceTypeStats[stats].color}>{priceTypeStats[stats].label}</Tag>;
+};
+// 格式化电池状态
+const batteryStats = {
+  0: { label: '消耗过大', color: 'red' },
+  1: { label: '正常', color: 'green' },
+  2: { label: '消耗过快', color: 'volcano' },
+};
+export const formatBatteryStatus = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return <Tag color={batteryStats[stats].color}>{batteryStats[stats].label}</Tag>;
+};
+// 格式化电池状态
+const tapStats = {
+  0: { label: '异常', color: 'red' },
+  1: { label: '开启', color: 'green' },
+  2: { label: '关闭', color: 'volcano' },
+};
+export const formatTapStatus = (status: number | string) => {
+  const stats = parseInt(`${status}`, 10);
+  return <Tag color={tapStats[stats].color}>{tapStats[stats].label}</Tag>;
+};
 // 格式化数据库时间是否与服务器时间同步
 export const formatSync = (status: boolean) => (status ? '是' : '否');
 // 格式化快递公司

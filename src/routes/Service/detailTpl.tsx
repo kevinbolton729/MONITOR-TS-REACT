@@ -6,7 +6,13 @@ import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../ut
 // 方法
 import { unixFormatter } from '../../utils/fns';
 // help工具
-import { formatAlarmType, formatDefaultStatus } from '../../utils/help';
+import {
+  formatAlarmType,
+  formatBatteryStatus,
+  formatDefaultStatus,
+  formatPriceType,
+  formatTapStatus,
+} from '../../utils/help';
 // 声明
 // import {} from './';
 // 样式
@@ -230,7 +236,7 @@ export default (data: any, fn: any, opts: any) => {
           <Col {...colQuery}>
             <span>指令状态：</span>
             {data.length &&
-              data[0].directive &&
+              data[0].directive !== undefined &&
               formatDefaultStatus(currentDirective.directiveStatus)}
           </Col>
           <Col {...colQuery}>
@@ -275,7 +281,7 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>价格类型：</span>
-            {data.length && <span>{data[0].priceType}</span>}
+            {data.length && data[0].priceType !== undefined && formatPriceType(data[0].priceType)}
           </Col>
           <Col {...colQuery}>
             <span>价格版本：</span>
@@ -285,7 +291,9 @@ export default (data: any, fn: any, opts: any) => {
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>价格状态：</span>
-            {data.length && <span>{data[0].priceStatus}</span>}
+            {data.length &&
+              data[0].priceStatus !== undefined &&
+              formatDefaultStatus(data[0].priceStatus)}
           </Col>
           <Col {...colQuery}>
             <span>调价时间：</span>
@@ -299,7 +307,9 @@ export default (data: any, fn: any, opts: any) => {
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>电池状态：</span>
-            {data.length && <span>{data[0].batteryStatus}</span>}
+            {data.length &&
+              data[0].batteryStatus !== undefined &&
+              formatBatteryStatus(data[0].batteryStatus)}
           </Col>
           <Col {...colQuery}>
             <span>电池电压：</span>
@@ -317,17 +327,19 @@ export default (data: any, fn: any, opts: any) => {
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>阀门状态：</span>
-            {data.length && <span>{data[0].tapStatus}</span>}
+            {data.length && data[0].tapStatus !== undefined && formatTapStatus(data[0].tapStatus)}
           </Col>
           <Col span={16}>
             <span>指令执行后(阀门控制)：</span>
-            {data.length && <span>{data[0].tapControl}</span>}
+            {data.length && data[0].tapControl !== undefined && formatTapStatus(data[0].tapControl)}
           </Col>
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>上报状态：</span>
-            {data.length && <span>{data[0].sendStatus}</span>}
+            {data.length &&
+              data[0].sendStatus !== undefined &&
+              formatDefaultStatus(data[0].sendStatus)}
           </Col>
           <Col {...colQuery}>
             <span>未上报/已上报：</span>
@@ -386,7 +398,9 @@ export default (data: any, fn: any, opts: any) => {
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>集中器状态：</span>
-            {data.length && data[0].cardStatus && formatDefaultStatus(data[0].cardStatus)}
+            {data.length &&
+              data[0].cardStatus !== undefined &&
+              formatDefaultStatus(data[0].cardStatus)}
           </Col>
           <Col {...colQuery}>
             <span>实际表数/计划表数：</span>
@@ -423,7 +437,9 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>预警状态：</span>
-            {data.length && data[0].alarmStatus && formatDefaultStatus(data[0].alarmStatus)}
+            {data.length &&
+              data[0].alarmStatus !== undefined &&
+              formatDefaultStatus(data[0].alarmStatus)}
           </Col>
         </Row>
         <Row gutter={24}>
