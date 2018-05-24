@@ -3,7 +3,7 @@ import {
   fetchDataSpread,
   fetchDataConcentrator,
   fetchDataNblot,
-  fetchConfig,
+  fetchDutyConfig,
 } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
@@ -68,7 +68,7 @@ export default {
     },
     // 更新配置
     *fetchConfig(_, { call }) {
-      const response = yield call(fetchConfig);
+      const response = yield call(fetchDutyConfig);
       const { code, message } = yield call(parseNewResponse, response);
 
       if (code === 0) {

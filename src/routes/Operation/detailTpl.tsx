@@ -28,7 +28,29 @@ const colQuery = {
 };
 
 export default (data: any, fn: any, opts: any) => {
+  const isData = data.length ? true : false;
   // console.log(data, 'selectedRecord');
+
+  // 数据 duty
+  const companyData = {
+    sysName: isData ? data[0].detail.sysName : '',
+    sysVersion: isData ? data[0].detail.sysVersion : '',
+    getMethod: isData ? formatGetMethod(data[0].detail.getMethod) : '',
+    getDataAt: isData ? unixFormatter(data[0].detail.getDataAt) : '',
+    ip: isData ? data[0].detail.ip : '',
+    port: isData ? data[0].detail.port : '',
+    mac: isData ? data[0].detail.mac : '',
+    sqlVersion: isData ? data[0].detail.sqlVersion : '',
+    sync: isData ? formatSync(data[0].detail.sync) : '',
+    readWrither: isData ? data[0].detail.readWrither : '',
+    otherDevices: isData ? data[0].detail.otherDevices : '',
+    dllVersion: isData ? data[0].detail.dllVersion : '',
+    city: isData ? data[0].city : '',
+    company: isData ? data[0].company : '',
+    companyCode: isData ? data[0].companyCode : '',
+    description: isData ? data[0].description : '',
+  };
+
   const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   const noEditSys = isEditConfig(opts) || [
     <div key="title" className="hangTitle">
@@ -38,45 +60,43 @@ export default (data: any, fn: any, opts: any) => {
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>系统名称 / 版本号：</span>
-          {data.length && <span>{`${data[0].detail.sysName} / ${data[0].detail.sysVersion}`}</span>}
+          <span>{`${companyData.sysName} / ${companyData.sysVersion}`}</span>
         </Col>
         <Col {...colQuery}>
           <span>采集方式：</span>
-          {data.length && formatGetMethod(data[0].detail.getMethod)}
+          <span>{companyData.getMethod}</span>
         </Col>
         <Col {...colQuery}>
           <span>采集数据时间：</span>
-          {data.length && <span>{unixFormatter(data[0].detail.getDataAt)}</span>}
+          <span>{companyData.getDataAt}</span>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>IP地址/端口号：</span>
-          {data.length && <span>{`${data[0].detail.ip} [${data[0].detail.port}]`}</span>}
+          <span>{`${companyData.ip} [${companyData.port}]`}</span>
         </Col>
         <Col {...colQuery}>
           <span>MAC地址：</span>
-          {data.length && <span>{data[0].detail.mac}</span>}
+          <span>{companyData.mac}</span>
         </Col>
         <Col {...colQuery}>
           <span>数据库版本：</span>
-          {data.length && <span>{data[0].detail.sqlVersion}</span>}
+          <span>{companyData.sqlVersion}</span>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>数据库时间是否与服务器时间同步：</span>
-          {data.length && <span>{formatSync(data[0].detail.sync)}</span>}
+          <span>{companyData.sync}</span>
         </Col>
         <Col {...colQuery}>
           <span>读写器/其他设备型号：</span>
-          {data.length && (
-            <span>{`${data[0].detail.readWrither} / ${data[0].detail.otherDevices}`}</span>
-          )}
+          <span>{`${companyData.readWrither} / ${companyData.otherDevices}`}</span>
         </Col>
         <Col {...colQuery}>
           <span>DLL文件版本：</span>
-          {data.length && <span>{data[0].detail.dllVersion}</span>}
+          <span>{companyData.dllVersion}</span>
         </Col>
       </Row>
     </div>,
@@ -90,17 +110,21 @@ export default (data: any, fn: any, opts: any) => {
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>省份/城市：</span>
+          <span>{companyData.city}</span>
         </Col>
         <Col {...colQuery}>
           <span>燃气公司：</span>
+          <span>{companyData.company}</span>
         </Col>
         <Col {...colQuery}>
           <span>公司编号：</span>
+          <span>{companyData.companyCode}</span>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col span={24}>
           <span>备注说明：</span>
+          <span>{companyData.description}</span>
         </Col>
       </Row>
     </div>,
@@ -115,7 +139,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="系统名称：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('sysname', {
-                initialValue: 'HL-6',
+                initialValue: companyData.sysName,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -123,7 +147,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="版本号：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('version', {
-                initialValue: '6.5',
+                initialValue: companyData.sysVersion,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -131,7 +155,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="采集方式：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('method', {
-                initialValue: '静默采集',
+                initialValue: companyData.getMethod,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -141,7 +165,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="采集数据时间：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('updatetime', {
-                initialValue: '2018-05-10 12:00:05',
+                initialValue: companyData.getDataAt,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -149,7 +173,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="IP地址：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('ip', {
-                initialValue: '192.168.5.100',
+                initialValue: companyData.ip,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -157,7 +181,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="端口号：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('port', {
-                initialValue: '8001',
+                initialValue: companyData.port,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -167,7 +191,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="MAC地址：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('mac', {
-                initialValue: 'H2-XX-XX-DD-27',
+                initialValue: companyData.mac,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -175,7 +199,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="数据库版本：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('sqlversion', {
-                initialValue: '5.7',
+                initialValue: companyData.sqlVersion,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -183,7 +207,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="数据库时间是否与服务器时间同步：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('sync', {
-                initialValue: '同步',
+                initialValue: companyData.sync,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -193,7 +217,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="读写器：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('read', {
-                initialValue: 'r-001',
+                initialValue: companyData.readWrither,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -201,7 +225,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="其他设备型号：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('other', {
-                initialValue: 'other-111',
+                initialValue: companyData.otherDevices,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -209,7 +233,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="DLL文件版本：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('dllverison', {
-                initialValue: '2.11.3',
+                initialValue: companyData.dllVersion,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -227,7 +251,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="省份/城市：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('city', {
-                initialValue: '四川省成都市',
+                initialValue: companyData.city,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -235,25 +259,25 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="燃气公司：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('company', {
-                initialValue: '海力智能燃气示范公司',
+                initialValue: companyData.company,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        <Col {...colQuery}>
+        {/* <Col {...colQuery}>
           <Form.Item label="公司编号：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('companyCode', {
-                initialValue: 'C000011',
+                initialValue: companyData.companyCode,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
-        </Col>
+        </Col> */}
       </Row>
       <Row gutter={24}>
         <Col span={24}>
           <Form.Item label="备注说明：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('des', {
-                initialValue: '备注说明...',
+                initialValue: companyData.description,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
