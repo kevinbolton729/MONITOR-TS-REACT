@@ -52,7 +52,23 @@ const getDirection = () => {
 };
 
 export default (data: any, fn: any, opts: any) => {
-  // console.log(data, 'selectedRecord');
+  const isData = data[0] ? true : false;
+  const isDuty = isData && data[0].duty ? true : false;
+  // 判断data以及data[0].duty是否有数据
+  const isDutyData = () => isData && isDuty;
+  // console.log(data[0], 'selectedRecord');
+  // console.log(isData, 'isData');
+  // console.log(isDuty, 'isDuty');
+
+  // 数据 duty
+  const dutyData = {
+    department: isDutyData() ? data[0].duty[0].department : '',
+    name: isDutyData() ? data[0].duty[0].name : '',
+    phone: isDutyData() ? data[0].duty[0].phone : '',
+    tel: isDutyData() ? data[0].duty[0].tel : '',
+    email: isDutyData() ? data[0].duty[0].email : '',
+  };
+
   const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   // 责任部门（或责任人）
   const noForm = isEditConfig(opts) || (
@@ -60,20 +76,25 @@ export default (data: any, fn: any, opts: any) => {
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>部门：</span>
+          <span>{dutyData.department}</span>
         </Col>
         <Col {...colQuery}>
           <span>姓名：</span>
+          <span>{dutyData.name}</span>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>办公室电话：</span>
+          <span>{dutyData.phone}</span>
         </Col>
         <Col {...colQuery}>
           <span>手机号码：</span>
+          <span>{dutyData.tel}</span>
         </Col>
         <Col {...colQuery}>
           <span>电子邮箱：</span>
+          <span>{dutyData.email}</span>
         </Col>
       </Row>
     </div>
@@ -85,7 +106,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="部门：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('department', {
-                initialValue: '技术中心/办公室',
+                initialValue: dutyData.department,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -93,7 +114,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="姓名：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('name', {
-                initialValue: '鱼子酱',
+                initialValue: dutyData.name,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -103,7 +124,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="办公室电话：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('phone', {
-                initialValue: '028-12345678',
+                initialValue: dutyData.phone,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -111,7 +132,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="手机号码：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('tel', {
-                initialValue: '13912345678',
+                initialValue: dutyData.tel,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
@@ -119,7 +140,7 @@ export default (data: any, fn: any, opts: any) => {
           <Form.Item label="电子邮箱：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('email', {
-                initialValue: 'k123456@qq.com',
+                initialValue: dutyData.email,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>

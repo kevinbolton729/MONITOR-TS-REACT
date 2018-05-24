@@ -38,12 +38,13 @@ enum sortGroup {
 //   <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
 // ];
 
-@connect(({ loading, datamonitor }: any) => ({
+@connect(({ loading, global, datamonitor }: any) => ({
   loading: loading.models.datamonitor && !loading.effects['datamonitor/fetchConfig'],
   confirmLoading: loading.effects['datamonitor/fetchConfig'],
   spreadList: datamonitor.spreadList,
   concentratorList: datamonitor.concentratorList,
   nblotList: datamonitor.nblotList,
+  dutyList: global.dutyList,
 }))
 class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorStates>
   implements IDataMonitorItems {
@@ -55,6 +56,8 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTable: '',
       // 请求数据
       isFetch: true,
+      // 请求责任部门（或责任人）数据
+      isFetchDuty: true,
       // Modal
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
       selectedRecord: [],
@@ -74,6 +77,8 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   componentDidUpdate() {
     // 根据currentTab/currentRadio等发起相应API请求
     this.startFetch();
+    // 根据currentTab/currentRadio发起获取责任部门（或责任人）API请求
+    this.fetchDutyApi();
     // 点击【保存】后，更新成功时关闭编辑配置
     this.afterSaveCloseConfig();
   }
@@ -81,6 +86,10 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   // 设置是否已请求过数据
   covertFetch = (fetch = false) => {
     this.setState({ isFetch: fetch });
+  };
+  // 设置是否已请求过责任部门（或责任人）数据
+  covertFetchDuty = (fetch = false) => {
+    this.setState({ isFetchDuty: fetch });
   };
   // 获取数据
   // 生成最终显示的列表数据
@@ -144,8 +153,29 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     // 已请求过数据
     this.covertFetch(false);
   };
+  // 根据Tab | Radio 发起责任部门（或责任人）API请求
+  fetchDutyApi = () => {
+    const { dutyList } = this.props;
+    const { currentTab, currentRadio, isFetchDuty } = this.state;
+
+    // 请求责任部门（或责任人）的数据接口
+    if (
+      isFetchDuty &&
+      currentTab !== 'unusual' &&
+      (currentRadio === 'spread' || currentRadio === 'nblot') &&
+      dutyList.length === 0
+    ) {
+      this.dispatchAction('global/fetchDuty');
+    }
+
+    // 已请求过数据
+    this.covertFetchDuty(false);
+  };
   // 查看
   handlerShow = (record: any, key: string) => {
+    const { dutyList } = this.props;
+    if (dutyList.length !== 0) record.duty = dutyList;
+
     this.setState({
       selectedRecord: [record],
     });

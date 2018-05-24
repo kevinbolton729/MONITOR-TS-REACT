@@ -22,12 +22,14 @@ export interface ICustomProps {
   nblotShippingList: any[];
   unusualSpreadList: any[];
   unusualNblotList: any[];
+  dutyList: any[];
   form: any;
 }
 
 export interface ICustomStates {
   visible: boolean;
   isFetch: boolean;
+  isFetchDuty: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;
@@ -46,6 +48,7 @@ export interface IDataMonitorProps {
   spreadList: any[];
   concentratorList: any[];
   nblotList: any[];
+  dutyList: any[];
   form: any;
 }
 
@@ -54,6 +57,7 @@ export interface IDataMonitorStates {
   isEditConfig: boolean;
   isClick: boolean;
   isFetch: boolean;
+  isFetchDuty: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;

@@ -115,3 +115,17 @@ export async function fetchCompanyConfig(params = {}) {
     body: params,
   });
 }
+// -- 责任部门（或责任人）
+// 获取责任部门（或责任人）
+export async function fetchDuty(params = {}) {
+  return request('/api/duty/fetchduty', {
+    params,
+  });
+}
+// 更新责任部门（或责任人）
+export async function fetchDutyConfig(params = {}) {
+  return request('/api/duty/fetchconfig', {
+    method: 'POST',
+    body: params,
+  });
+}

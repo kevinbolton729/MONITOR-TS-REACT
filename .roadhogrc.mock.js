@@ -54,6 +54,8 @@ const proxy = {
   'GET /api/monitor/fetchconcentrator': getBody({ data: concentratorData }),
   // 获取物联网表 > 物联网表列表
   'GET /api/monitor/fetchnblot': getBody({ data: nblotData }),
+  // 新增（或更新）责任部门（或责任人）
+  'POST /api/monitor/spread/fetchconfig': getBody({ message: saveSuccess }),
   // [责任部门（或责任人）]
   // 获取责任部门（或责任人）
   'GET /api/duty/fetchduty': getBody({ data: dutyData }),

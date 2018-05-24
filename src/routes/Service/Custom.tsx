@@ -40,7 +40,7 @@ enum sortGroup {
 //   <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
 // ];
 
-@connect(({ loading, custom }: any) => ({
+@connect(({ loading, global, custom }: any) => ({
   loading: loading.models.custom,
   spreadList: custom.spreadList,
   concentratorList: custom.concentratorList,
@@ -49,6 +49,7 @@ enum sortGroup {
   nblotShippingList: custom.nblotShippingList,
   unusualSpreadList: custom.unusualSpreadList,
   unusualNblotList: custom.unusualNblotList,
+  dutyList: global.dutyList,
 }))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
   constructor(props: any) {
@@ -59,6 +60,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTable: '',
       // 请求数据
       isFetch: true,
+      // 请求责任部门（或责任人）数据
+      isFetchDuty: true,
       // Modal
       visible: false,
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
@@ -76,11 +79,17 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   componentDidUpdate() {
     // 根据currentTab/currentRadio等发起相应API请求
     this.startFetch();
+    // 根据currentTab/currentRadio发起获取责任部门（或责任人）API请求
+    this.fetchDutyApi();
   }
 
   // 设置是否已请求过数据
   covertFetch = (fetch = false) => {
     this.setState({ isFetch: fetch });
+  };
+  // 设置是否已请求过责任部门（或责任人）数据
+  covertFetchDuty = (fetch = false) => {
+    this.setState({ isFetchDuty: fetch });
   };
   // 获取数据
   // 生成最终显示的列表数据
@@ -203,8 +212,28 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     // 已请求过数据
     this.covertFetch(false);
   };
+  // 根据Tab | Radio 发起责任部门（或责任人）API请求
+  fetchDutyApi = () => {
+    const { dutyList } = this.props;
+    const { currentRadio, isFetchDuty } = this.state;
+
+    // 请求责任部门（或责任人）的数据接口
+    if (
+      isFetchDuty &&
+      (currentRadio === 'spread' || currentRadio === 'nblot') &&
+      dutyList.length === 0
+    ) {
+      this.dispatchAction('global/fetchDuty');
+    }
+
+    // 已请求过数据
+    this.covertFetchDuty(false);
+  };
   // 查看
   handlerShow = (record: any, key: string) => {
+    const { dutyList } = this.props;
+    if (dutyList.length !== 0) record.duty = dutyList;
+
     this.setState({
       selectedRecord: [record],
     });
