@@ -198,6 +198,7 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
         closeConfig: this.closeConfig,
         onSubmit: this.onSubmit,
         onReset: this.onReset,
+        changeCity: this.changeCity,
       },
       {
         form,

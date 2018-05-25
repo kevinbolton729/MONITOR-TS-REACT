@@ -1,7 +1,9 @@
 import { Icon, Tag } from 'antd';
 import * as React from 'react';
+// 省份/城市
+import { CITY_JSON } from './city';
 // 方法
-// import {} from '../../utils/fns';
+import { covertFormat } from './fns';
 // 样式
 const styles = require('../static/index.less');
 
@@ -114,3 +116,38 @@ export const formatAlarmType = (alarmType: string) => (
     {alarmType}
   </Tag>
 );
+
+// 获取省份城市 传入参数 eg. '510000,510100' '四川,成都'
+export const covertCity = (city: string) => city.split(',');
+// 获取省份/城市的显示数据 eg. 四川省 / 成都市
+export const getCitys = (city: string) => {
+  const result = [];
+  const cityData = covertFormat(CITY_JSON);
+  const arr = city.split(',');
+
+  // 获取省份
+  const provinceLabel: any[] = [];
+  for (const item of cityData) {
+    if (arr[0] === item.value) {
+      provinceLabel.push(item.label);
+      break;
+    }
+  }
+  // 获取城市
+  const cityLabel: any[] = [];
+  for (const item of cityData) {
+    if (arr[1] === item.value) {
+      cityLabel.push(item.label);
+      break;
+    }
+  }
+
+  // console.log(provinceLabel[0] && provinceLabel[0].label, 'provinceLabel');
+  // console.log(cityLabel[0] && cityLabel[0].label, 'cityLabel');
+
+  if (provinceLabel[0] && cityLabel[0]) {
+    result.push(`${provinceLabel[0]} / ${cityLabel[0]}`);
+  }
+
+  return result[0] || '';
+};

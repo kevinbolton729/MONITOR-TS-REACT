@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-02-05 22:04:50
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-25 13:11:16
+ * @Last Modified time: 2018-05-25 15:34:52
  */
 import { message as openMessage } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -147,7 +147,7 @@ export const getCitys: IFns['getCitys'] = (provinceCode, data = []) => {
   }, []);
 };
 // 转换格式 结果: eg. { label: '北京市', value: '110000' }
-const covertFormat = (data: any[] = []) =>
+export const covertFormat = (data: any[] = []) =>
   data.map((current: any) => ({
     label: current.item_name,
     value: current.item_code,

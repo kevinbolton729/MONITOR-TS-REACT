@@ -1,11 +1,11 @@
-import { Button, Col, Divider, Form, Input, Radio, Row } from 'antd';
+import { Button, Cascader, Col, Divider, Form, Input, Radio, Row } from 'antd';
 import * as React from 'react';
 // 常量
 import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../utils/consts';
 // 方法
-import { unixFormatter } from '../../utils/fns';
+import { getCityOptions, unixFormatter } from '../../utils/fns';
 // help工具
-import { formatGetMethod, formatSync, methodStats } from '../../utils/help';
+import { covertCity, formatGetMethod, formatSync, getCitys, methodStats } from '../../utils/help';
 // 声明
 // import {} from './';
 // 样式
@@ -39,6 +39,12 @@ const passMethod = () => {
   }
   return result;
 };
+
+// 获取省份/城市级联菜单的项
+const cityOptions = getCityOptions();
+// 级联菜单: 搜索
+const filter: any = (inputValue: string, path: string[]) =>
+  path.some((option: any) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
 export default (data: any, fn: any, opts: any) => {
   const isData = data.length ? true : false;
@@ -123,7 +129,7 @@ export default (data: any, fn: any, opts: any) => {
       <Row gutter={24}>
         <Col {...colQuery}>
           <span>省份/城市：</span>
-          <span>{companyData.city}</span>
+          <span>{getCitys(companyData.city)}</span>
         </Col>
         <Col {...colQuery}>
           <span>燃气公司：</span>
@@ -258,14 +264,25 @@ export default (data: any, fn: any, opts: any) => {
     <div key="title" className="hangTitle">
       <p>{opts.sortGroup[opts.modalSort]}：</p>
     </div>,
-    <div key="subtitle" className="hangSubTitle">
+    <div key="subtitle" className="cascaderSubTitle">
       <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="省份/城市：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('city', {
-                initialValue: companyData.city,
-              })(<Input size="large" style={{ width: '100%' }} />)}
+                initialValue: covertCity(companyData.city),
+              })(
+                <Cascader
+                  placeholder="省份/城市"
+                  size="large"
+                  expandTrigger="hover"
+                  notFoundContent="请输入正确的城市名"
+                  style={{ width: '100%' }}
+                  options={cityOptions}
+                  showSearch={{ filter }}
+                  onChange={fn.changeCity}
+                />
+              )}
           </Form.Item>
         </Col>
         <Col {...colQuery}>
@@ -276,16 +293,6 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        {/* <Col {...colQuery}>
-          <Form.Item label="公司编号：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('companyCode', {
-                initialValue: companyData.companyCode,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col> */}
-      </Row>
-      <Row gutter={24}>
         <Col span={24}>
           <Form.Item label="备注说明：" {...itemStyle}>
             {getFieldDecorator &&
@@ -294,6 +301,14 @@ export default (data: any, fn: any, opts: any) => {
               })(<TextArea size="large" rows={4} style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
+        {/* <Col {...colQuery}>
+          <Form.Item label="公司编号：" {...itemStyle}>
+            {getFieldDecorator &&
+              getFieldDecorator('companyCode', {
+                initialValue: companyData.companyCode,
+              })(<Input size="large" style={{ width: '100%' }} />)}
+          </Form.Item>
+        </Col> */}
       </Row>
     </div>,
   ];

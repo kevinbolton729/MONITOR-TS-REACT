@@ -18,7 +18,7 @@ const fields = {
   createAt: typeUnix13,
   updateAt: typeUnix13,
   detail: '详情',
-  city: '四川/成都', // 省份/城市 eg. 四川/成都
+  city: '510000,510100', // 省份/城市 eg. ['四川省', '成都市']
   description: `备注说明... ps:${wordLimit}`, // 备注说明
   // 燃气用户
   user: '燃气用户',
