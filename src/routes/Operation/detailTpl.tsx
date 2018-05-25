@@ -266,7 +266,7 @@ export default (data: any, fn: any, opts: any) => {
     </div>,
     <div key="subtitle" className="cascaderSubTitle">
       <Row gutter={24}>
-        <Col {...colQuery}>
+        <Col sm={24} md={4}>
           <Form.Item label="省份/城市：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('city', {
@@ -285,7 +285,7 @@ export default (data: any, fn: any, opts: any) => {
               )}
           </Form.Item>
         </Col>
-        <Col {...colQuery}>
+        <Col sm={24} md={8}>
           <Form.Item label="燃气公司：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('company', {
@@ -293,7 +293,7 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        <Col span={24}>
+        <Col sm={24} md={16}>
           <Form.Item label="备注说明：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('des', {
