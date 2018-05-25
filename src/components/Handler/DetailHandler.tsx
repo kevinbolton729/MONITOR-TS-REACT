@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-25 13:05:22
+ * @Last Modified time: 2018-05-25 13:18:20
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -104,6 +104,7 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
                   placeholder="省份/城市"
                   size="default"
                   expandTrigger="hover"
+                  notFoundContent="请输入正确的城市名"
                   style={{ width: 150 }}
                   options={cityOptions}
                   showSearch={{ filter }}

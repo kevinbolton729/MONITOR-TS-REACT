@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-02-05 22:04:50
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-25 12:51:12
+ * @Last Modified time: 2018-05-25 13:11:16
  */
 import { message as openMessage } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -112,7 +112,7 @@ export const getProvinceCity: IFns['getProvinceCity'] = (provinces, data = []) =
   provinces.reduce((arr, current) => {
     const children: any[] = [];
     const obj = { ...current };
-    children.push(...getCitys(`${current.value.slice(0, 3)}`, data));
+    children.push(...getCitys(`${current.value.slice(0, 2)}`, data));
     if (children.length > 0) {
       obj.children = children;
     }
@@ -126,7 +126,7 @@ export const getProvinceCity: IFns['getProvinceCity'] = (provinces, data = []) =
 export const getProvinces: IFns['getProvinces'] = (data = []) => {
   const covertData = covertFormat(data);
   return covertData.reduce((arr: any[], current: any) => {
-    if (`${current.value.slice(3)}` === '000') {
+    if (`${current.value.slice(2)}` === '0000') {
       return arr.concat(current);
     }
     return arr;
@@ -140,7 +140,7 @@ export const getProvinces: IFns['getProvinces'] = (data = []) => {
 export const getCitys: IFns['getCitys'] = (provinceCode, data = []) => {
   const covertData = covertFormat(data);
   return covertData.reduce((arr: any[], current: any) => {
-    if (`${current.value.slice(0, 3)}` === provinceCode && `${current.value.slice(3)}` !== '000') {
+    if (`${current.value.slice(0, 2)}` === provinceCode && `${current.value.slice(2)}` !== '0000') {
       arr.push(current);
     }
     return arr;
