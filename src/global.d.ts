@@ -94,12 +94,15 @@ export interface IFns {
   beforeUpload: BeforeUpload;
   beforeUploadVideo: BeforeUpload;
   noToken: HandleToken;
-  getMenus: (firstMenus: any[], data?: any[]) => any[];
-  getFirstMenu: (data?: any[]) => any[];
-  getChildMenus: (sortId: string, data?: any[]) => any[];
+  getMenus: (firstMenus: any[], data: any[]) => any[];
+  getFirstMenu: (data: any[]) => any[];
+  getChildMenus: (sortId: string, data: any[]) => any[];
   getBase64: (img: any, callback: FuncStrToStr) => void;
   base64UrlToBlob: (url: string) => any;
   getUploadImgs: (passArr?: any[]) => any[];
   covertBase64toUrl: (params: { data: any[]; contentOps: any }) => any;
   gotoPage: (params: { put: string; url: string; key?: string }) => void;
+  getProvinceCity: (provinces: any[], data: any[]) => any[];
+  getProvinces: (data: any[]) => any[];
+  getCitys: (provinceCode: string, data: any[]) => any[];
 }

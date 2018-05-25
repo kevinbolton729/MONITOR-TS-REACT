@@ -2,13 +2,16 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-18 11:43:40
+ * @Last Modified time: 2018-05-25 13:05:22
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+// 常量
 import { MESSAGE_NOINPUT } from '../../utils/consts';
+// 方法
+import { getCityOptions } from '../../utils/fns';
 // 声明
 import { IDetailProps, IDetailStates } from './';
 // 样式
@@ -25,28 +28,11 @@ const searcHolder: any = {
   company: '请输入燃气公司名称',
 };
 
-const cityOptions = [
-  {
-    value: 'sichuan',
-    label: '四川',
-    children: [
-      {
-        value: 'chengdu',
-        label: '成都',
-      },
-    ],
-  },
-  {
-    value: 'yunnan',
-    label: '云南',
-    children: [
-      {
-        value: 'kunming',
-        label: '昆明',
-      },
-    ],
-  },
-];
+// 获取省份/城市级联菜单的项
+const cityOptions = getCityOptions();
+// 级联菜单: 搜索
+const filter: any = (inputValue: string, path: string[]) =>
+  path.some((option: any) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
 class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
   static contextTypes = {
@@ -115,10 +101,13 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
               <span>选择：</span>
               {getFieldDecorator('city')(
                 <Cascader
+                  placeholder="省份/城市"
+                  size="default"
+                  expandTrigger="hover"
                   style={{ width: 150 }}
                   options={cityOptions}
+                  showSearch={{ filter }}
                   onChange={this.changeCity}
-                  placeholder="省份/城市"
                 />
               )}
             </div>

@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-02-05 22:04:50
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-17 15:37:03
+ * @Last Modified time: 2018-05-25 12:51:12
  */
 import { message as openMessage } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -10,6 +10,8 @@ import md5 from 'js-md5';
 import moment from 'moment';
 // 声明
 import { IFns } from '../global';
+// 省份/城市
+import { CITY_JSON } from './city';
 // 常量
 import {
   API_DOMAIN,
@@ -98,6 +100,65 @@ export const getChildMenus: IFns['getChildMenus'] = (sortId, data = []) =>
     }
     return arr;
   }, []);
+
+/**
+ * 省份/城市级联
+ * --- START ---
+ * @description 生成无限级数菜单
+ * @param {Array} provinces 一级菜单
+ * @param {Array} [data=[]]  数据
+ */
+export const getProvinceCity: IFns['getProvinceCity'] = (provinces, data = []) =>
+  provinces.reduce((arr, current) => {
+    const children: any[] = [];
+    const obj = { ...current };
+    children.push(...getCitys(`${current.value.slice(0, 3)}`, data));
+    if (children.length > 0) {
+      obj.children = children;
+    }
+    arr.push(obj);
+    return arr;
+  }, []);
+/**
+ * @description 生成省份
+ * @param {Array} [data=[]]  数据
+ */
+export const getProvinces: IFns['getProvinces'] = (data = []) => {
+  const covertData = covertFormat(data);
+  return covertData.reduce((arr: any[], current: any) => {
+    if (`${current.value.slice(3)}` === '000') {
+      return arr.concat(current);
+    }
+    return arr;
+  }, []);
+};
+/**
+ * @description 生成城市
+ * @param {String} provinceCode 省份Code
+ * @param {Array} [data=[]]  数据
+ */
+export const getCitys: IFns['getCitys'] = (provinceCode, data = []) => {
+  const covertData = covertFormat(data);
+  return covertData.reduce((arr: any[], current: any) => {
+    if (`${current.value.slice(0, 3)}` === provinceCode && `${current.value.slice(3)}` !== '000') {
+      arr.push(current);
+    }
+    return arr;
+  }, []);
+};
+// 转换格式 结果: eg. { label: '北京市', value: '110000' }
+const covertFormat = (data: any[] = []) =>
+  data.map((current: any) => ({
+    label: current.item_name,
+    value: current.item_code,
+  }));
+// 获取级联菜单: cityOptions
+export const getCityOptions = () => {
+  const data = CITY_JSON; // 元数据
+  const provinces = getProvinces(data); // 省份
+  // console.log(getProvinceCity(provinces, data), 'getProvinceCity(provinces, data)');
+  return getProvinceCity(provinces, data);
+};
 // 字符串转换成大写
 export const strToUpper: IFns['strToUpper'] = str => str.toString().toUpperCase();
 // 获取图片Base64编码内容

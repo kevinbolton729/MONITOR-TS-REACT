@@ -14,7 +14,6 @@ import { ICompanyItems, ICompanyProps, ICompanyStates } from './';
 // 模块
 import { companyCols } from './columns';
 import tpl from './detailTpl';
-// 样式
 
 // 枚举
 enum sortGroup {
