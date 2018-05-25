@@ -10,6 +10,8 @@ import { formatGetMethod, formatSync, methodStats } from '../../utils/help';
 // import {} from './';
 // 样式
 // const styles = require('./');
+// UI
+const { TextArea }: any = Input;
 
 // 是否显示配置按钮
 const isConfig = (opts: any) => opts.isConfig;
@@ -172,14 +174,14 @@ export default (data: any, fn: any, opts: any) => {
         </Col>
       </Row>
       <Row gutter={24}>
-        <Col {...colQuery}>
+        {/* <Col {...colQuery}>
           <Form.Item label="采集数据时间：" {...itemStyle}>
             {getFieldDecorator &&
               getFieldDecorator('updatetime', {
                 initialValue: companyData.getDataAt,
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
-        </Col>
+        </Col> */}
         <Col {...colQuery}>
           <Form.Item label="IP地址：" {...itemStyle}>
             {getFieldDecorator &&
@@ -196,8 +198,6 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-      </Row>
-      <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="MAC地址：" {...itemStyle}>
             {getFieldDecorator &&
@@ -206,6 +206,8 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
+      </Row>
+      <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="数据库版本：" {...itemStyle}>
             {getFieldDecorator &&
@@ -214,16 +216,6 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
-        <Col {...colQuery}>
-          <Form.Item label="数据库时间是否与服务器时间同步：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('sync', {
-                initialValue: companyData.sync,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="读写器：" {...itemStyle}>
             {getFieldDecorator &&
@@ -240,6 +232,16 @@ export default (data: any, fn: any, opts: any) => {
               })(<Input size="large" style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
+        {/* <Col {...colQuery}>
+          <Form.Item label="数据库时间是否与服务器时间同步：" {...itemStyle}>
+            {getFieldDecorator &&
+              getFieldDecorator('sync', {
+                initialValue: companyData.sync,
+              })(<Input size="large" style={{ width: '100%' }} />)}
+          </Form.Item>
+        </Col> */}
+      </Row>
+      <Row gutter={24}>
         <Col {...colQuery}>
           <Form.Item label="DLL文件版本：" {...itemStyle}>
             {getFieldDecorator &&
@@ -289,7 +291,7 @@ export default (data: any, fn: any, opts: any) => {
             {getFieldDecorator &&
               getFieldDecorator('des', {
                 initialValue: companyData.description,
-              })(<Input size="large" style={{ width: '100%' }} />)}
+              })(<TextArea size="large" rows={4} style={{ width: '100%' }} />)}
           </Form.Item>
         </Col>
       </Row>
