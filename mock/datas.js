@@ -11,9 +11,9 @@ const dutyCollection = {
 // 配置 传递的参数
 // duty
 export const dutyParams = {
-  meterCode: {
-    desc: fields.meterCode,
-    exp: `${tagRequired} B000X0001`,
+  dutyCode: {
+    desc: fields.dutyCode,
+    exp: `${tagRequired} eg. DUTY00001 为空字符串时则新增`,
   },
   department: {
     desc: fields.department,

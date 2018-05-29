@@ -65,6 +65,7 @@ const fields = {
   uploadStatus: 1, // 数据上传状态 0:失败 1:成功
   // 责任部门（或责任人）
   duty: '责任部门（或责任人）',
+  dutyCode: 'DUTY00001', // 信息编号
   department: '客户服务部', // 部门
   name: '鱼子酱', // 姓名
   phone: '(028) 12345678', // 办公电话
