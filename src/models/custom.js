@@ -8,7 +8,10 @@ import {
   fetchUnusualSpread,
   fetchUnusualNblot,
 } from '@/services/api';
-import { parseNewResponse, parseMonitorResponse } from '@/utils/parse';
+import {
+  parseNewResponse,
+  // parseMonitorResponse
+} from '@/utils/parse';
 // 常量
 // import {} from '@/utils/consts';
 // 方法
@@ -78,7 +81,7 @@ export default {
     // 获取物联网表列表
     *fetchNblot({ payload }, { call, put }) {
       const response = yield call(fetchNblot, payload);
-      const { code, data } = yield call(parseMonitorResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         yield console.log(data, 'data');
@@ -93,7 +96,7 @@ export default {
     // 获取物联网表>发货记录列表
     *fetchNblotShipping({ payload }, { call, put }) {
       const response = yield call(fetchNblotShipping, payload);
-      const { code, data } = yield call(parseMonitorResponse, response);
+      const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
         yield console.log(data, 'data');

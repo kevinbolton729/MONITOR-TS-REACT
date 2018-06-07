@@ -55,14 +55,24 @@ export async function fetchShipping(params = {}) {
 }
 // 获取物联网表>物联网表列表
 // api/custom/fetchnblot.do
+// export async function fetchNblot(params = {}) {
+//   return request(`${API_DOMAIN.online}/api/custom/fetchnblot.do`, {
+//     params,
+//   });
+// }
 export async function fetchNblot(params = {}) {
-  return request(`${API_DOMAIN.online}/api/custom/fetchnblot.do`, {
+  return request(`${API_DOMAIN.novalue}/api/custom/fetchnblot`, {
     params,
   });
 }
 // 获取物联网表>发货记录列表
+// export async function fetchNblotShipping(params = {}) {
+//   return request(`${API_DOMAIN.online}/api/custom/nblot/fetchshipping.do`, {
+//     params,
+//   });
+// }
 export async function fetchNblotShipping(params = {}) {
-  return request(`${API_DOMAIN.online}/api/custom/nblot/fetchshipping.do`, {
+  return request(`${API_DOMAIN.novalue}/api/custom/nblot/fetchshipping`, {
     params,
   });
 }

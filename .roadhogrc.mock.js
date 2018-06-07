@@ -76,7 +76,7 @@ const proxy = {
   // 获取物联网表 > 物联网表列表
   'GET /api/custom/fetchnblot': getBody({ data: nblotData }),
   // 获取物联网表 > 发货记录列表
-  // 'GET /api/custom/nblot/fetchshipping': getBody({ data: shippingData }),
+  'GET /api/custom/nblot/fetchshipping': getBody({ data: shippingData }),
   // 获取异常报警 > 扩频表列表
   'GET /api/custom/unusual/fetchspread': getBody({ data: unusualData }),
   // 获取异常报警 > 物联网表列表
