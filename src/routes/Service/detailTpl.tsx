@@ -196,7 +196,7 @@ export default (data: any, fn: any, opts: any) => {
       {data.length && currentDirective.directiveDes}
     </p>,
     <span key="date" className={styles.dotspan}>
-      {data.length && unixFormatter(currentDirective.updateAt)}
+      {/* {data.length && unixFormatter(currentDirective.updateAt)} */}
     </span>,
   ];
   // 扩频表/物联网表(主模板)
@@ -297,11 +297,11 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>调价时间：</span>
-            {data.length && <span>{unixFormatter(data[0].priceUpdateAt)}</span>}
+            {data.length && <span>{unixFormatter(`${data[0].priceUpdateAt}`)}</span>}
           </Col>
           <Col {...colQuery}>
             <span>有效期至：</span>
-            {data.length && <span>{unixFormatter(data[0].priceEndAt)}</span>}
+            {data.length && <span>{unixFormatter(`${data[0].priceEndAt}`)}</span>}
           </Col>
         </Row>
         <Row gutter={24}>
@@ -314,8 +314,9 @@ export default (data: any, fn: any, opts: any) => {
           <Col {...colQuery}>
             <span>电池电压：</span>
             {data.length && (
-              <span>{`${data[0].remainVoltage} / ${data[0].totalVoltage} ( ${data[0].remainVoltage /
-                data[0].totalVoltage *
+              <span>{`${data[0].remainVoltage} / ${data[0].totalVoltage} ( ${(data[0]
+                .remainVoltage /
+                data[0].totalVoltage) *
                 100}% )`}</span>
             )}
           </Col>
@@ -347,7 +348,7 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>上报时间：</span>
-            {data.length && <span>{unixFormatter(data[0].sendUpdateAt)}</span>}
+            {data.length && <span>{unixFormatter(`${data[0].sendUpdateAt}`)}</span>}
           </Col>
         </Row>
       </div>
@@ -453,7 +454,7 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>报警时间：</span>
-            {data.length && <span>{unixFormatter(data[0].alarmAt)}</span>}
+            {data.length && <span>{unixFormatter(`${data[0].alarmAt}`)}</span>}
           </Col>
         </Row>
       </div>
@@ -491,7 +492,7 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
           <Col {...colQuery}>
             <span>发货时间：</span>
-            {data.length && <span>{unixFormatter(data[0].deliveryAt)}</span>}
+            {data.length && <span>{unixFormatter(`${data[0].deliveryAt}`)}</span>}
           </Col>
         </Row>
       </div>

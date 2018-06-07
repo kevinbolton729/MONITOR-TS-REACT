@@ -285,7 +285,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     const result = { value: 'companyCode' };
 
     if (currentRadio === 'shipping') {
-      result.value = `${record.meterCode}`;
+      result.value = `${record.meterShipId}`;
     }
 
     return result.value;
