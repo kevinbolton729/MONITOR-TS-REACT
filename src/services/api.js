@@ -66,16 +66,16 @@ export async function fetchNblot(params = {}) {
   });
 }
 // 获取物联网表>发货记录列表
-// export async function fetchNblotShipping(params = {}) {
-//   return request(`${API_DOMAIN.online}/api/custom/nblot/fetchshipping.do`, {
-//     params,
-//   });
-// }
 export async function fetchNblotShipping(params = {}) {
-  return request(`${API_DOMAIN.novalue}/api/custom/nblot/fetchshipping`, {
+  return request(`${API_DOMAIN.online}/api/custom/nblot/fetchshipping.do`, {
     params,
   });
 }
+// export async function fetchNblotShipping(params = {}) {
+//   return request(`${API_DOMAIN.novalue}/api/custom/nblot/fetchshipping`, {
+//     params,
+//   });
+// }
 // 获取异常报警>扩频表列表
 export async function fetchUnusualSpread(params = {}) {
   return request(`${API_DOMAIN.novalue}/api/custom/unusual/fetchspread`, {
