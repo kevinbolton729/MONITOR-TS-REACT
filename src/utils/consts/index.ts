@@ -24,8 +24,6 @@ export const MESSAGE_LOGINOUT_SUCCESS = '您已安全退出本系统';
 export const MESSAGE_CHANGESELECTEDSITE_SUCCESS = '站点已切换';
 export const MESSAGE_CHANGESELECTEDSITE_FAIL = '站点切换失败';
 export const MESSAGE_CHANGESELECTEDSITE_NOSELECT = '请选择待切换的站点';
-// Data
-export const DATA_NODATA = '...';
 // localStorage
 export const LOCALSTORAGENAME = 'STORE-NAME';
 // Button

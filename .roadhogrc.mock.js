@@ -32,6 +32,32 @@ const getBody = (opts, code = 0) => ({
 // }),
 
 const proxy = {
+  // [用户]
+  // 登录
+  // 'POST /api/admin/loginon': getBody({ data: [{ role: 1000 }] }),
+  'POST /api/admin/loginon': (req, res) => {
+    const { username, password } = req.body;
+
+    if (username !== 'dev_admin') {
+      res.send(getBody({ message: '用户名不存在' }, 1));
+      return;
+    }
+    if (password !== '45af75a8aa4bbbe57c814d9c93397d50') {
+      res.send(getBody({ message: '输入的登录密码错误' }, 1));
+      return;
+    }
+    if (username === 'dev_admin' && password === '45af75a8aa4bbbe57c814d9c93397d50') {
+      res.send(getBody({ data: [{ role: 1000 }] }));
+    }
+  },
+  // 安全退出
+  'POST /api/admin/loginout': getBody({ message: '已安全退出' }),
+  // 获取登录用户资料
+  'GET /api/admin/currentUser': getBody({ data: userData }),
+  // 修改登录密码
+  'POST /api/admin/updatepwd': getBody({ message: '您的登录密码已修改' }),
+  // 修改用户资料
+  'POST /api/admin/updateuser': getBody({ message: '修改成功' }),
   // [客户服务监控]
   // 获取扩频表 > 扩频表列表
   'GET /api/custom/fetchspread': getBody({ data: spreadData }),

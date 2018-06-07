@@ -11,21 +11,21 @@ export async function query() {
 }
 // 获取当前用户信息
 export async function queryCurrent() {
-  return request(`${API_DOMAIN.default}/api/admin/currentUser`);
+  return request(`${API_DOMAIN.novalue}/api/admin/currentUser`);
 }
 // 修改登录密码
 export async function editPassword(params) {
   const oldpwd = setMd5(params.oldpwd);
   const newpwd = setMd5(params.newpwd);
 
-  return request(`${API_DOMAIN.default}/api/admin/updatepwd`, {
+  return request(`${API_DOMAIN.novalue}/api/admin/updatepwd`, {
     method: 'POST',
     params: { oldpwd, newpwd },
   });
 }
 // 修改用户信息
 export async function editUser(params = {}) {
-  return request(`${API_DOMAIN.default}/api/admin/updateuser`, {
+  return request(`${API_DOMAIN.novalue}/api/admin/updateuser`, {
     method: 'POST',
     params,
   });

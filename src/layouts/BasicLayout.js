@@ -229,6 +229,11 @@ class BasicLayout extends React.PureComponent {
                 type: 'user/editPassword',
                 payload,
               });
+
+              // 关闭Modal
+              setTimeout(() => {
+                this.closeModal();
+              }, 500);
             } else {
               message.error(validater);
             }

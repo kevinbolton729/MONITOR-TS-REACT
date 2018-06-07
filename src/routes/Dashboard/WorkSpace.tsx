@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import * as React from 'react';
 // Config
-import { URL_PREFIX } from '../../config';
+import { API_DATA_NODATA, URL_PREFIX } from '../../config';
 // 组件
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 // 常量
@@ -49,7 +49,7 @@ class WorkSpace extends React.PureComponent<IWorkProps, IWorkStates> implements 
         </div>
         <div className={styles.content}>
           <div className={styles.contentTitle}>
-            {`${this.getShowDate()}！${currentUser.nickname}，祝您开心每一天！`}
+            {`${this.getShowDate()}！${currentUser.nickname || API_DATA_NODATA}，祝您开心每一天！`}
           </div>
           <div>{ROLE_NAME}</div>
         </div>
