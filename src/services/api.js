@@ -1,8 +1,10 @@
-import request from '@/utils/axios';
+import request from '@/utils/request';
 // 方法
 import { setMd5 } from '@/utils/fns';
 // 常量
-import { API_DOMAIN } from '@/utils/consts';
+// import {} from '@/utils/consts';
+// Config
+import { API_DOMAIN } from '@/config';
 
 // [LOGIN]
 // -- 登录
@@ -13,21 +15,21 @@ export async function fakeAccountLogin(params) {
   // await console.log(password, 'password');
   return request(`${API_DOMAIN.default}/api/admin/loginon`, {
     method: 'POST',
-    body: { username, password },
+    params: { username, password },
   });
 }
 // 安全退出 accountLoginOut
 export async function accountLoginOut(params = {}) {
   return request(`${API_DOMAIN.default}/api/admin/loginout`, {
     method: 'POST',
-    body: params,
+    params,
   });
 }
 // -- 注册
 export async function fakeRegister(params = {}) {
   return request(`${API_DOMAIN.default}/api/server/register`, {
     method: 'POST',
-    body: params,
+    params,
   });
 }
 
@@ -126,6 +128,6 @@ export async function fetchDuty(params = {}) {
 export async function fetchDutyConfig(params = {}) {
   return request(`${API_DOMAIN.novalue}/api/duty/fetchconfig`, {
     method: 'POST',
-    body: params,
+    params,
   });
 }

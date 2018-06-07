@@ -1,4 +1,4 @@
-import request from '../utils/axios';
+import request from '@/utils/request';
 
 export async function query404() {
   return request('/api/404');

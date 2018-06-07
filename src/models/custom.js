@@ -10,9 +10,11 @@ import {
 } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
-import { API_DATA_ERROR } from '@/utils/consts';
+// import {} from '@/utils/consts';
 // 方法
 // import { gotoPage } from '@/utils/fns';
+// Config
+import { API_DATA_ERROR } from '@/config';
 
 export default {
   namespace: 'custom',

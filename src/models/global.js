@@ -3,9 +3,11 @@ import { Icon, message as openMessage } from 'antd';
 import { fetchDuty } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
-import { SERVICE_INFO, API_DATA_ERROR } from '@/utils/consts';
+import { SERVICE_INFO } from '@/utils/consts';
 // 方法
 // import { gotoPage } from '@/utils/fns';
+// Config
+import { API_DATA_ERROR } from '@/config';
 
 export default {
   namespace: 'global',

@@ -7,9 +7,11 @@ import {
 } from '@/services/api';
 import { parseNewResponse } from '@/utils/parse';
 // 常量
-import { API_DATA_ERROR, API_DATA_TIMEOUTMSG } from '@/utils/consts';
+// import {} from '@/utils/consts';
 // 方法
 // import { gotoPage } from '@/utils/fns';
+// Config
+import { API_DATA_ERROR, API_DATA_TIMEOUTMSG } from '@/config';
 
 export default {
   namespace: 'datamonitor',

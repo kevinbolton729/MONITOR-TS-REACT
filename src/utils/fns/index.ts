@@ -2,24 +2,23 @@
  * @Author: Kevin Bolton
  * @Date: 2018-02-05 22:04:50
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-29 09:05:32
+ * @Last Modified time: 2018-06-07 11:39:02
  */
 import { message as openMessage } from 'antd';
 import { routerRedux } from 'dva/router';
 import md5 from 'js-md5';
 import moment from 'moment';
+// Config
+import { API_DOMAIN, SECRETKEY_USER, URL_PREFIX } from '../../config';
 // 声明
-import { IFns } from '../global';
+import { IFns } from '../../global';
 // 省份/城市
-import { CITY_JSON } from './city';
+import { CITY_JSON } from '../city';
 // 常量
 import {
-  API_DOMAIN,
   PAGELOGIN,
-  SECRETKEY_USER,
   // LOCALSTORAGENAME,
-  URL_PREFIX,
-} from './consts';
+} from '../consts';
 
 // unix(13位)时间戳格式化 eg.
 export const unixFormatter = (timestamp: number | string, format = 'YYYY年MM月DD日 HH:mm:ss') =>

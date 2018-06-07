@@ -2,10 +2,12 @@ import { Avatar } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import * as React from 'react';
+// Config
+import { URL_PREFIX } from '../../config';
 // 组件
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 // 常量
-import { ROLE_NAME, URL_PREFIX } from '../../utils/consts';
+import { ROLE_NAME } from '../../utils/consts';
 // 声明
 import { IWorkItems, IWorkProps, IWorkStates } from './';
 // 样式

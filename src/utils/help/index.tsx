@@ -1,11 +1,11 @@
 import { Icon, Tag } from 'antd';
 import * as React from 'react';
 // 省份/城市
-import { CITY_JSON } from './city';
+import { CITY_JSON } from '../city';
 // 方法
-import { covertFormat } from './fns';
+import { covertFormat } from '../fns';
 // 样式
-const styles = require('../static/index.less');
+const styles = require('../../static/index.less');
 
 // 操作区显示的按钮
 // type: 0:查看 1:配置 and 查看
