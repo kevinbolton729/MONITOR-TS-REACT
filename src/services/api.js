@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request/axios';
 // 方法
 import { setMd5 } from '@/utils/fns';
 // 常量
@@ -15,21 +15,21 @@ export async function fakeAccountLogin(params) {
   // await console.log(password, 'password');
   return request(`${API_DOMAIN.novalue}/api/admin/loginon`, {
     method: 'POST',
-    params: { username, password },
+    body: { username, password },
   });
 }
 // 安全退出 accountLoginOut
 export async function accountLoginOut(params = {}) {
   return request(`${API_DOMAIN.novalue}/api/admin/loginout`, {
     method: 'POST',
-    params,
+    body: params,
   });
 }
 // -- 注册
 export async function fakeRegister(params = {}) {
   return request(`${API_DOMAIN.novalue}/api/server/register`, {
     method: 'POST',
-    params,
+    body: params,
   });
 }
 
@@ -61,7 +61,7 @@ export async function fetchNblot(params = {}) {
 }
 // 获取物联网表>发货记录列表
 export async function fetchNblotShipping(params = {}) {
-  return request(`${API_DOMAIN.novalue}/api/custom/nblot/fetchshipping`, {
+  return request(`${API_DOMAIN.online}/api/custom/nblot/fetchshipping.do`, {
     params,
   });
 }
@@ -128,6 +128,6 @@ export async function fetchDuty(params = {}) {
 export async function fetchDutyConfig(params = {}) {
   return request(`${API_DOMAIN.novalue}/api/duty/fetchconfig`, {
     method: 'POST',
-    params,
+    body: params,
   });
 }

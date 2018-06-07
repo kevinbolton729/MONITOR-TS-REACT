@@ -8,7 +8,7 @@ export const URL_PREFIX = 'http://192.168.5.104:7002/public';
 export const API_DOMAIN = {
   novalue: '',
   default: 'http://192.168.5.104:7002',
-  online: 'http://192.168.5.93:8081/system-monitor',
+  online: 'http://192.168.5.93:8085/system-monitor',
 };
 // 生产环境
 // export const URL_PREFIX = 'http://0.0.0.0:7002/public';

@@ -80,8 +80,8 @@ export default {
       const response = yield call(fetchNblot, payload);
       const { code, data } = yield call(parseNewResponse, response);
 
+      console.log(data, 'data');
       if (code === 0) {
-        // console.log(data, 'data');
         yield put({
           type: 'changeNblotList',
           payload: data,
