@@ -38,7 +38,7 @@ const proxy = {
   'POST /api/admin/loginon': (req, res) => {
     const { username, password } = req.body;
 
-    if (username !== 'dev_admin') {
+    if (username !== 'dev_admin' && username !== 'dev_custom' && username !== 'dev_monitor') {
       res.send(getBody({ message: '用户名不存在' }, 1));
       return;
     }
@@ -46,8 +46,16 @@ const proxy = {
       res.send(getBody({ message: '输入的登录密码错误' }, 1));
       return;
     }
-    if (username === 'dev_admin' && password === '45af75a8aa4bbbe57c814d9c93397d50') {
-      res.send(getBody({ data: [{ role: 1000 }] }));
+    if (password === '45af75a8aa4bbbe57c814d9c93397d50') {
+      if (username === 'dev_admin') {
+        res.send(getBody({ data: [{ role: 1000 }] }));
+      }
+      if (username === 'dev_monitor') {
+        res.send(getBody({ data: [{ role: 2000 }] }));
+      }
+      if (username === 'dev_custom') {
+        res.send(getBody({ data: [{ role: 3000 }] }));
+      }
     }
   },
   // 安全退出
