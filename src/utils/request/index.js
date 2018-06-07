@@ -90,9 +90,14 @@ const request = (url, options) => {
 
   // console.log(newOptions, 'newOptions');
   return fetch(url, newOptions)
-    .then(response => response.data)
+    .then((response) => {
+      if (response.data.code === 1) {
+        console.warn(`[错误]返回码code为1 url: ${url}`);
+      }
+      return response.data;
+    })
     .catch(() => {
-      console.log(`请求URL: ${url}`);
+      console.error(`[错误]网络请求 URL: ${url}`);
       return errorHandler;
     });
 };
