@@ -1,5 +1,7 @@
 import { Icon, Tag } from 'antd';
 import * as React from 'react';
+// Config
+// import { API_DATA_NODATA } from '../../config';
 // 省份/城市
 import { CITY_JSON } from '../city';
 // 方法
@@ -109,7 +111,8 @@ export const formatTapStatus = (status: number | string) => {
 // 格式化数据库时间是否与服务器时间同步
 export const formatSync = (status: boolean) => (status ? '是' : '否');
 // 格式化快递公司
-export const formatExpress = (express: string) => <Tag key="express">{express}</Tag>;
+export const formatExpress = (express: string) =>
+  express.length === 0 ? '' : <Tag key="express">{express}</Tag>;
 // 格式化报警类型
 export const formatAlarmType = (alarmType: string) => (
   <Tag key="alarmType" color="red">

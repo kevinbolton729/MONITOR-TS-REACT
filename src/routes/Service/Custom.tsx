@@ -279,6 +279,18 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     this.setState({ visible: false });
   };
 
+  // ...
+  rowKeyTable = (record: any) => {
+    const { currentRadio } = this.state;
+    const result = { value: 'companyCode' };
+
+    if (currentRadio === 'shipping') {
+      result.value = `${record.meterCode}`;
+    }
+
+    return result.value;
+  };
+
   render() {
     const { loading } = this.props;
     const {
@@ -340,7 +352,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
                 <Radio.Group value={currentRadio} onChange={this.radioChange}>
                   <Radio.Button value="spread">扩频表</Radio.Button>
                   <Radio.Button value="concentrator">集中器</Radio.Button>
-                  <Radio.Button value="shipping">发货记录</Radio.Button>
+                  {/* <Radio.Button value="shipping">发货记录</Radio.Button> */}
                 </Radio.Group>
               </TabPane>
               <TabPane tab={sortGroup.nblot} key="nblot">
@@ -362,7 +374,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
           <div style={{ marginTop: '20px' }}>
             {currentTable === 'spread' || currentTable === 'nblot' ? (
               <Table
-                rowKey="companyCode"
+                rowKey={this.rowKeyTable}
                 columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={dataSource}
@@ -371,7 +383,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
               />
             ) : (
               <Table
-                rowKey="companyCode"
+                rowKey={this.rowKeyTable}
                 columns={getColumns[currentTable]}
                 loading={loading}
                 dataSource={dataSource}
