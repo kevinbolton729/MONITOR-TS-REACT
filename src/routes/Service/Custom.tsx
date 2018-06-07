@@ -66,6 +66,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       visible: false,
       modalSort: 'spread', // 'spread':扩频表 'concentrator':集中器 'nblot':物联网表
       selectedRecord: [],
+      // 分页
+      curPage: 1,
+      pageSize: 20,
     };
   }
   componentDidMount() {
@@ -145,68 +148,79 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    const {
-      spreadList,
-      concentratorList,
-      shippingList,
-      nblotList,
-      nblotShippingList,
-      unusualSpreadList,
-      unusualNblotList,
-    } = this.props;
-    const { currentTab, currentRadio, isFetch } = this.state;
+    // const {
+    // spreadList,
+    // concentratorList,
+    // shippingList,
+    // nblotList,
+    // nblotShippingList,
+    // unusualSpreadList,
+    // unusualNblotList,
+    // } = this.props;
+    const { currentTab, currentRadio, isFetch, curPage, pageSize } = this.state;
+    // 分页参数
+    const pagination = { curPage, pageSize };
     // 获取扩频表 > 扩频表列表
     if (
       isFetch &&
       currentTab !== 'unusual' &&
-      currentRadio === 'spread' &&
-      spreadList.length === 0
+      currentRadio === 'spread'
+      // spreadList.length === 0
     ) {
-      this.dispatchAction('custom/fetchSpread');
+      this.dispatchAction('custom/fetchSpread', pagination);
     }
     // 获取集中器列表;
-    if (isFetch && currentRadio === 'concentrator' && concentratorList.length === 0) {
-      this.dispatchAction('custom/fetchConcentrator');
+    if (
+      isFetch &&
+      currentRadio === 'concentrator'
+      // concentratorList.length === 0
+    ) {
+      this.dispatchAction('custom/fetchConcentrator', pagination);
     }
     // 获取扩频表 > 发货记录列表;
     if (
       isFetch &&
       currentTab === 'spread' &&
-      currentRadio === 'shipping' &&
-      shippingList.length === 0
+      currentRadio === 'shipping'
+      // shippingList.length === 0
     ) {
-      this.dispatchAction('custom/fetchShipping');
+      this.dispatchAction('custom/fetchShipping', pagination);
     }
     // 获取物联网表 > 物联网表列表
-    if (isFetch && currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
-      this.dispatchAction('custom/fetchNblot');
+    if (
+      isFetch &&
+      currentTab !== 'unusual' &&
+      currentRadio === 'nblot'
+      // nblotList.length === 0
+    ) {
+      this.dispatchAction('custom/fetchNblot', pagination);
     }
     // 获取物联网表 > 发货记录列表
     if (
       isFetch &&
       currentTab === 'nblot' &&
-      currentRadio === 'shipping' &&
-      nblotShippingList.length === 0
+      currentRadio === 'shipping'
+      // nblotShippingList.length === 0
     ) {
-      this.dispatchAction('custom/fetchNblotShipping');
+      this.dispatchAction('custom/fetchNblotShipping', pagination);
     }
     // 获取异常报警 > 扩频表列表
     if (
       isFetch &&
       currentTab === 'unusual' &&
-      currentRadio === 'spread' &&
-      unusualSpreadList.length === 0
+      currentRadio === 'spread'
+      // unusualSpreadList.length === 0
     ) {
-      this.dispatchAction('custom/fetchUnusualSpread');
+      this.dispatchAction('custom/fetchUnusualSpread', pagination);
     }
     // 获取异常报警 > 物联网表列表
     if (
       isFetch &&
       currentTab === 'unusual' &&
-      currentRadio === 'nblot' &&
-      unusualNblotList.length === 0
+      currentRadio === 'nblot'
+      // unusualNblotList.length === 0
     ) {
-      this.dispatchAction('custom/fetchUnusualNblot');
+      this.dispatchAction('custom/fetchUnusualNblot', pagination);
     }
 
     // 已请求过数据
@@ -247,11 +261,15 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   onChangePage = (page: number, pageSize: number) => {
     console.log(page, 'page');
     console.log(pageSize, 'pageSize');
+    this.setState({ curPage: page, pageSize });
+    this.covertFetch(true);
   };
   // 页长
   onShowSizeChange = (current: number, size: number) => {
     console.log(current, 'current');
     console.log(size, 'size');
+    this.setState({ curPage: current, pageSize: size });
+    this.covertFetch(true);
   };
   // [Modal]
   openModal = (modalSort: string = 'spread') => {

@@ -35,6 +35,8 @@ export interface ICustomStates {
   currentTable: string;
   modalSort: string;
   selectedRecord: any[];
+  curPage: number;
+  pageSize: number;
 }
 
 export interface ICustomItems {
