@@ -4,7 +4,7 @@ export const SECRETKEY_USER = 'SECRETKEY-BOLTON';
 // 开发环境
 // export const URL_PREFIX = 'http://192.168.5.104:7002/public';
 // export const API_DOMAIN = 'http://192.168.5.104:7002';
-export const URL_PREFIX = 'http://39.108.178.198:7001/public';
+export const URL_PREFIX = 'http://192.168.5.104:7002/public';
 export const API_DOMAIN = {
   novalue: '',
   default: 'http://192.168.5.104:7002',

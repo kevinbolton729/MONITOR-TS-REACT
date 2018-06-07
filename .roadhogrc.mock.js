@@ -61,7 +61,7 @@ const proxy = {
   // 安全退出
   'POST /api/admin/loginout': getBody({ message: '已安全退出' }),
   // 获取登录用户资料
-  'GET /api/admin/currentUser': getBody({ data: userData }),
+  // 'GET /api/admin/currentUser': getBody({ data: userData }),
   // 修改登录密码
   'POST /api/admin/updatepwd': getBody({ message: '您的登录密码已修改' }),
   // 修改用户资料
@@ -76,7 +76,7 @@ const proxy = {
   // 获取物联网表 > 物联网表列表
   'GET /api/custom/fetchnblot': getBody({ data: nblotData }),
   // 获取物联网表 > 发货记录列表
-  'GET /api/custom/nblot/fetchshipping': getBody({ data: shippingData }),
+  // 'GET /api/custom/nblot/fetchshipping': getBody({ data: shippingData }),
   // 获取异常报警 > 扩频表列表
   'GET /api/custom/unusual/fetchspread': getBody({ data: unusualData }),
   // 获取异常报警 > 物联网表列表

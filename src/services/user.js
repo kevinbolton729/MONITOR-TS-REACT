@@ -11,7 +11,7 @@ export async function query() {
 }
 // 获取当前用户信息
 export async function queryCurrent() {
-  return request(`${API_DOMAIN.novalue}/api/admin/currentUser`);
+  return request(`${API_DOMAIN.default}/api/admin/currentUser`);
 }
 // 修改登录密码
 export async function editPassword(params) {
