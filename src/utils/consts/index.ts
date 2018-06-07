@@ -6,6 +6,7 @@ export const NOCOLLAPSEDWIDTH = 200; // 默认: 256
 export const HEADERFIXTOP = 88;
 // Login
 export const PAGELOGIN = '/user/login';
+// Logo Image Src
 export const LOGO_USER = '/images/logo.png';
 export const LOGO_PAGE = '/images/mainLogo.png';
 // Login/GlobalFooter 提示信息
