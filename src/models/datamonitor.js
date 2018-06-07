@@ -24,8 +24,8 @@ export default {
 
   effects: {
     // 获取扩频表列表
-    *fetchDataSpread(_, { call, put }) {
-      const response = yield call(fetchDataSpread);
+    *fetchDataSpread({ payload }, { call, put }) {
+      const response = yield call(fetchDataSpread, payload);
       const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
@@ -39,8 +39,8 @@ export default {
       }
     },
     // 获取集中器列表
-    *fetchDataConcentrator(_, { call, put }) {
-      const response = yield call(fetchDataConcentrator);
+    *fetchDataConcentrator({ payload }, { call, put }) {
+      const response = yield call(fetchDataConcentrator, payload);
       const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
@@ -54,8 +54,8 @@ export default {
       }
     },
     // 获取物联网表列表
-    *fetchDataNblot(_, { call, put }) {
-      const response = yield call(fetchDataNblot);
+    *fetchDataNblot({ payload }, { call, put }) {
+      const response = yield call(fetchDataNblot, payload);
       const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {

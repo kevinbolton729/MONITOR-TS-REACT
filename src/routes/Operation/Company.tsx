@@ -30,21 +30,28 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
     super(props);
     this.state = {
       // 请求数据
-      isFetch: true,
+      isFetch: false,
       // Modal
       modalSort: 'company', // 'company':燃气公司
       selectedRecord: [],
       visible: false,
       isEditConfig: false,
       isClick: false, // 更新配置时，是否点击【保存】
+      // 分页
+      curPage: 1,
+      pageSize: 20,
     };
   }
 
   componentDidMount() {
-    // 发起相应API请求
-    this.startFetch();
+    // 初始化
+    this.setState({
+      isFetch: true,
+    });
   }
   componentDidUpdate() {
+    // 发起相应API请求
+    this.startFetch();
     // 点击【保存】后，更新成功时关闭编辑配置
     this.afterSaveCloseConfig();
   }
@@ -69,12 +76,17 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   };
   // 发起API请求
   startFetch = () => {
-    const { companyList } = this.props;
-    const { isFetch } = this.state;
+    // const { companyList } = this.props;
+    const { isFetch, curPage, pageSize } = this.state;
+    // 分页参数
+    const pagination = { curPage, pageSize };
 
     // 获取扩频表 > 扩频表列表
-    if (isFetch && companyList.length === 0) {
-      this.dispatchAction('company/fetchCompany');
+    if (
+      isFetch
+      // companyList.length === 0
+    ) {
+      this.dispatchAction('company/fetchCompany', pagination);
     }
 
     // 已请求过数据
@@ -158,11 +170,15 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
   onChangePage = (page: number, pageSize: number) => {
     console.log(page, 'page');
     console.log(pageSize, 'pageSize');
+    this.setState({ curPage: page, pageSize });
+    this.covertFetch(true);
   };
   // 页长
   onShowSizeChange = (current: number, size: number) => {
     console.log(current, 'current');
     console.log(size, 'size');
+    this.setState({ curPage: current, pageSize: size });
+    this.covertFetch(true);
   };
   // [Modal]
   openModal = (modalSort: string = 'company') => {

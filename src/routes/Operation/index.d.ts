@@ -18,6 +18,8 @@ export interface ICompanyStates {
   isFetch: boolean;
   modalSort: string;
   selectedRecord: any[];
+  curPage: number;
+  pageSize: number;
 }
 
 export interface ICompanyItems {}

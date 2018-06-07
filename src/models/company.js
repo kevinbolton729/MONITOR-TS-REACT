@@ -17,8 +17,8 @@ export default {
 
   effects: {
     // 获取扩频表列表
-    *fetchCompany(_, { call, put }) {
-      const response = yield call(fetchCompany);
+    *fetchCompany({ payload }, { call, put }) {
+      const response = yield call(fetchCompany, payload);
       const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {

@@ -64,6 +64,9 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       visible: false,
       isEditConfig: false,
       isClick: false, // 更新配置时，是否点击【保存】
+      // 分页
+      curPage: 1,
+      pageSize: 20,
     };
   }
   componentDidMount() {
@@ -129,25 +132,36 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    const { spreadList, concentratorList, nblotList } = this.props;
-    const { currentTab, currentRadio, isFetch } = this.state;
+    // const { spreadList, concentratorList, nblotList } = this.props;
+    const { currentTab, currentRadio, isFetch, curPage, pageSize } = this.state;
+    // 分页参数
+    const pagination = { curPage, pageSize };
 
     // 获取扩频表 > 扩频表列表
     if (
       isFetch &&
       currentTab !== 'unusual' &&
-      currentRadio === 'spread' &&
-      spreadList.length === 0
+      currentRadio === 'spread'
+      // spreadList.length === 0
     ) {
-      this.dispatchAction('datamonitor/fetchDataSpread');
+      this.dispatchAction('datamonitor/fetchDataSpread', pagination);
     }
     // 获取集中器列表;
-    if (isFetch && currentRadio === 'concentrator' && concentratorList.length === 0) {
-      this.dispatchAction('datamonitor/fetchDataConcentrator');
+    if (
+      isFetch &&
+      currentRadio === 'concentrator'
+      // concentratorList.length === 0
+    ) {
+      this.dispatchAction('datamonitor/fetchDataConcentrator', pagination);
     }
     // 获取物联网表 > 物联网表列表
-    if (isFetch && currentTab !== 'unusual' && currentRadio === 'nblot' && nblotList.length === 0) {
-      this.dispatchAction('datamonitor/fetchDataNblot');
+    if (
+      isFetch &&
+      currentTab !== 'unusual' &&
+      currentRadio === 'nblot'
+      // nblotList.length === 0
+    ) {
+      this.dispatchAction('datamonitor/fetchDataNblot', pagination);
     }
 
     // 已请求过数据
@@ -234,11 +248,15 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   onChangePage = (page: number, pageSize: number) => {
     console.log(page, 'page');
     console.log(pageSize, 'pageSize');
+    this.setState({ curPage: page, pageSize });
+    this.covertFetch(true);
   };
   // 页长
   onShowSizeChange = (current: number, size: number) => {
     console.log(current, 'current');
     console.log(size, 'size');
+    this.setState({ curPage: current, pageSize: size });
+    this.covertFetch(true);
   };
   // [Modal]
   openModal = (modalSort: string = 'spread') => {
