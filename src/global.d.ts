@@ -81,6 +81,20 @@ export interface INewParse {
     data: any[];
   };
 }
+export interface IMonitorParse {
+  (
+    params: {
+      code: number | string;
+      message: string;
+      data: { totalNum: number; value: any[] };
+    }
+  ): {
+    code: number | string;
+    message: string;
+    data: any[];
+    totalNum: number;
+  };
+}
 export interface IFns {
   setMd5: FuncStrToStr;
   twoDecimal: FuncStrToStr;

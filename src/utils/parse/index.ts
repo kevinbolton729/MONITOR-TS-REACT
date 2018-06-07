@@ -1,4 +1,4 @@
-import { INewParse, IParse } from '../../global';
+import { IMonitorParse, INewParse, IParse } from '../../global';
 
 export const parseResponse: IParse = params => {
   const { status, message, extData } = params;
@@ -17,4 +17,11 @@ export const parseNewResponse: INewParse = params => ({
   code: params.code,
   message: params.message || '',
   data: params.data || [],
+});
+
+export const parseMonitorResponse: IMonitorParse = params => ({
+  code: params.code,
+  message: params.message || '',
+  data: params.data.value || [],
+  totalNum: params.data.totalNum,
 });
