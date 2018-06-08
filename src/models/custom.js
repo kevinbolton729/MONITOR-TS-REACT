@@ -67,7 +67,7 @@ export default {
       const { code, data } = yield call(parseNewResponse, response);
 
       if (code === 0) {
-        // console.log(data, 'data');
+        // yield console.log(data, 'data');
         yield put({
           type: 'changeShippingList',
           payload: data,
@@ -79,9 +79,10 @@ export default {
     // 获取物联网表列表
     *fetchNblot({ payload }, { call, put }) {
       const response = yield call(fetchNblot, payload);
-      const { code, data, totalNum } = yield call(parseData, response, 'nblot');
+      const { code, data, message, totalNum } = yield call(parseData, response, 'nblot');
 
       if (code === 0) {
+        yield console.log(data, 'data');
         yield put({
           type: 'changeTotalNum',
           payload: totalNum,
@@ -91,15 +92,17 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(API_DATA_ERROR);
+        yield openMessage.warn(message || API_DATA_ERROR);
       }
     },
     // 获取物联网表>发货记录列表
     *fetchNblotShipping({ payload }, { call, put }) {
       const response = yield call(fetchNblotShipping, payload);
-      const { code, data, totalNum } = yield call(parseData, response, 'nblotShipping');
+      yield console.log(response, 'response');
+      const { code, data, message, totalNum } = yield call(parseData, response, 'nblotShipping');
 
       if (code === 0) {
+        yield console.log(data, 'data');
         yield put({
           type: 'changeTotalNum',
           payload: totalNum,
@@ -109,7 +112,7 @@ export default {
           payload: data,
         });
       } else {
-        yield openMessage.warn(API_DATA_ERROR);
+        yield openMessage.warn(message || API_DATA_ERROR);
       }
     },
     // 获取异常报警>扩频表列表

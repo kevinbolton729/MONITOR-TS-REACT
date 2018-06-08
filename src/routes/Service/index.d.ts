@@ -29,12 +29,14 @@ export interface ICustomProps {
 
 export interface ICustomStates {
   visible: boolean;
+  isFirst: boolean;
   isFetch: boolean;
   isFetchDuty: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;
   modalSort: string;
+  searchCode: string;
   selectedRecord: any[];
   curPage: number;
   pageSize: number;

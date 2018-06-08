@@ -59,6 +59,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTab: '',
       currentRadio: '',
       currentTable: '',
+      // 是否第一次进入
+      isFirst: true,
       // 请求数据
       isFetch: true,
       // 请求责任部门（或责任人）数据
@@ -70,6 +72,8 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       // 分页
       curPage: 1,
       pageSize: 50,
+      // 搜索关键字
+      searchCode: '',
     };
   }
   componentDidMount() {
@@ -87,6 +91,10 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     this.fetchDutyApi();
   }
 
+  // 非首次进入切换isFirst状态
+  covertFirst = (isFirst = false) => {
+    this.setState({ isFirst });
+  };
   // 设置是否已请求过数据
   covertFetch = (fetch = false) => {
     this.setState({ isFetch: fetch });
@@ -136,6 +144,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTable: key,
     });
     this.covertFetch(true);
+    this.covertFirst(true);
   };
   // Radio切换时
   radioChange = (e: any) => {
@@ -146,6 +155,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
     this.covertFetch(true);
+    this.covertFirst(true);
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
@@ -158,70 +168,87 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     // unusualSpreadList,
     // unusualNblotList,
     // } = this.props;
-    const { currentTab, currentRadio, isFetch, curPage, pageSize } = this.state;
+    const {
+      currentTab,
+      currentRadio,
+      isFetch,
+      isFirst,
+      curPage,
+      pageSize,
+      searchCode,
+    } = this.state;
     // 分页参数
     const pagination = { curPage, pageSize };
+    // 搜索参数
+    const searchParams = { ...pagination, searchCode };
     // 获取扩频表 > 扩频表列表
     if (
       isFetch &&
+      !isFirst &&
       currentTab !== 'unusual' &&
       currentRadio === 'spread'
       // spreadList.length === 0
     ) {
-      this.dispatchAction('custom/fetchSpread', pagination);
+      this.dispatchAction('custom/fetchSpread', searchParams);
     }
     // 获取集中器列表;
     if (
       isFetch &&
+      !isFirst &&
       currentRadio === 'concentrator'
       // concentratorList.length === 0
     ) {
-      this.dispatchAction('custom/fetchConcentrator', pagination);
+      this.dispatchAction('custom/fetchConcentrator', searchParams);
     }
     // 获取扩频表 > 发货记录列表;
     if (
       isFetch &&
+      !isFirst &&
       currentTab === 'spread' &&
       currentRadio === 'shipping'
       // shippingList.length === 0
     ) {
-      this.dispatchAction('custom/fetchShipping', pagination);
+      this.dispatchAction('custom/fetchShipping', searchParams);
     }
     // 获取物联网表 > 物联网表列表
     if (
       isFetch &&
+      !isFirst &&
       currentTab !== 'unusual' &&
       currentRadio === 'nblot'
       // nblotList.length === 0
     ) {
-      this.dispatchAction('custom/fetchNblot', pagination);
+      this.dispatchAction('custom/fetchNblot', searchParams);
     }
     // 获取物联网表 > 发货记录列表
     if (
       isFetch &&
+      !isFirst &&
       currentTab === 'nblot' &&
       currentRadio === 'shipping'
       // nblotShippingList.length === 0
     ) {
-      this.dispatchAction('custom/fetchNblotShipping', pagination);
+      this.dispatchAction('custom/fetchNblotShipping', searchParams);
     }
     // 获取异常报警 > 扩频表列表
     if (
       isFetch &&
+      !isFirst &&
       currentTab === 'unusual' &&
       currentRadio === 'spread'
       // unusualSpreadList.length === 0
     ) {
-      this.dispatchAction('custom/fetchUnusualSpread', pagination);
+      this.dispatchAction('custom/fetchUnusualSpread', searchParams);
     }
     // 获取异常报警 > 物联网表列表
     if (
       isFetch &&
+      !isFirst &&
       currentTab === 'unusual' &&
       currentRadio === 'nblot'
       // unusualNblotList.length === 0
     ) {
-      this.dispatchAction('custom/fetchUnusualNblot', pagination);
+      this.dispatchAction('custom/fetchUnusualNblot', searchParams);
     }
 
     // 已请求过数据
@@ -272,6 +299,42 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     this.setState({ curPage: current, pageSize: size });
     this.covertFetch(true);
   };
+  // Search 搜索数据
+  searchData = (key: any) => {
+    const { currentTab, currentRadio, curPage, pageSize } = this.state;
+    // 分页参数
+    const pagination = { curPage, pageSize };
+    // 搜索参数
+    const searchParams = { ...pagination, searchCode: key };
+
+    // 物联网表 > 物联网表列表
+    if (currentTab !== 'unusual' && currentRadio === 'nblot') {
+      this.dispatchAction('custom/fetchNblot', searchParams);
+    }
+    // 物联网表 > 发货记录列表
+    if (currentTab === 'nblot' && currentRadio === 'shipping') {
+      this.dispatchAction('custom/fetchNblotShipping', searchParams);
+    }
+    this.covertFirst(false);
+    this.setState({ searchCode: key });
+  };
+  // Reset 重置数据
+  resetData = () => {
+    const { currentTab, currentRadio } = this.state;
+    console.log(currentTab, 'currentTab');
+    console.log(currentRadio, 'currentRadio');
+
+    // 物联网表 > 物联网表列表
+    if (currentTab !== 'unusual' && currentRadio === 'nblot') {
+      this.dispatchAction('custom/changeNblotList', []);
+    }
+    // 物联网表 > 发货记录列表
+    if (currentTab === 'nblot' && currentRadio === 'shipping') {
+      this.dispatchAction('custom/changeNblotShippingList', []);
+    }
+    this.covertFirst(true);
+  };
+
   // [Modal]
   openModal = (modalSort: string = 'spread') => {
     this.setState({ modalSort, visible: true });
@@ -373,28 +436,36 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
               </TabPane>
             </Tabs>
           </div>
-          <DetailHandler hideSearch={true} hideDatePicker={true} sort={currentTab} />
+          <DetailHandler
+            resetData={this.resetData}
+            filterData={this.searchData}
+            hideDatePicker={true}
+            sort={currentTab}
+          />
           {/* <Divider /> */}
-          <div style={{ marginTop: '20px' }}>
-            {currentTable === 'spread' || currentTable === 'nblot' ? (
-              <Table
-                rowKey={this.rowKeyTable}
-                columns={getColumns[currentTable]}
-                loading={loading}
-                dataSource={dataSource}
-                // expandedRowRender={expandedRowRender}
-                pagination={pagination}
-              />
-            ) : (
-              <Table
-                rowKey={this.rowKeyTable}
-                columns={getColumns[currentTable]}
-                loading={loading}
-                dataSource={dataSource}
-                pagination={pagination}
-              />
+          {dataSource &&
+            dataSource.length !== 0 && (
+              <div style={{ marginTop: '20px' }}>
+                {currentTable === 'spread' || currentTable === 'nblot' ? (
+                  <Table
+                    rowKey={this.rowKeyTable}
+                    columns={getColumns[currentTable]}
+                    loading={loading}
+                    dataSource={dataSource}
+                    // expandedRowRender={expandedRowRender}
+                    pagination={pagination}
+                  />
+                ) : (
+                  <Table
+                    rowKey={this.rowKeyTable}
+                    columns={getColumns[currentTable]}
+                    loading={loading}
+                    dataSource={dataSource}
+                    pagination={pagination}
+                  />
+                )}
+              </div>
             )}
-          </div>
         </div>
       </div>
     );

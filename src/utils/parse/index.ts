@@ -96,81 +96,84 @@ export const parseData: IDataParse = (params, type = 'default') => {
     // valveState: '1';
     result.value = {
       ...fields,
-      data: params.data.value.reduce((arr, current, index) => {
-        arr.push({
-          rowkeyId: `${current.iotMeterId || `rowkeyId${index}`}`,
-          nblotCode: `${current.spreadCode || ''}`,
-          companyCode: `${current.companyCode || ''}`,
-          company: `${current.company || ''}`,
-          onLineStatus: 1,
-          uploadStatus: 1,
-          price: `${current.price || 0} [X]`,
-          priceType: parseInt(`${current.priceType || 0}`, 10),
-          priceVersion: `${current.priceVersion || ''} [X]`,
-          priceStatus: 1,
-          priceUpdateAt: '1524032521415',
-          priceEndAt: '1524032521415',
-          batteryStatus: parseInt(`${current.batteryStatus || 0}`, 10),
-          remainVoltage: parseInt(`${current.remainVoltage || 0}`, 10),
-          totalVoltage: parseInt(`${current.totalVoltage || 0}`, 10),
-          useDuration: '50 [X]',
-          desigDuration: '3000 [X]',
-          tapStatus: parseInt(`${current.tapStatus || 0}`, 10),
-          tapControl: 1,
-          sendStatus: 1,
-          noSend: '2 [X]',
-          finishedSend: '5 [X]',
-          sendUpdateAt: `${current.sendUpdateAt || ''}`,
-          priceHistory: [
-            {
-              priceValue: 2.84,
-              updateAt: '1524032521415',
-            },
-          ],
-          directive: [
-            {
-              directiveCode: 'D00001 [X]',
-              directiveType: '开户 [X]',
-              directiveStatus: '1',
-              directiveDes: '用户已支付 [X]',
-              directiveStep: 2,
-              createAt: '1524032521415',
-              updateAt: '1524032521415',
-            },
-          ],
-          user: {
-            userName: '鱼子酱 [X]',
-            cardId: '126000001 [X]',
-            address: '四川省成都市成华区龙潭市同济路1号 [X]',
-          },
-          createAt: `${current.createAt || ''}`,
-          updateAt: `${current.updateAt_All || ''}`,
-          MeterType: parseInt(`${current.MeterType}`, 10),
-          appearType: parseInt(`${current.appearType}`, 10),
-          iotMeterId: `${current.iotMeterId || ''}`,
-          isAlarmControlShade: `${current.isAlarmControlShade || ''}`,
-          isAlarmControlShardeOpen: `${current.isAlarmControlShardeOpen || ''}`,
-          isAlarmNow: `${current.isAlarmNow || ''}`,
-          isChangeBattery: `${current.isChangeBattery || ''}`,
-          isLimiteNotice: `${current.isLimiteNotice || ''}`,
-          isOpenIntap: `${current.isOpenIntap || ''}`,
-          isOpenOuttap: `${current.isOpenOuttap || ''}`,
-          isOpenSlant: `${current.isOpenSlant || ''}`,
-          limiteNotice: `${current.limiteNotice || ''}`,
-          maxAlarmTimes: `${current.maxAlarmTimes || ''}`,
-          settleType: `${current.settleType || ''}`,
-          shadeAlarmTimes: `${current.shadeAlarmTimes || ''}`,
-          signal: `${current.signal || ''}`,
-          slantAlarmTimes: `${current.slantAlarmTimes || ''}`,
-          tapInAlarmTimes: `${current.tapInAlarmTimes || ''}`,
-          tapOutAlarmTimes: `${current.tapOutAlarmTimes || ''}`,
-          totalAddMoney: `${current.totalAddMoney || ''}`,
-          totalGasUsed: `${current.totalGasUsed || ''}`,
-          valveState: `${current.valveState || ''}`,
-        });
+      data:
+        params.code !== 0
+          ? []
+          : params.data.value.reduce((arr, current, index) => {
+              arr.push({
+                rowkeyId: `${current.iotMeterId || `rowkeyId${index}`}`,
+                nblotCode: `${current.spreadCode || ''}`,
+                companyCode: `${current.companyCode || ''}`,
+                company: `${current.company || ''}`,
+                onLineStatus: 1,
+                uploadStatus: 1,
+                price: `${current.price || 0} [X]`,
+                priceType: parseInt(`${current.priceType || 0}`, 10),
+                priceVersion: `${current.priceVersion || ''} [X]`,
+                priceStatus: 1,
+                priceUpdateAt: '1524032521415',
+                priceEndAt: '1524032521415',
+                batteryStatus: parseInt(`${current.batteryStatus || 0}`, 10),
+                remainVoltage: parseInt(`${current.remainVoltage || 0}`, 10),
+                totalVoltage: parseInt(`${current.totalVoltage || 0}`, 10),
+                useDuration: '50 [X]',
+                desigDuration: '3000 [X]',
+                tapStatus: parseInt(`${current.tapStatus || 0}`, 10),
+                tapControl: 1,
+                sendStatus: 1,
+                noSend: '2 [X]',
+                finishedSend: '5 [X]',
+                sendUpdateAt: `${current.sendUpdateAt || ''}`,
+                priceHistory: [
+                  {
+                    priceValue: 2.84,
+                    updateAt: '1524032521415',
+                  },
+                ],
+                directive: [
+                  {
+                    directiveCode: 'D00001 [X]',
+                    directiveType: '开户 [X]',
+                    directiveStatus: '1',
+                    directiveDes: '用户已支付 [X]',
+                    directiveStep: 2,
+                    createAt: '1524032521415',
+                    updateAt: '1524032521415',
+                  },
+                ],
+                user: {
+                  userName: '鱼子酱 [X]',
+                  cardId: '126000001 [X]',
+                  address: '四川省成都市成华区龙潭市同济路1号 [X]',
+                },
+                createAt: `${current.createAt || ''}`,
+                updateAt: `${current.updateAt_All || ''}`,
+                MeterType: parseInt(`${current.MeterType}`, 10),
+                appearType: parseInt(`${current.appearType}`, 10),
+                iotMeterId: `${current.iotMeterId || ''}`,
+                isAlarmControlShade: `${current.isAlarmControlShade || ''}`,
+                isAlarmControlShardeOpen: `${current.isAlarmControlShardeOpen || ''}`,
+                isAlarmNow: `${current.isAlarmNow || ''}`,
+                isChangeBattery: `${current.isChangeBattery || ''}`,
+                isLimiteNotice: `${current.isLimiteNotice || ''}`,
+                isOpenIntap: `${current.isOpenIntap || ''}`,
+                isOpenOuttap: `${current.isOpenOuttap || ''}`,
+                isOpenSlant: `${current.isOpenSlant || ''}`,
+                limiteNotice: `${current.limiteNotice || ''}`,
+                maxAlarmTimes: `${current.maxAlarmTimes || ''}`,
+                settleType: `${current.settleType || ''}`,
+                shadeAlarmTimes: `${current.shadeAlarmTimes || ''}`,
+                signal: `${current.signal || ''}`,
+                slantAlarmTimes: `${current.slantAlarmTimes || ''}`,
+                tapInAlarmTimes: `${current.tapInAlarmTimes || ''}`,
+                tapOutAlarmTimes: `${current.tapOutAlarmTimes || ''}`,
+                totalAddMoney: `${current.totalAddMoney || ''}`,
+                totalGasUsed: `${current.totalGasUsed || ''}`,
+                valveState: `${current.valveState || ''}`,
+              });
 
-        return arr;
-      }, []),
+              return arr;
+            }, []),
     };
   }
   // 物联网表 -> 发货记录
@@ -183,27 +186,30 @@ export const parseData: IDataParse = (params, type = 'default') => {
     };
     result.value = {
       ...fields,
-      data: params.data.value.reduce((arr, current, index) => {
-        arr.push({
-          rowkeyId: `${current.meterShipId || `rowkeyId${index}`}`,
-          meterCode: `${current.meterCode || ''}`,
-          companyCode: `${current.companyCode || ''}`,
-          expressCode: `${current.expressCode || ''}`,
-          company: `${current.company || ''}`,
-          express: `${current.express || ''}`,
-          orderId: `${current.orderId || ''}`,
-          deliveryAt: `${current.deliveryAt || ''}`,
-          createAt: `${current.createAt || ''}`,
-          updateAt: `${current.updateAt || ''}`,
-          ICCID: `${current.ICCID || ''}`,
-          intake: parseInt(`${current.intake || 0}`, 10),
-          meterModel: parseInt(`${current.meterModel || 0}`, 10),
-          meterShipId: `${current.meterShipId || ''}`,
-          simNumber: `${current.simNumber || ''}`,
-        });
+      data:
+        params.code !== 0
+          ? []
+          : params.data.value.reduce((arr, current, index) => {
+              arr.push({
+                rowkeyId: `${current.meterShipId || `rowkeyId${index}`}`,
+                meterCode: `${current.meterCode || ''}`,
+                companyCode: `${current.companyCode || ''}`,
+                expressCode: `${current.expressCode || ''}`,
+                company: `${current.company || ''}`,
+                express: `${current.express || ''}`,
+                orderId: `${current.orderId || ''}`,
+                deliveryAt: `${current.deliveryAt || ''}`,
+                createAt: `${current.createAt || ''}`,
+                updateAt: `${current.updateAt || ''}`,
+                ICCID: `${current.ICCID || ''}`,
+                intake: parseInt(`${current.intake || 0}`, 10),
+                meterModel: parseInt(`${current.meterModel || 0}`, 10),
+                meterShipId: `${current.meterShipId || ''}`,
+                simNumber: `${current.simNumber || ''}`,
+              });
 
-        return arr;
-      }, []),
+              return arr;
+            }, []),
     };
   }
 
