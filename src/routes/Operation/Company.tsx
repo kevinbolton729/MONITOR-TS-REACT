@@ -199,7 +199,7 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
       size: 'small',
       showSizeChanger: true,
       defaultCurrent: 1,
-      defaultPageSize: 20,
+      defaultPageSize: 50,
       pageSizeOptions: ['10', '20', '30', '50'],
       total: 0,
       onChange: this.onChangePage,

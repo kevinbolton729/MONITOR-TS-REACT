@@ -260,15 +260,15 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
   // 分页
   onChangePage = (page: number, pageSize: number) => {
-    console.log(page, 'page');
-    console.log(pageSize, 'pageSize');
+    // console.log(page, 'page');
+    // console.log(pageSize, 'pageSize');
     this.setState({ curPage: page, pageSize });
     this.covertFetch(true);
   };
   // 页长
   onShowSizeChange = (current: number, size: number) => {
-    console.log(current, 'current');
-    console.log(size, 'size');
+    // console.log(current, 'current');
+    // console.log(size, 'size');
     this.setState({ curPage: current, pageSize: size });
     this.covertFetch(true);
   };
@@ -313,7 +313,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       size: 'small',
       showSizeChanger: true,
       defaultCurrent: 1,
-      defaultPageSize: 20,
+      defaultPageSize: 50,
       pageSizeOptions: ['10', '20', '30', '50'],
       total: totalNum,
       onChange: this.onChangePage,
