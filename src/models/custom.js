@@ -82,6 +82,7 @@ export default {
       const { code, data, message, totalNum } = yield call(parseData, response, 'nblot');
 
       if (code === 0) {
+        yield console.log(totalNum, 'totalNum');
         yield console.log(data, 'data');
         yield put({
           type: 'changeTotalNum',
@@ -98,10 +99,10 @@ export default {
     // 获取物联网表>发货记录列表
     *fetchNblotShipping({ payload }, { call, put }) {
       const response = yield call(fetchNblotShipping, payload);
-      yield console.log(response, 'response');
       const { code, data, message, totalNum } = yield call(parseData, response, 'nblotShipping');
 
       if (code === 0) {
+        yield console.log(totalNum, 'totalNum');
         yield console.log(data, 'data');
         yield put({
           type: 'changeTotalNum',

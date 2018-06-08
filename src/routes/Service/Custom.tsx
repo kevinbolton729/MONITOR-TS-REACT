@@ -301,9 +301,9 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   };
   // Search 搜索数据
   searchData = (key: any) => {
-    const { currentTab, currentRadio, curPage, pageSize } = this.state;
+    const { currentTab, currentRadio } = this.state;
     // 分页参数
-    const pagination = { curPage, pageSize };
+    const pagination = { curPage: 1, pageSize: 50 };
     // 搜索参数
     const searchParams = { ...pagination, searchCode: key };
 
