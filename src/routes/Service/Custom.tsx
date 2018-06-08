@@ -283,8 +283,11 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
   rowKeyTable = (record: any) => {
     const { currentRadio } = this.state;
     const result = { value: 'companyCode' };
+    const condition = currentRadio === 'nblot' || currentRadio === 'shipping';
 
-    if (currentRadio === 'shipping') {
+    // console.log(currentRadio, 'currentRadio');
+
+    if (condition) {
       result.value = `${record.fieldId}`;
     }
 

@@ -58,103 +58,115 @@ export const parseData: IDataParse = (params, type = 'default') => {
       message: params.message || '',
       data: [],
     };
-    // "nblotCode": "表编号 [字段类型: String]",
-    // "companyCode": "公司编码 [字段类型: String]",
-    // "company": "公司名称 [字段类型: String]",
-    // "onLineStatus": "在线状态 [字段类型: Number] 0:已离线 1:在线",
-    // "uploadStatus": "数据上传状态 [字段类型: Number] 0:失败 1:成功",
-    // "price": "价格(元) [字段类型: String]",
-    // "priceType": "价格类型 [字段类型: Number] 0:后付费 1:预付费",
-    // "priceVersion": "价格版本 [字段类型: String]",
-    // "priceStatus": "价格状态 [字段类型: Number] 0:异常 1:正常",
-    // "priceUpdateAt": "调价时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415",
-    // "priceEndAt": "有效期至 [字段类型: Unix 时间戳(13位)] eg. 1524032521415",
-    // "batteryStatus": "电池状态 [字段类型: Number] 0:消耗过大 1:正常 2:消耗过快",
-    // "remainVoltage": "剩余电压 [字段类型: Number]",
-    // "totalVoltage": "满电电压 [字段类型: Number]",
-    // "useDuration": "已使用时长(小时) [字段类型: Number] eg. 50",
-    // "desigDuration": "理想使用时长(小时) [字段类型: Number] eg. 3000",
-    // "tapStatus": "阀门状态 [字段类型: Number] 0:异常 1:开启 2:关闭",
-    // "tapControl": "阀门控制(指令执行后) [字段类型: Number] 0:异常 1:开启 2:关闭",
-    // "sendStatus": "上报状态 [字段类型: Number] 0:未上报 1:正常",
-    // "noSend": "未上报(次数) [字段类型: Number]",
-    // "finishedSend": "已上报(次数) [字段类型: Number]",
-    // "sendUpdateAt": "上报时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415",
-    // "priceHistory: 历史价格记录": [
-    //   {
-    //     "priceValue": "历史价格金额(元) [字段类型: Number] eg. 2.84",
-    //     "updateAt": "调价时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415"
-    //   }
-    // ],
-    // "directive: '指令'": [
-    //   {
-    //     "directiveCode": "指令编号 [字段类型: String]",
-    //     "directiveType": "指令类型 [字段类型: String]",
-    //     "directiveStatus": "指令状态 [字段类型: String] 0:异常 1:正常",
-    //     "directiveDes": "指令描述 [字段类型: String] eg.用户已支付 / 费用已上表 等",
-    //     "directiveStep": "指令阶段 从小标0开始 [字段类型: Number]",
-    //     "createAt": "指令生成时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415",
-    //     "updateAt": "指令到达时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415"
-    //   }
-    // ],
-    // "user: 燃气用户": {
-    //   "userName": "用户姓名 [字段类型: String]",
-    //   "cardId": "卡号 [字段类型: String]",
-    //   "address": "详细地址 [字段类型: String]"
-    // },
-    // "createAt": "创建时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415",
-    // "updateAt": "更新时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415"
+    // MeterType: '1';
+    // appearType: '0';
+    // appearValue: '-192';
+    // batteryStatus: '0';
+    // company: '四川省巴中欣恒天然气有限责任公司';
+    // companyCode: '0A201543';
+    // createAt: '1528294483';
+    // iotMeterId: 69600;
+    // isAlarmControlShade: '1';
+    // isAlarmControlShardeOpen: '1';
+    // isAlarmNow: '1';
+    // isChangeBattery: '1';
+    // isLimiteNotice: '1';
+    // isOpenIntap: '1';
+    // isOpenOuttap: '1';
+    // isOpenSlant: '1';
+    // limiteNotice: '-1';
+    // maxAlarmTimes: '7';
+    // price: '0';
+    // priceType: '1';
+    // priceVersion: '0';
+    // remainVoltage: '6.2';
+    // sendUpdateAt: '1167611019';
+    // settleType: '3';
+    // shadeAlarmTimes: '15';
+    // signal: '0';
+    // slantAlarmTimes: '15';
+    // spreadCode: '81001475';
+    // tapInAlarmTimes: '15';
+    // tapOutAlarmTimes: '15';
+    // tapStatus: '1';
+    // totalAddMoney: '-1';
+    // totalGasUsed: '-1';
+    // totalVoltage: '6.2';
+    // updateAt_All: '1528294483';
+    // valveState: '1';
     result.value = {
       ...fields,
       data: params.data.value.reduce((arr, current, index) => {
         arr.push({
-          fieldId: `${current.meterShipId || `FieldId${index}`}`,
-          nblotCode: '表编号 [字段类型: String]',
-          companyCode: '公司编码 [字段类型: String]',
-          company: '公司名称 [字段类型: String]',
-          onLineStatus: '在线状态 [字段类型: Number] 0:已离线 1:在线',
-          uploadStatus: '数据上传状态 [字段类型: Number] 0:失败 1:成功',
-          price: '价格(元) [字段类型: String]',
-          priceType: '价格类型 [字段类型: Number] 0:后付费 1:预付费',
-          priceVersion: '价格版本 [字段类型: String]',
-          priceStatus: '价格状态 [字段类型: Number] 0:异常 1:正常',
-          priceUpdateAt: '调价时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
-          priceEndAt: '有效期至 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
-          batteryStatus: '电池状态 [字段类型: Number] 0:消耗过大 1:正常 2:消耗过快',
-          remainVoltage: '剩余电压 [字段类型: Number]',
-          totalVoltage: '满电电压 [字段类型: Number]',
-          useDuration: '已使用时长(小时) [字段类型: Number] eg. 50',
-          desigDuration: '理想使用时长(小时) [字段类型: Number] eg. 3000',
-          tapStatus: '阀门状态 [字段类型: Number] 0:异常 1:开启 2:关闭',
-          tapControl: '阀门控制(指令执行后) [字段类型: Number] 0:异常 1:开启 2:关闭',
-          sendStatus: '上报状态 [字段类型: Number] 0:未上报 1:正常',
-          noSend: '未上报(次数) [字段类型: Number]',
-          finishedSend: '已上报(次数) [字段类型: Number]',
-          sendUpdateAt: '上报时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
+          fieldId: `${current.iotMeterId || `FieldId${index}`}`,
+          nblotCode: `${current.spreadCode || ''}`,
+          companyCode: `${current.companyCode || ''}`,
+          company: `${current.company || ''}`,
+          onLineStatus: 1,
+          uploadStatus: 1,
+          price: `${current.price || 0} [X]`,
+          priceType: parseInt(`${current.priceType || 0}`, 10),
+          priceVersion: `${current.priceVersion || ''} [X]`,
+          priceStatus: 1,
+          priceUpdateAt: '1524032521415',
+          priceEndAt: '1524032521415',
+          batteryStatus: parseInt(`${current.batteryStatus || 0}`, 10),
+          remainVoltage: parseInt(`${current.remainVoltage || 0}`, 10),
+          totalVoltage: parseInt(`${current.totalVoltage || 0}`, 10),
+          useDuration: '50 [X]',
+          desigDuration: '3000 [X]',
+          tapStatus: parseInt(`${current.tapStatus || 0}`, 10),
+          tapControl: 1,
+          sendStatus: 1,
+          noSend: '2 [X]',
+          finishedSend: '5 [X]',
+          sendUpdateAt: `${current.sendUpdateAt || ''}`,
           priceHistory: [
             {
-              priceValue: '历史价格金额(元) [字段类型: Number] eg. 2.84',
-              updateAt: '调价时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
+              priceValue: 2.84,
+              updateAt: '1524032521415',
             },
           ],
           directive: [
             {
-              directiveCode: '指令编号 [字段类型: String]',
-              directiveType: '指令类型 [字段类型: String]',
-              directiveStatus: '指令状态 [字段类型: String] 0:异常 1:正常',
-              directiveDes: '指令描述 [字段类型: String] eg.用户已支付 / 费用已上表 等',
-              directiveStep: '指令阶段 从小标0开始 [字段类型: Number]',
-              createAt: '指令生成时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
-              updateAt: '指令到达时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
+              directiveCode: 'D00001 [X]',
+              directiveType: '开户 [X]',
+              directiveStatus: '1',
+              directiveDes: '用户已支付 [X]',
+              directiveStep: 2,
+              createAt: '1524032521415',
+              updateAt: '1524032521415',
             },
           ],
           user: {
-            userName: '用户姓名 [字段类型: String]',
-            cardId: '卡号 [字段类型: String]',
-            address: '详细地址 [字段类型: String]',
+            userName: '鱼子酱 [X]',
+            cardId: '126000001 [X]',
+            address: '四川省成都市成华区龙潭市同济路1号 [X]',
           },
-          createAt: '创建时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
-          updateAt: '更新时间 [字段类型: Unix 时间戳(13位)] eg. 1524032521415',
+          createAt: `${current.createAt || ''}`,
+          updateAt: `${current.updateAt_All || ''}`,
+          MeterType: parseInt(`${current.MeterType}`, 10),
+          appearType: parseInt(`${current.appearType}`, 10),
+          iotMeterId: `${current.iotMeterId || ''}`,
+          isAlarmControlShade: `${current.isAlarmControlShade || ''}`,
+          isAlarmControlShardeOpen: `${current.isAlarmControlShardeOpen || ''}`,
+          isAlarmNow: `${current.isAlarmNow || ''}`,
+          isChangeBattery: `${current.isChangeBattery || ''}`,
+          isLimiteNotice: `${current.isLimiteNotice || ''}`,
+          isOpenIntap: `${current.isOpenIntap || ''}`,
+          isOpenOuttap: `${current.isOpenOuttap || ''}`,
+          isOpenSlant: `${current.isOpenSlant || ''}`,
+          limiteNotice: `${current.limiteNotice || ''}`,
+          maxAlarmTimes: `${current.maxAlarmTimes || ''}`,
+          settleType: `${current.settleType || ''}`,
+          shadeAlarmTimes: `${current.shadeAlarmTimes || ''}`,
+          signal: `${current.signal || ''}`,
+          slantAlarmTimes: `${current.slantAlarmTimes || ''}`,
+          tapInAlarmTimes: `${current.tapInAlarmTimes || ''}`,
+          tapOutAlarmTimes: `${current.tapOutAlarmTimes || ''}`,
+          totalAddMoney: `${current.totalAddMoney || ''}`,
+          totalGasUsed: `${current.totalGasUsed || ''}`,
+          valveState: `${current.valveState || ''}`,
         });
 
         return arr;
@@ -195,6 +207,6 @@ export const parseData: IDataParse = (params, type = 'default') => {
     };
   }
 
-  console.log(result.value, 'result.value');
+  // console.log(result.value, 'result.value');
   return result.value;
 };

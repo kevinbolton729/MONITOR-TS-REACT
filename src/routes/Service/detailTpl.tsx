@@ -236,15 +236,15 @@ export default (data: any, fn: any, opts: any) => {
             {data.length && data[0].directive && <span>{currentDirective.directiveType}</span>}
           </Col>
           <Col {...colQuery}>
-            <span>指令状态：</span>
+            <span>指令状态： [X]</span>
             {data.length &&
               data[0].directive !== undefined &&
               formatDefaultStatus(currentDirective.directiveStatus)}
           </Col>
           <Col {...colQuery}>
-            <span>到达时间：</span>
+            <span>到达时间： [X]</span>
             {data.length &&
-              data[0].directive && <span>{unixFormatter(currentDirective.updateAt)}</span>}
+              data[0].directive && <span>{unixFormatter(`${currentDirective.updateAt}`)}</span>}
           </Col>
         </Row>
       </div>
@@ -298,11 +298,11 @@ export default (data: any, fn: any, opts: any) => {
               formatDefaultStatus(data[0].priceStatus)}
           </Col>
           <Col {...colQuery}>
-            <span>调价时间：</span>
+            <span>调价时间： [X]</span>
             {data.length && <span>{unixFormatter(`${data[0].priceUpdateAt}`)}</span>}
           </Col>
           <Col {...colQuery}>
-            <span>有效期至：</span>
+            <span>有效期至： [X]</span>
             {data.length && <span>{unixFormatter(`${data[0].priceEndAt}`)}</span>}
           </Col>
         </Row>
@@ -332,14 +332,12 @@ export default (data: any, fn: any, opts: any) => {
             <span>阀门状态：</span>
             {data.length && data[0].tapStatus !== undefined && formatTapStatus(data[0].tapStatus)}
           </Col>
-          <Col span={16}>
-            <span>指令执行后(阀门控制)：</span>
+          {/* <Col span={16}>
+            <span>指令执行后(阀门控制)： [X]</span>
             {data.length && data[0].tapControl !== undefined && formatTapStatus(data[0].tapControl)}
-          </Col>
-        </Row>
-        <Row gutter={24}>
+          </Col> */}
           <Col {...colQuery}>
-            <span>上报状态：</span>
+            <span>上报状态： [X]</span>
             {data.length &&
               data[0].sendStatus !== undefined &&
               formatDefaultStatus(data[0].sendStatus)}
@@ -348,6 +346,8 @@ export default (data: any, fn: any, opts: any) => {
             <span>未上报/已上报：</span>
             {data.length && <span>{`${data[0].noSend} / ${data[0].finishedSend}`}</span>}
           </Col>
+        </Row>
+        <Row gutter={24}>
           <Col {...colQuery}>
             <span>上报时间：</span>
             {data.length && <span>{unixFormatter(`${data[0].sendUpdateAt}`)}</span>}
@@ -486,7 +486,7 @@ export default (data: any, fn: any, opts: any) => {
         <Row gutter={24}>
           <Col {...colQuery}>
             <span>发货时间：</span>
-            {data.length && <span>{unixFormatter(data[0].deliveryAt)}</span>}
+            {data.length && <span>{unixFormatter(`${data[0].deliveryAt}`)}</span>}
           </Col>
           {data.length &&
             data[0].express && (
