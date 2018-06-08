@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-05-25 13:18:20
+ * @Last Modified time: 2018-06-08 14:39:04
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -90,10 +90,13 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
 
   render() {
     const { dately } = this.dateFormat;
-    const { form, sort, hideDatePicker, showSelectCity } = this.props;
+    const { form, sort, hideSearch, hideDatePicker, showSelectCity } = this.props;
     const { getFieldDecorator } = form;
+    const noHandler = hideSearch && hideDatePicker && !showSelectCity;
 
-    return (
+    return noHandler ? (
+      <div />
+    ) : (
       <div className={styles.hander}>
         <Form>
           {showSelectCity && (
@@ -113,21 +116,23 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
               )}
             </div>
           )}
-          <div className={styles.item}>
-            <span>查询：</span>
-            {getFieldDecorator('search')(
-              <Search
-                enterButton={true}
-                style={{ width: 300 }}
-                placeholder={searcHolder[sort || 'spread']}
-                onSearch={this.getSearch}
-                onPressEnter={this.enterSearch}
-              />
-            )}
-          </div>
-          <div className={styles.item}>
-            <Button onClick={this.clickReset}>重置</Button>
-          </div>
+          {hideSearch || [
+            <div key="search" className={styles.item}>
+              <span>查询：</span>
+              {getFieldDecorator('search')(
+                <Search
+                  enterButton={true}
+                  style={{ width: 300 }}
+                  placeholder={searcHolder[sort || 'spread']}
+                  onSearch={this.getSearch}
+                  onPressEnter={this.enterSearch}
+                />
+              )}
+            </div>,
+            <div key="reset" className={styles.item}>
+              <Button onClick={this.clickReset}>重置</Button>
+            </div>,
+          ]}
           {hideDatePicker || (
             <div className={styles.item}>
               {getFieldDecorator('rangedate')(

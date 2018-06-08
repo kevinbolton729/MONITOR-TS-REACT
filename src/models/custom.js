@@ -27,6 +27,7 @@ export default {
     nblotShippingList: [], // 物联网表>发货记录
     unusualSpreadList: [], // 异常报警>扩频表
     unusualNblotList: [], // 异常报警>物联网表
+    totalNum: 0, // 接口获取的数据总条数
   },
 
   effects: {
@@ -78,10 +79,13 @@ export default {
     // 获取物联网表列表
     *fetchNblot({ payload }, { call, put }) {
       const response = yield call(fetchNblot, payload);
-      const { code, data } = yield call(parseData, response, 'nblot');
+      const { code, data, totalNum } = yield call(parseData, response, 'nblot');
 
       if (code === 0) {
-        yield console.log(data, 'data');
+        yield put({
+          type: 'changeTotalNum',
+          payload: totalNum,
+        });
         yield put({
           type: 'changeNblotList',
           payload: data,
@@ -93,10 +97,13 @@ export default {
     // 获取物联网表>发货记录列表
     *fetchNblotShipping({ payload }, { call, put }) {
       const response = yield call(fetchNblotShipping, payload);
-      const { code, data } = yield call(parseData, response, 'nblotShipping');
+      const { code, data, totalNum } = yield call(parseData, response, 'nblotShipping');
 
       if (code === 0) {
-        yield console.log(data, 'data');
+        yield put({
+          type: 'changeTotalNum',
+          payload: totalNum,
+        });
         yield put({
           type: 'changeNblotShippingList',
           payload: data,
@@ -174,11 +181,16 @@ export default {
         unusualSpreadList: payload,
       };
     },
-
     changeUnusualNblotList(state, { payload }) {
       return {
         ...state,
         unusualNblotList: payload,
+      };
+    },
+    changeTotalNum(state, { payload }) {
+      return {
+        ...state,
+        totalNum: payload,
       };
     },
   },

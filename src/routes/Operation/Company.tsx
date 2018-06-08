@@ -248,6 +248,7 @@ class Company extends React.PureComponent<ICompanyProps, ICompanyStates> impleme
             <DetailHandler
               changeCity={this.changeCity}
               showSelectCity={true}
+              hideSearch={true}
               hideDatePicker={true}
               sort="company"
             />

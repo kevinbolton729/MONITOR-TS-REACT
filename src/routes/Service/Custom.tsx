@@ -49,6 +49,7 @@ enum sortGroup {
   nblotShippingList: custom.nblotShippingList,
   unusualSpreadList: custom.unusualSpreadList,
   unusualNblotList: custom.unusualNblotList,
+  totalNum: custom.totalNum,
   dutyList: global.dutyList,
 }))
 class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements ICustomItems {
@@ -288,14 +289,14 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     // console.log(currentRadio, 'currentRadio');
 
     if (condition) {
-      result.value = `${record.fieldId}`;
+      result.value = `${record.rowkeyId}`;
     }
 
     return result.value;
   };
 
   render() {
-    const { loading } = this.props;
+    const { loading, totalNum } = this.props;
     const {
       visible,
       modalSort,
@@ -314,7 +315,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       defaultCurrent: 1,
       defaultPageSize: 20,
       pageSizeOptions: ['10', '20', '30', '50'],
-      total: 0,
+      total: totalNum,
       onChange: this.onChangePage,
       onShowSizeChange: this.onShowSizeChange,
     };
@@ -372,7 +373,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
               </TabPane>
             </Tabs>
           </div>
-          <DetailHandler sort={currentTab} />
+          <DetailHandler hideSearch={true} hideDatePicker={true} sort={currentTab} />
           {/* <Divider /> */}
           <div style={{ marginTop: '20px' }}>
             {currentTable === 'spread' || currentTable === 'nblot' ? (

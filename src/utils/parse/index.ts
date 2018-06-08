@@ -98,7 +98,7 @@ export const parseData: IDataParse = (params, type = 'default') => {
       ...fields,
       data: params.data.value.reduce((arr, current, index) => {
         arr.push({
-          fieldId: `${current.iotMeterId || `FieldId${index}`}`,
+          rowkeyId: `${current.iotMeterId || `rowkeyId${index}`}`,
           nblotCode: `${current.spreadCode || ''}`,
           companyCode: `${current.companyCode || ''}`,
           company: `${current.company || ''}`,
@@ -185,7 +185,7 @@ export const parseData: IDataParse = (params, type = 'default') => {
       ...fields,
       data: params.data.value.reduce((arr, current, index) => {
         arr.push({
-          fieldId: `${current.meterShipId || `FieldId${index}`}`,
+          rowkeyId: `${current.meterShipId || `rowkeyId${index}`}`,
           meterCode: `${current.meterCode || ''}`,
           companyCode: `${current.companyCode || ''}`,
           expressCode: `${current.expressCode || ''}`,

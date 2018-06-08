@@ -7,6 +7,7 @@ export interface IDetailProps {
   filterData?: any;
   resetData?: any;
   changeCity?: any;
+  hideSearch?: boolean;
   hideDatePicker?: boolean;
   showSelectCity?: boolean;
 }

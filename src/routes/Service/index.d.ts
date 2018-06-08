@@ -23,6 +23,7 @@ export interface ICustomProps {
   unusualSpreadList: any[];
   unusualNblotList: any[];
   dutyList: any[];
+  totalNum: number;
   form: any;
 }
 
