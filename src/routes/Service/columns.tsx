@@ -1,6 +1,6 @@
 import * as React from 'react';
 // Config
-import { API_DATA_NODATA } from '../../config';
+// import { API_DATA_NODATA } from '../../config';
 // 方法
 import { unixFormatter } from '../../utils/fns';
 // help工具
@@ -117,7 +117,7 @@ export const customCols = (fn: any) => {
       title: '报警时间',
       dataIndex: 'alarmAt',
       key: 'alarmAt',
-      render: (text: any) => <span>{unixFormatter(`${text}`)}</span>,
+      render: (text: any) => <span>{unixFormatter(text)}</span>,
     },
     {
       title: '预警状态',
@@ -188,7 +188,7 @@ export const customCols = (fn: any) => {
       render: (text: any, record: any) => [
         formatExpress(record.express),
         <span key="expressCode">{`${record.expressCode ? ' / ' : ''}${unixFormatter(
-          `${record.deliveryAt}`
+          record.deliveryAt
         )}`}</span>,
       ],
     },

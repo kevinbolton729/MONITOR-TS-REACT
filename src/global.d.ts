@@ -71,12 +71,12 @@ export interface IParse {
 export interface INewParse {
   (
     params: {
-      code: number | string;
+      code: number;
       message: string;
       data: any[];
     }
   ): {
-    code: number | string;
+    code: number;
     message: string;
     data: any[];
   };
@@ -84,12 +84,28 @@ export interface INewParse {
 export interface IMonitorParse {
   (
     params: {
-      code: number | string;
+      code: number;
       message: string;
       data: { totalNum: number; value: any[] };
     }
   ): {
-    code: number | string;
+    code: number;
+    message: string;
+    data: any[];
+    totalNum: number;
+  };
+}
+
+export interface IDataParse {
+  (
+    params: {
+      code: number;
+      message: string;
+      data: { totalNum: number; value: any[] };
+    },
+    type?: string
+  ): {
+    code: number;
     message: string;
     data: any[];
     totalNum: number;

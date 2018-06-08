@@ -1,6 +1,8 @@
-import { Button, Col, Divider, Form, Input, Popover, Row, Steps } from 'antd';
+import { Button, Col, Divider, Form, Popover, Row, Steps } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import * as React from 'react';
+// Config
+// import { API_DATA_NODATA } from '../../config';
 // 常量
 import { BTN_CANCEL, BTN_CLOSE, BTN_CONFIG, BTN_RESET, BTN_SAVE } from '../../utils/consts';
 // 方法
@@ -38,10 +40,10 @@ const isConfig = (opts: any) => opts.isConfig && opts.modalSort !== 'concentrato
 const isEditConfig = (opts: any) => opts.isEditConfig;
 
 // FormItem 样式
-const itemStyle = {
-  // labelCol: { span: 6 },
-  // wrapperCol: { span: 18 },
-};
+// const itemStyle = {
+//   // labelCol: { span: 6 },
+//   // wrapperCol: { span: 18 },
+// };
 // 栅格: Col设置
 const colQuery = {
   sm: 24,
@@ -58,105 +60,105 @@ const getDirection = () => {
 };
 
 export default (data: any, fn: any, opts: any) => {
-  const isData = data[0] ? true : false;
-  const isDuty = isData && data[0].duty ? true : false;
+  // const isData = data[0] ? true : false;
+  // const isDuty = isData && data[0].duty ? true : false;
   // 判断data以及data[0].duty是否有数据
-  const isDutyData = () => isData && isDuty;
+  // const isDutyData = () => isData && isDuty;
   // console.log(data[0], 'selectedRecord');
   // console.log(isData, 'isData');
   // console.log(isDuty, 'isDuty');
 
   // 数据 duty
-  const dutyData = {
-    department: isDutyData() ? data[0].duty[0].department : '',
-    name: isDutyData() ? data[0].duty[0].name : '',
-    phone: isDutyData() ? data[0].duty[0].phone : '',
-    tel: isDutyData() ? data[0].duty[0].tel : '',
-    email: isDutyData() ? data[0].duty[0].email : '',
-  };
+  // const dutyData = {
+  //   department: isDutyData() ? data[0].duty[0].department : '',
+  //   name: isDutyData() ? data[0].duty[0].name : '',
+  //   phone: isDutyData() ? data[0].duty[0].phone : '',
+  //   tel: isDutyData() ? data[0].duty[0].tel : '',
+  //   email: isDutyData() ? data[0].duty[0].email : '',
+  // };
 
-  const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
+  // const getFieldDecorator = opts.form && opts.form.getFieldDecorator;
   // 责任部门（或责任人）
-  const noForm = isEditConfig(opts) || (
-    <div className="hangSubTitle">
-      <Row gutter={24}>
-        <Col {...colQuery}>
-          <span>部门：</span>
-          <span>{dutyData.department}</span>
-        </Col>
-        <Col {...colQuery}>
-          <span>姓名：</span>
-          <span>{dutyData.name}</span>
-        </Col>
-      </Row>
-      <Row gutter={24}>
-        <Col {...colQuery}>
-          <span>办公室电话：</span>
-          <span>{dutyData.phone}</span>
-        </Col>
-        <Col {...colQuery}>
-          <span>手机号码：</span>
-          <span>{dutyData.tel}</span>
-        </Col>
-        <Col {...colQuery}>
-          <span>电子邮箱：</span>
-          <span>{dutyData.email}</span>
-        </Col>
-      </Row>
-    </div>
-  );
-  const saveForm = (
-    <div key="saveForm" className="hangSubTitle">
-      <Row gutter={24}>
-        <Col {...colQuery}>
-          <Form.Item label="部门：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('department', {
-                initialValue: dutyData.department,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col>
-        <Col {...colQuery}>
-          <Form.Item label="姓名：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('name', {
-                initialValue: dutyData.name,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={24}>
-        <Col {...colQuery}>
-          <Form.Item label="办公室电话：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('phone', {
-                initialValue: dutyData.phone,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col>
-        <Col {...colQuery}>
-          <Form.Item label="手机号码：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('tel', {
-                initialValue: dutyData.tel,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col>
-        <Col {...colQuery}>
-          <Form.Item label="电子邮箱：" {...itemStyle}>
-            {getFieldDecorator &&
-              getFieldDecorator('email', {
-                initialValue: dutyData.email,
-              })(<Input size="large" style={{ width: '100%' }} />)}
-          </Form.Item>
-        </Col>
-      </Row>
-    </div>
-  );
+  // const noForm = isEditConfig(opts) || (
+  //   <div className="hangSubTitle">
+  //     <Row gutter={24}>
+  //       <Col {...colQuery}>
+  //         <span>部门：</span>
+  //         <span>{dutyData.department}</span>
+  //       </Col>
+  //       <Col {...colQuery}>
+  //         <span>姓名：</span>
+  //         <span>{dutyData.name}</span>
+  //       </Col>
+  //     </Row>
+  //     <Row gutter={24}>
+  //       <Col {...colQuery}>
+  //         <span>办公室电话：</span>
+  //         <span>{dutyData.phone}</span>
+  //       </Col>
+  //       <Col {...colQuery}>
+  //         <span>手机号码：</span>
+  //         <span>{dutyData.tel}</span>
+  //       </Col>
+  //       <Col {...colQuery}>
+  //         <span>电子邮箱：</span>
+  //         <span>{dutyData.email}</span>
+  //       </Col>
+  //     </Row>
+  //   </div>
+  // );
+  // const saveForm = (
+  //   <div key="saveForm" className="hangSubTitle">
+  //     <Row gutter={24}>
+  //       <Col {...colQuery}>
+  //         <Form.Item label="部门：" {...itemStyle}>
+  //           {getFieldDecorator &&
+  //             getFieldDecorator('department', {
+  //               initialValue: dutyData.department,
+  //             })(<Input size="large" style={{ width: '100%' }} />)}
+  //         </Form.Item>
+  //       </Col>
+  //       <Col {...colQuery}>
+  //         <Form.Item label="姓名：" {...itemStyle}>
+  //           {getFieldDecorator &&
+  //             getFieldDecorator('name', {
+  //               initialValue: dutyData.name,
+  //             })(<Input size="large" style={{ width: '100%' }} />)}
+  //         </Form.Item>
+  //       </Col>
+  //     </Row>
+  //     <Row gutter={24}>
+  //       <Col {...colQuery}>
+  //         <Form.Item label="办公室电话：" {...itemStyle}>
+  //           {getFieldDecorator &&
+  //             getFieldDecorator('phone', {
+  //               initialValue: dutyData.phone,
+  //             })(<Input size="large" style={{ width: '100%' }} />)}
+  //         </Form.Item>
+  //       </Col>
+  //       <Col {...colQuery}>
+  //         <Form.Item label="手机号码：" {...itemStyle}>
+  //           {getFieldDecorator &&
+  //             getFieldDecorator('tel', {
+  //               initialValue: dutyData.tel,
+  //             })(<Input size="large" style={{ width: '100%' }} />)}
+  //         </Form.Item>
+  //       </Col>
+  //       <Col {...colQuery}>
+  //         <Form.Item label="电子邮箱：" {...itemStyle}>
+  //           {getFieldDecorator &&
+  //             getFieldDecorator('email', {
+  //               initialValue: dutyData.email,
+  //             })(<Input size="large" style={{ width: '100%' }} />)}
+  //         </Form.Item>
+  //       </Col>
+  //     </Row>
+  //   </div>
+  // );
   // 操作区
   const handler = isEditConfig(opts) ? (
     <Form key="editConfigForm" onSubmit={fn.onSubmit.bind(null, data)}>
-      {saveForm}
+      {/* {saveForm} */}
       <div style={{ marginTop: '48px' }}>
         <Button loading={opts.confirmLoading} key="save" type="primary" htmlType="submit">
           {BTN_SAVE}
@@ -373,11 +375,11 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
         </Row>
       </div>
-      <Divider />
-      <div className="hangTitle">
+      {/* <Divider /> */}
+      {/* <div className="hangTitle">
         <p>责任部门（或责任人）：</p>
       </div>
-      {noForm}
+      {noForm} */}
     </div>
   );
   const concentrator = (
@@ -458,11 +460,11 @@ export default (data: any, fn: any, opts: any) => {
           </Col>
         </Row>
       </div>
-      <Divider />
-      <div className="hangTitle">
+      {/* <Divider /> */}
+      {/* <div className="hangTitle">
         <p>责任部门（或责任人）：</p>
       </div>
-      {noForm}
+      {noForm} */}
     </div>
   );
   const shipping = (
@@ -473,8 +475,8 @@ export default (data: any, fn: any, opts: any) => {
       <div className="hangSubTitle">
         <Row gutter={24}>
           <Col {...colQuery}>
-            <span>编号：</span>
-            {data.length && <span>{data[0].expressCode}</span>}
+            <span>表编号：</span>
+            {data.length && <span>{data[0].meterCode}</span>}
           </Col>
           <Col span={16}>
             <span>燃气公司：</span>
@@ -483,17 +485,23 @@ export default (data: any, fn: any, opts: any) => {
         </Row>
         <Row gutter={24}>
           <Col {...colQuery}>
-            <span>快递公司：</span>
-            {data.length && <span>{data[0].express}</span>}
-          </Col>
-          <Col {...colQuery}>
-            <span>发货单号：</span>
-            {data.length && <span>{data[0].orderId}</span>}
-          </Col>
-          <Col {...colQuery}>
             <span>发货时间：</span>
-            {data.length && <span>{unixFormatter(`${data[0].deliveryAt}`)}</span>}
+            {data.length && <span>{unixFormatter(data[0].deliveryAt)}</span>}
           </Col>
+          {data.length &&
+            data[0].express && (
+              <Col {...colQuery}>
+                <span>快递公司：</span>
+                <span>{data[0].express}</span>
+              </Col>
+            )}
+          {data.length &&
+            data[0].orderId && (
+              <Col {...colQuery}>
+                <span>发货单号：</span>
+                <span>{data[0].orderId}</span>
+              </Col>
+            )}
         </Row>
       </div>
     </div>
