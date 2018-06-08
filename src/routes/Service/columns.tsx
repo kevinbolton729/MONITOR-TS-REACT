@@ -40,7 +40,6 @@ export const customCols = (fn: any) => {
       title: '数据提取状态',
       dataIndex: 'extractStatus',
       key: 'extractStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
@@ -77,7 +76,6 @@ export const customCols = (fn: any) => {
       title: '数据上传状态',
       dataIndex: 'uploadStatus',
       key: 'uploadStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
@@ -123,7 +121,6 @@ export const customCols = (fn: any) => {
       title: '预警状态',
       dataIndex: 'alarmStatus',
       key: 'alarmStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
@@ -154,7 +151,6 @@ export const customCols = (fn: any) => {
       title: '集中器在线状态',
       dataIndex: 'cardStatus',
       key: 'cardStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
@@ -233,7 +229,6 @@ export const dataMonitorCols = (fn: any) => {
       title: '数据提取状态',
       dataIndex: 'extractStatus',
       key: 'extractStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
@@ -270,7 +265,6 @@ export const dataMonitorCols = (fn: any) => {
       title: '数据上传状态',
       dataIndex: 'uploadStatus',
       key: 'uploadStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
@@ -301,7 +295,6 @@ export const dataMonitorCols = (fn: any) => {
       title: '集中器在线状态',
       dataIndex: 'cardStatus',
       key: 'cardStatus',
-      width: 240,
       render: (text: any) => formatDefaultStatus(text),
     },
     {
