@@ -66,7 +66,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       isClick: false, // 更新配置时，是否点击【保存】
       // 分页
       curPage: 1,
-      pageSize: 20,
+      pageSize: 50,
     };
   }
   componentDidMount() {

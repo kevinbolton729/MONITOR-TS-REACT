@@ -69,7 +69,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       selectedRecord: [],
       // 分页
       curPage: 1,
-      pageSize: 20,
+      pageSize: 50,
     };
   }
   componentDidMount() {
