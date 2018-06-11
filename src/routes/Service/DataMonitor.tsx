@@ -38,13 +38,14 @@ enum sortGroup {
 //   <p key="5" style={{ margin: 0 }}>{`电子邮箱: ${record.duty.email}`}</p>,
 // ];
 
-@connect(({ loading, global, datamonitor }: any) => ({
-  loading: loading.models.datamonitor && !loading.effects['datamonitor/fetchConfig'],
+@connect(({ loading, global, datamonitor, custom }: any) => ({
+  loading: loading.models.custom && !loading.effects['datamonitor/fetchConfig'],
   confirmLoading: loading.effects['datamonitor/fetchConfig'],
-  spreadList: datamonitor.spreadList,
-  concentratorList: datamonitor.concentratorList,
-  nblotList: datamonitor.nblotList,
+  spreadList: custom.spreadList,
+  concentratorList: custom.concentratorList,
+  nblotList: custom.nblotList,
   dutyList: global.dutyList,
+  totalNum: custom.totalNum,
 }))
 class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorStates>
   implements IDataMonitorItems {
@@ -54,6 +55,8 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTab: '',
       currentRadio: '',
       currentTable: '',
+      // 是否第一次进入
+      isFirst: true,
       // 请求数据
       isFetch: true,
       // 请求责任部门（或责任人）数据
@@ -67,6 +70,8 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       // 分页
       curPage: 1,
       pageSize: 50,
+      // 搜索关键字
+      searchCode: '',
     };
   }
   componentDidMount() {
@@ -86,6 +91,10 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     this.afterSaveCloseConfig();
   }
 
+  // 非首次进入切换isFirst状态
+  covertFirst = (isFirst = false) => {
+    this.setState({ isFirst });
+  };
   // 设置是否已请求过数据
   covertFetch = (fetch = false) => {
     this.setState({ isFetch: fetch });
@@ -119,6 +128,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTable: key,
     });
     this.covertFetch(true);
+    this.covertFirst(true);
   };
   // Radio切换时
   radioChange = (e: any) => {
@@ -129,38 +139,40 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       currentTable: value === 'spread' || value === 'nblot' ? currentTab : value,
     });
     this.covertFetch(true);
+    this.covertFirst(true);
+  };
+  // 判断是否请求数据和是否首次请求
+  isGet = (type = 'defalult') => {
+    const { currentTab, currentRadio, isFetch, isFirst } = this.state;
+    const basic = isFetch && !isFirst;
+
+    if (type === 'fetchDataSpread') {
+      return basic && currentTab !== 'unusual' && currentRadio === 'spread';
+    }
+    if (type === 'fetchDataConcentrator') {
+      return basic && currentRadio === 'concentrator';
+    }
+    if (type === 'fetchDataNblot') {
+      return basic && currentTab !== 'unusual' && currentRadio === 'nblot';
+    }
+    return basic;
   };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    // const { spreadList, concentratorList, nblotList } = this.props;
-    const { currentTab, currentRadio, isFetch, curPage, pageSize } = this.state;
+    const { curPage, pageSize, searchCode } = this.state;
     // 分页参数
     const pagination = { curPage, pageSize };
 
     // 获取扩频表 > 扩频表列表
-    if (
-      isFetch &&
-      currentTab !== 'unusual' &&
-      currentRadio === 'spread'
-      // spreadList.length === 0
-    ) {
+    if (this.isGet('fetchDataSpread')) {
       this.dispatchAction('datamonitor/fetchDataSpread', pagination);
     }
     // 获取集中器列表;
-    if (
-      isFetch &&
-      currentRadio === 'concentrator'
-      // concentratorList.length === 0
-    ) {
+    if (this.isGet('fetchDataConcentrator')) {
       this.dispatchAction('datamonitor/fetchDataConcentrator', pagination);
     }
     // 获取物联网表 > 物联网表列表
-    if (
-      isFetch &&
-      currentTab !== 'unusual' &&
-      currentRadio === 'nblot'
-      // nblotList.length === 0
-    ) {
+    if (this.isGet('fetchDataNblot')) {
       this.dispatchAction('datamonitor/fetchDataNblot', pagination);
     }
 
@@ -246,18 +258,54 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
   };
   // 分页
   onChangePage = (page: number, pageSize: number) => {
-    console.log(page, 'page');
-    console.log(pageSize, 'pageSize');
+    // console.log(page, 'page');
+    // console.log(pageSize, 'pageSize');
     this.setState({ curPage: page, pageSize });
     this.covertFetch(true);
   };
   // 页长
   onShowSizeChange = (current: number, size: number) => {
-    console.log(current, 'current');
-    console.log(size, 'size');
+    // console.log(current, 'current');
+    // console.log(size, 'size');
     this.setState({ curPage: current, pageSize: size });
     this.covertFetch(true);
   };
+  // Search 搜索数据
+  searchData = (key: any) => {
+    const { currentTab, currentRadio } = this.state;
+    // 分页参数
+    const pagination = { curPage: 1, pageSize: 50 };
+    // 搜索参数
+    const searchParams = { ...pagination, searchCode: key };
+
+    // 物联网表 > 物联网表列表
+    if (currentTab !== 'unusual' && currentRadio === 'nblot') {
+      this.dispatchAction('custom/fetchNblot', searchParams);
+    }
+    // 物联网表 > 发货记录列表
+    if (currentTab === 'nblot' && currentRadio === 'shipping') {
+      this.dispatchAction('custom/fetchNblotShipping', searchParams);
+    }
+    this.covertFirst(false);
+    this.setState({ searchCode: key });
+  };
+  // Reset 重置数据
+  resetData = () => {
+    const { currentTab, currentRadio } = this.state;
+    console.log(currentTab, 'currentTab');
+    console.log(currentRadio, 'currentRadio');
+
+    // 物联网表 > 物联网表列表
+    if (currentTab !== 'unusual' && currentRadio === 'nblot') {
+      this.dispatchAction('custom/changeNblotList', []);
+    }
+    // 物联网表 > 发货记录列表
+    if (currentTab === 'nblot' && currentRadio === 'shipping') {
+      this.dispatchAction('custom/changeNblotShippingList', []);
+    }
+    this.covertFirst(true);
+  };
+
   // [Modal]
   openModal = (modalSort: string = 'spread') => {
     this.setState({ modalSort, visible: true });
@@ -266,8 +314,23 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     this.setState({ visible: false });
   };
 
+  // ...
+  rowKeyTable = (record: any) => {
+    const { currentRadio } = this.state;
+    const result = { value: 'companyCode' };
+    const condition = currentRadio === 'nblot';
+
+    // console.log(currentRadio, 'currentRadio');
+
+    if (condition) {
+      result.value = `${record.rowkeyId}`;
+    }
+
+    return result.value;
+  };
+
   render() {
-    const { loading, confirmLoading, form } = this.props;
+    const { loading, totalNum, confirmLoading, form } = this.props;
     const {
       visible,
       modalSort,
@@ -287,7 +350,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       defaultCurrent: 1,
       defaultPageSize: 50,
       pageSizeOptions: ['10', '20', '30', '50'],
-      total: 0,
+      total: totalNum,
       onChange: this.onChangePage,
       onShowSizeChange: this.onShowSizeChange,
     };
@@ -305,7 +368,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
         form,
         sortGroup,
         modalSort,
-        isConfig: true, // 是否显示配置按钮
+        isConfig: false, // 是否显示配置按钮
         isEditConfig, // 是否为配置编辑状态
         confirmLoading,
       }
@@ -340,27 +403,35 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
               <TabPane tab={sortGroup.nblot} key="nblot" />
             </Tabs>
           </div>
-          <DetailHandler hideSearch={true} hideDatePicker={true} sort={currentTab} />
-          <div style={{ marginTop: '20px' }}>
-            {currentTable === 'spread' || currentTable === 'nblot' ? (
-              <Table
-                rowKey="companyCode"
-                columns={getColumns[currentTable]}
-                loading={loading}
-                dataSource={dataSource}
-                // expandedRowRender={expandedRowRender}
-                pagination={pagination}
-              />
-            ) : (
-              <Table
-                rowKey="companyCode"
-                columns={getColumns[currentTable]}
-                loading={loading}
-                dataSource={dataSource}
-                pagination={pagination}
-              />
+          <DetailHandler
+            resetData={this.resetData}
+            filterData={this.searchData}
+            hideDatePicker={true}
+            sort={currentTab}
+          />
+          {dataSource &&
+            dataSource.length !== 0 && (
+              <div style={{ marginTop: '20px' }}>
+                {currentTable === 'spread' || currentTable === 'nblot' ? (
+                  <Table
+                    rowKey={this.rowKeyTable}
+                    columns={getColumns[currentTable]}
+                    loading={loading}
+                    dataSource={dataSource}
+                    // expandedRowRender={expandedRowRender}
+                    pagination={pagination}
+                  />
+                ) : (
+                  <Table
+                    rowKey={this.rowKeyTable}
+                    columns={getColumns[currentTable]}
+                    loading={loading}
+                    dataSource={dataSource}
+                    pagination={pagination}
+                  />
+                )}
+              </div>
             )}
-          </div>
         </div>
       </div>
     );

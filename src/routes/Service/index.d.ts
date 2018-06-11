@@ -23,8 +23,8 @@ export interface ICustomProps {
   unusualSpreadList: any[];
   unusualNblotList: any[];
   dutyList: any[];
-  totalNum: number;
   form: any;
+  totalNum: number;
 }
 
 export interface ICustomStates {
@@ -55,18 +55,21 @@ export interface IDataMonitorProps {
   nblotList: any[];
   dutyList: any[];
   form: any;
+  totalNum: number;
 }
 
 export interface IDataMonitorStates {
   visible: boolean;
   isEditConfig: boolean;
   isClick: boolean;
+  isFirst: boolean;
   isFetch: boolean;
   isFetchDuty: boolean;
   currentTab: string;
   currentRadio: string;
   currentTable: string;
   modalSort: string;
+  searchCode: string;
   selectedRecord: any[];
   curPage: number;
   pageSize: number;

@@ -157,97 +157,67 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
     this.covertFetch(true);
     this.covertFirst(true);
   };
+  // 判断是否请求数据和是否首次请求
+  isGet = (type = 'defalult') => {
+    const { currentTab, currentRadio, isFetch, isFirst } = this.state;
+    const basic = isFetch && !isFirst;
+
+    if (type === 'fetchSpread') {
+      return basic && currentTab !== 'unusual' && currentRadio === 'spread';
+    }
+    if (type === 'fetchConcentrator') {
+      return basic && currentRadio === 'concentrator';
+    }
+    if (type === 'fetchShipping') {
+      return basic && currentTab === 'spread' && currentRadio === 'shipping';
+    }
+    if (type === 'fetchNblot') {
+      return basic && currentTab !== 'unusual' && currentRadio === 'nblot';
+    }
+    if (type === 'fetchNblotShipping') {
+      return basic && currentTab === 'nblot' && currentRadio === 'shipping';
+    }
+    if (type === 'fetchUnusualSpread') {
+      return basic && currentTab === 'unusual' && currentRadio === 'spread';
+    }
+    if (type === 'fetchUnusualNblot') {
+      return basic && currentTab === 'unusual' && currentRadio === 'nblot';
+    }
+    return basic;
+  };
   // 根据Tab | Radio 发起API请求
   startFetch = () => {
-    // const {
-    // spreadList,
-    // concentratorList,
-    // shippingList,
-    // nblotList,
-    // nblotShippingList,
-    // unusualSpreadList,
-    // unusualNblotList,
-    // } = this.props;
-    const {
-      currentTab,
-      currentRadio,
-      isFetch,
-      isFirst,
-      curPage,
-      pageSize,
-      searchCode,
-    } = this.state;
+    const { curPage, pageSize, searchCode } = this.state;
     // 分页参数
     const pagination = { curPage, pageSize };
     // 搜索参数
     const searchParams = { ...pagination, searchCode };
     // 获取扩频表 > 扩频表列表
-    if (
-      isFetch &&
-      !isFirst &&
-      currentTab !== 'unusual' &&
-      currentRadio === 'spread'
-      // spreadList.length === 0
-    ) {
+    if (this.isGet('fetchSpread')) {
       this.dispatchAction('custom/fetchSpread', searchParams);
     }
     // 获取集中器列表;
-    if (
-      isFetch &&
-      !isFirst &&
-      currentRadio === 'concentrator'
-      // concentratorList.length === 0
-    ) {
+    if (this.isGet('fetchConcentrator')) {
       this.dispatchAction('custom/fetchConcentrator', searchParams);
     }
     // 获取扩频表 > 发货记录列表;
-    if (
-      isFetch &&
-      !isFirst &&
-      currentTab === 'spread' &&
-      currentRadio === 'shipping'
-      // shippingList.length === 0
-    ) {
+    if (this.isGet('fetchShipping')) {
       this.dispatchAction('custom/fetchShipping', searchParams);
     }
     // 获取物联网表 > 物联网表列表
-    if (
-      isFetch &&
-      !isFirst &&
-      currentTab !== 'unusual' &&
-      currentRadio === 'nblot'
-      // nblotList.length === 0
-    ) {
+    if (this.isGet('fetchNblot')) {
       this.dispatchAction('custom/fetchNblot', searchParams);
     }
     // 获取物联网表 > 发货记录列表
-    if (
-      isFetch &&
-      !isFirst &&
-      currentTab === 'nblot' &&
-      currentRadio === 'shipping'
-      // nblotShippingList.length === 0
-    ) {
+    if (this.isGet('fetchNblotShipping')) {
       this.dispatchAction('custom/fetchNblotShipping', searchParams);
     }
     // 获取异常报警 > 扩频表列表
-    if (
-      isFetch &&
-      !isFirst &&
-      currentTab === 'unusual' &&
-      currentRadio === 'spread'
-      // unusualSpreadList.length === 0
-    ) {
+    if (this.isGet('fetchUnusualSpread')) {
       this.dispatchAction('custom/fetchUnusualSpread', searchParams);
     }
     // 获取异常报警 > 物联网表列表
-    if (
-      isFetch &&
-      !isFirst &&
-      currentTab === 'unusual' &&
-      currentRadio === 'nblot'
-      // unusualNblotList.length === 0
-    ) {
+    if (this.isGet('fetchUnusualNblot')) {
       this.dispatchAction('custom/fetchUnusualNblot', searchParams);
     }
 
@@ -389,7 +359,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
       {
         sortGroup,
         modalSort,
-        isConfig: false,
+        isConfig: false, // 是否显示配置按钮
         tab: sortGroup[currentTab],
         radio: sortGroup[currentRadio],
       }

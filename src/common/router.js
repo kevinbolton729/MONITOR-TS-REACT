@@ -83,7 +83,7 @@ export const getRouterData = (app) => {
       authority: ['admin'], // 配置准入权限
     },
     '/service/datamonitor': {
-      component: dynamicWrapper(app, ['datamonitor', 'detail'], () =>
+      component: dynamicWrapper(app, ['datamonitor', 'custom', 'detail'], () =>
         import('../routes/Service/DataMonitor')
       ),
       authority: ['admin', 'monitor'],
