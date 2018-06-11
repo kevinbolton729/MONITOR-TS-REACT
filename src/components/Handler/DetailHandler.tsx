@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-06-11 16:12:36
+ * @Last Modified time: 2018-06-11 16:32:14
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -62,12 +62,11 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
   };
   // search
   getSearch = (value: any) => {
-    const { loading } = this.props;
     if (!value) {
       message.warning(MESSAGE_NOINPUT);
     } else {
       // console.log(value, 'search data');
-      if (!loading && this.props.filterData) this.props.filterData(value);
+      if (this.props.filterData) this.props.filterData(value);
     }
   };
   enterSearch = (e: any) => {
@@ -100,7 +99,7 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
     const { getFieldDecorator } = form;
     const noHandler = hideSearch && hideDatePicker && !showSelectCity;
     const isSearching = () =>
-      loading ? <Loading type="loading" style={{ color: '#fff', fontSize: '18px' }} /> : !loading;
+      loading ? <Loading type="loading" style={{ fontSize: '18px' }} /> : !loading;
 
     return noHandler ? (
       <div />
@@ -131,6 +130,7 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
                 <Search
                   style={{ width: 300 }}
                   placeholder={searcHolder[sort || 'default']}
+                  disabled={loading}
                   enterButton={isSearching()}
                   onSearch={this.getSearch}
                   onPressEnter={this.enterSearch}
