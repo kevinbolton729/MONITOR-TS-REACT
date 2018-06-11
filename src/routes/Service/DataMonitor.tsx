@@ -142,7 +142,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     this.covertFirst(true);
   };
   // 判断是否请求数据和是否首次请求
-  isGet = (type = 'defalult') => {
+  isGet = (type = 'default') => {
     const { currentTab, currentRadio, isFetch, isFirst } = this.state;
     const basic = isFetch && !isFirst;
 
