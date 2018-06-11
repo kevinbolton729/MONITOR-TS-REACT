@@ -162,18 +162,19 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     const { curPage, pageSize, searchCode } = this.state;
     // 分页参数
     const pagination = { curPage, pageSize };
-
+    // 搜索参数
+    const searchParams = { ...pagination, searchCode };
     // 获取扩频表 > 扩频表列表
     if (this.isGet('fetchDataSpread')) {
-      this.dispatchAction('datamonitor/fetchDataSpread', pagination);
+      this.dispatchAction('datamonitor/fetchDataSpread', searchParams);
     }
     // 获取集中器列表;
     if (this.isGet('fetchDataConcentrator')) {
-      this.dispatchAction('datamonitor/fetchDataConcentrator', pagination);
+      this.dispatchAction('datamonitor/fetchDataConcentrator', searchParams);
     }
     // 获取物联网表 > 物联网表列表
     if (this.isGet('fetchDataNblot')) {
-      this.dispatchAction('datamonitor/fetchDataNblot', pagination);
+      this.dispatchAction('datamonitor/fetchDataNblot', searchParams);
     }
 
     // 已请求过数据
