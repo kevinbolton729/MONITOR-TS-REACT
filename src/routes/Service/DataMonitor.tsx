@@ -86,9 +86,9 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     // 根据currentTab/currentRadio等发起相应API请求
     this.startFetch();
     // 根据currentTab/currentRadio发起获取责任部门（或责任人）API请求
-    this.fetchDutyApi();
+    // this.fetchDutyApi();
     // 点击【保存】后，更新成功时关闭编辑配置
-    this.afterSaveCloseConfig();
+    // this.afterSaveCloseConfig();
   }
 
   // 非首次进入切换isFirst状态
@@ -181,23 +181,23 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     this.covertFetch(false);
   };
   // 根据Tab | Radio 发起责任部门（或责任人）API请求
-  fetchDutyApi = () => {
-    const { dutyList } = this.props;
-    const { currentTab, currentRadio, isFetchDuty } = this.state;
+  // fetchDutyApi = () => {
+  //   const { dutyList } = this.props;
+  //   const { currentTab, currentRadio, isFetchDuty } = this.state;
 
-    // 请求责任部门（或责任人）的数据接口
-    if (
-      isFetchDuty &&
-      currentTab !== 'unusual' &&
-      (currentRadio === 'spread' || currentRadio === 'nblot') &&
-      dutyList.length === 0
-    ) {
-      this.dispatchAction('global/fetchDuty');
-    }
+  //   // 请求责任部门（或责任人）的数据接口
+  //   if (
+  //     isFetchDuty &&
+  //     currentTab !== 'unusual' &&
+  //     (currentRadio === 'spread' || currentRadio === 'nblot') &&
+  //     dutyList.length === 0
+  //   ) {
+  //     this.dispatchAction('global/fetchDuty');
+  //   }
 
-    // 已请求过数据
-    this.covertFetchDuty(false);
-  };
+  //   // 已请求过数据
+  //   this.covertFetchDuty(false);
+  // };
   // 查看
   handlerShow = (record: any, key: string) => {
     const { dutyList } = this.props;
@@ -206,57 +206,57 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
     this.setState({
       selectedRecord: [record],
     });
-    this.closeConfig();
+    // this.closeConfig();
     this.openModal(key);
   };
   // 编辑
-  handlerEdit = (record: any) => {
-    console.log(record, 'datamonitor edit');
-  };
+  // handlerEdit = (record: any) => {
+  //   console.log(record, 'datamonitor edit');
+  // };
   // 配置
-  handlerConfig = () => {
-    this.setState({
-      isEditConfig: true,
-    });
-  };
+  // handlerConfig = () => {
+  //   this.setState({
+  //     isEditConfig: true,
+  //   });
+  // };
   // 关闭编辑配置
-  closeConfig = () => {
-    this.setState({
-      isEditConfig: false,
-      isClick: false,
-    });
-  };
+  // closeConfig = () => {
+  //   this.setState({
+  //     isEditConfig: false,
+  //     isClick: false,
+  //   });
+  // };
   // 点击【保存】后，关闭编辑配置
-  afterSaveCloseConfig = () => {
-    if (this.state.isClick && !this.props.confirmLoading) {
-      this.closeConfig();
-    }
-  };
+  // afterSaveCloseConfig = () => {
+  //   if (this.state.isClick && !this.props.confirmLoading) {
+  //     this.closeConfig();
+  //   }
+  // };
   // 表单
   // 保存
-  onSubmit = (data: any, event: any) => {
-    event.preventDefault();
-    console.log('已点击【保存】');
-    this.setState({ isClick: true });
+  // onSubmit = (data: any, event: any) => {
+  //   event.preventDefault();
+  //   console.log('已点击【保存】');
+  //   this.setState({ isClick: true });
 
-    const { confirmLoading, form } = this.props;
+  //   const { confirmLoading, form } = this.props;
 
-    if (!confirmLoading) {
-      form.validateFields({ force: true }, (err: any, values: any) => {
-        if (!err) {
-          console.log(data.id, 'id');
+  //   if (!confirmLoading) {
+  //     form.validateFields({ force: true }, (err: any, values: any) => {
+  //       if (!err) {
+  //         console.log(data.id, 'id');
 
-          this.dispatchAction('datamonitor/fetchConfig');
-        }
-      });
-    }
-  };
+  //         this.dispatchAction('datamonitor/fetchConfig');
+  //       }
+  //     });
+  //   }
+  // };
   // 重置
-  onReset = () => {
-    console.log('重置');
-    const { form } = this.props;
-    form.resetFields(['department', 'name', 'phone', 'tel', 'email']);
-  };
+  // onReset = () => {
+  //   console.log('重置');
+  //   const { form } = this.props;
+  //   form.resetFields(['department', 'name', 'phone', 'tel', 'email']);
+  // };
   // 分页
   onChangePage = (page: number, pageSize: number) => {
     // console.log(page, 'page');
@@ -360,10 +360,10 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       selectedRecord,
       {
         closeModal: this.closeModal,
-        handlerConfig: this.handlerConfig,
-        closeConfig: this.closeConfig,
-        onSubmit: this.onSubmit,
-        onReset: this.onReset,
+        // handlerConfig: this.handlerConfig,
+        // closeConfig: this.closeConfig,
+        // onSubmit: this.onSubmit,
+        // onReset: this.onReset,
       },
       {
         form,
@@ -408,6 +408,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
             resetData={this.resetData}
             filterData={this.searchData}
             hideDatePicker={true}
+            loading={loading}
             sort={currentTab}
           />
           {dataSource &&

@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-06-08 15:29:56
+ * @Last Modified time: 2018-06-11 12:34:00
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -12,6 +12,8 @@ import * as React from 'react';
 import { MESSAGE_NOINPUT } from '../../utils/consts';
 // 方法
 import { getCityOptions } from '../../utils/fns';
+// 组件:Components
+import Loading from '../Loading';
 // 声明
 import { IDetailProps, IDetailStates } from './';
 // 样式
@@ -57,11 +59,12 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
   };
   // search
   getSearch = (value: any) => {
+    const { loading } = this.props;
     if (!value) {
       message.warning(MESSAGE_NOINPUT);
     } else {
-      console.log(value, 'search data');
-      if (this.props.filterData) this.props.filterData(value);
+      // console.log(value, 'search data');
+      if (!loading && this.props.filterData) this.props.filterData(value);
     }
   };
   enterSearch = (e: any) => {
@@ -90,9 +93,11 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
 
   render() {
     const { dately } = this.dateFormat;
-    const { form, sort, hideSearch, hideDatePicker, showSelectCity } = this.props;
+    const { loading, form, sort, hideSearch, hideDatePicker, showSelectCity } = this.props;
     const { getFieldDecorator } = form;
     const noHandler = hideSearch && hideDatePicker && !showSelectCity;
+    const isSearching = () =>
+      loading ? <Loading type="loading" style={{ color: '#fff', fontSize: '18px' }} /> : !loading;
 
     return noHandler ? (
       <div />
@@ -121,9 +126,9 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
               <span>查询：</span>
               {getFieldDecorator('search')(
                 <Search
-                  enterButton={true}
                   style={{ width: 300 }}
                   placeholder={searcHolder[sort || 'spread']}
+                  enterButton={isSearching()}
                   onSearch={this.getSearch}
                   onPressEnter={this.enterSearch}
                 />
