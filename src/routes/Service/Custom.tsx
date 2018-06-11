@@ -410,6 +410,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
             resetData={this.resetData}
             filterData={this.searchData}
             hideDatePicker={true}
+            loading={loading}
             sort={currentTab}
           />
           {/* <Divider /> */}
