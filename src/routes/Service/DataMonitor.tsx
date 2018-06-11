@@ -336,7 +336,6 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
       visible,
       modalSort,
       selectedRecord,
-      currentTab,
       currentRadio,
       currentTable,
       isEditConfig,
