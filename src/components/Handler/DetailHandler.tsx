@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-06-11 12:34:00
+ * @Last Modified time: 2018-06-11 13:14:47
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -24,6 +24,7 @@ const { Search } = Input;
 
 // 枚举
 const searcHolder: any = {
+  default: '请输入查询关键字',
   spread: '表号/集中器编号',
   nblot: '表号',
   unusual: '请输入查询关键字',
@@ -127,7 +128,7 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
               {getFieldDecorator('search')(
                 <Search
                   style={{ width: 300 }}
-                  placeholder={searcHolder[sort || 'spread']}
+                  placeholder={searcHolder[sort || 'default']}
                   enterButton={isSearching()}
                   onSearch={this.getSearch}
                   onPressEnter={this.enterSearch}
