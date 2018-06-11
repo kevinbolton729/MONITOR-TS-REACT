@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-06-11 16:10:38
+ * @Last Modified time: 2018-06-11 16:12:36
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -124,7 +124,6 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
               )}
             </div>
           )}
-          {console.log(sort, 'sort')}
           {hideSearch || [
             <div key="search" className={styles.item}>
               <span>查询：</span>
