@@ -411,7 +411,7 @@ class Custom extends React.PureComponent<ICustomProps, ICustomStates> implements
             filterData={this.searchData}
             hideDatePicker={true}
             loading={loading}
-            sort={currentTab}
+            sort={currentRadio}
           />
           {/* <Divider /> */}
           {dataSource &&

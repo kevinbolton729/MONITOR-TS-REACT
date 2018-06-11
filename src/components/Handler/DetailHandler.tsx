@@ -2,7 +2,7 @@
  * @Author: Kevin Bolton
  * @Date: 2018-01-03 23:18:25
  * @Last Modified by: Kevin Bolton
- * @Last Modified time: 2018-06-11 13:14:47
+ * @Last Modified time: 2018-06-11 16:10:38
  */
 
 import { Button, Cascader, DatePicker, Form, Input, message } from 'antd';
@@ -25,9 +25,11 @@ const { Search } = Input;
 // 枚举
 const searcHolder: any = {
   default: '请输入查询关键字',
-  spread: '表号/集中器编号',
-  nblot: '表号',
   unusual: '请输入查询关键字',
+  spread: '请输入表号',
+  nblot: '请输入表号',
+  shipping: '请输入表号',
+  concentrator: '请输入集中器编号',
   company: '请输入燃气公司名称',
 };
 
@@ -122,6 +124,7 @@ class DetailHandler extends React.PureComponent<IDetailProps, IDetailStates> {
               )}
             </div>
           )}
+          {console.log(sort, 'sort')}
           {hideSearch || [
             <div key="search" className={styles.item}>
               <span>查询：</span>

@@ -409,7 +409,7 @@ class DataMonitor extends React.PureComponent<IDataMonitorProps, IDataMonitorSta
             filterData={this.searchData}
             hideDatePicker={true}
             loading={loading}
-            sort={currentTab}
+            sort={currentRadio}
           />
           {dataSource &&
             dataSource.length !== 0 && (
